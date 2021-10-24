@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Tools Used During Appointments</h1>
+<div class="patient_add_form">
+  <a href="{% url 'stock_out_option' %}"><button class="back_button" type="submit">Back</button></a>
+  </div>
+
+  {% if tools_data %}
+  <form class="search_form"method = POST action ="{% url 'view_stockout_tools_search' %}">
+    {% csrf_token %}
+    <div class="search_con">
+        <p><label>Category:</label><input type='search' placeholder='category search 'name = 'cat' aria-label ='search'></p>
+        <p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+        <p><label>Item Name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+    </div>
+    <div class="search_con">
+      <p><label>Date used (Appointment date): </label><input type='month' name = 'date' aria-label ='search'></p>
+      <p><label>Location: </label><input type='search' placeholder="search location" name = 'loc' aria-label ='search'></p>
+    </div>
+    <div class="search_con">
+      <button type='submit'>Search</button></p>
+    </div>
+  </form>
+
+
+  <div class="search_con"></div>
+  <center><p class="third_messages">( Click table headers to sort )</p></center>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'item_id'%}">Tools/Items Used</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'item_id'%}">Barcode</th>
+          <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'item_id'%}">Category</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'item_id'%}">Location</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'quantity_used'%}">Quantity</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'units'%}">Units</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'appointment_id'%}">Appointment Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in tools_data %}
+    <tr class="tr_form">
+      
+      <td class="td_form" data-label="Tools/Items Used">{{ things.item_id.itemname|title }}</td>
+      <td class="td_form" data-label="Barcode">{{ things.item_id.barcode }}</td>
+      <td class="td_form" data-label="Category">{{ things.item_id.itemcategory }}</td>
+      <td class="td_form" data-label="Location">{{ things.item_id.location|title }}</td>
+      <td class="td_form" data-label="Quantity">{{ things.quantity_used }}</td>
+      <td class="td_form" data-label="Units">{{ things.units|title }}</td>
+      <td class="td_form" data-label="Appointment Date">{{ things.appointment_id.schedule_id.date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <center class="messages"><i>No tools were used during an appointment</i></center>
+  <!-- If walay available data -->
+</div>
+{% endif %} {% endblock %}

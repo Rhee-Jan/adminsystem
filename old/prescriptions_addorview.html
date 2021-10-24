@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1 class="page_header"> Prescriptions of {{ all_data_prof.fullname }}</h1>
+	<h1 class="second_messages">Patient ID:  {{ primary_key }}</h1>
+	<a class="patient_add_form" href="{% url 'prof_view' %}"><button class="back_button" type="submit">Back</button></a>
+
+	<table class="table2_form">
+		<tr class="tr_form">
+			<th><a href="{% url 'add_prescriptions' primary_key %}"><button class="normal_button" type="submit">Add Prescriptions</button> </a></th>
+	<th><a href="{% url 'view_prescriptions' primary_key %}"><button class="normal_button" type="submit">View Prescriptions</button> </a></th>
+	<th><a href="{% url 'buy_prescriptions' primary_key %}"><button class="normal_button" type="submit">Buy Prescriptions</button></a></th>
+	<th><a href="{% url 'view_bought_prescriptions' primary_key %}"><button class="normal_button" type="submit">View all bought Prescriptions</button></a></th>
+
+		</tr>
+	</table>
+
+
+	<!-- <a href="{% url 'prof_view' %}"> View/Edit/Delete Profile</a> -->
+	</p>
+	
+	
+	
+{% endblock %}
+

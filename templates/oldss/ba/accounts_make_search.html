@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class='page_header'>MAKE ACCOUNT HERE</h1>
+<p class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'accounts_view' %}"> Back</a> </button></p>
+
+	<form class="search_form" method = POST action ="{% url 'accounts_make_search' %}">
+		 {% csrf_token %}
+		<p><button type='submit'>Search</button></p>
+		<p><label>Name:</label><input type='search' placeholder="search name" name = 'name'aria-label ='search'></p>
+	</form>
+	<p class="search_form"><a href="{% url 'accounts_make' %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+	<br></br>
+
+		
+	{% if emp_data %}
+	<center class="patient_add_form">
+		<table class='table'>
+		{% for things in emp_data %}
+			<tr>
+				<td> 
+					<p> <text>Employee name:</text> <b>{{ things.fullname }}</b>
+					<a href="{% url 'create_account' things.id %}"><button class="normal_button" type="submit">Create account for this employee</button></a></p><br></br>
+				</td>
+			</tr>
+		{% endfor %}
+		</table>
+	</center>
+	{% else %}
+	<center><p class='messages'> Search not found </p></center>
+	{% endif %}
+	
+	
+	
+	
+	
+{% endblock %}

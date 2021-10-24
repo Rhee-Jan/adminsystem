@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Bought Items/Tools for Patient Prescriptions</h1>
+<div class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'stock_out_option' %}">Back</a>
+  </button>
+</div>
+  <form class="search_form" method = POST action ="{% url 'view_stockout_presc_search' %}">
+    {% csrf_token %}
+    <div class="search_con">
+      <button type='submit'>Search</button>
+      <p><label>Purchase date: </label><input type='month' name = 'date' aria-label ='search'>
+        <p><label>Location: </label><input type='search' placeholder="search location" name = 'loc' aria-label ='search'></p>
+        <p><label>Category:</label><input type='search' placeholder='category search 'name = 'cat' aria-label ='search'></p>
+    </div>
+    <div class="search_con">
+      <p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+    <p><label>Medicine: </label><input type='search' placeholder="search medicine" name = 'med' aria-label ='search'></p>
+    <p><label>Patient: </label><input type='search' placeholder="search patient" name = 'name' aria-label ='search'></p>
+    </div>
+  </form>
+  <div class="search_con"></div>
+  <p class="search_form search_con"><a href="{% url 'view_stockout_presc' %}"><button type='submit'>Reset Filter and Searched Query</button></a></p>
+  {% if prescription_data %}
+  <center><div><p class="third_messages">( Click table headers to use filters )</p></div></center>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'patient_id'%}">Patient Name</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'item_id'%}">Medicine</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'item_id'%}">Barcode</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'item_id'%}">Category</th>    
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'item_id'%}">Location</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'quantity'%}">Quantity</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'units'%}">Units</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_presc_filter' 'purchase_date'%}">Purchased Date</th>
+      </tr>
+    </thead>
+    <tr class="tr_form">
+      {% for things in prescription_data %}
+      <td class="td_form">{{ things.patient_id.fullname }}</td>
+      <td class="td_form">{{ things.item_id.itemname }}</td>
+      <td class="td_form">{{ things.item_id.barcode }}</td>
+      <td class="td_form">{{ things.item_id.itemcategory }}</td>
+      <td class="td_form">{{ things.item_id.location }}</td>
+      <td class="td_form">{{ things.quantity }}</td>
+      <td class="td_form">{{ things.units }}</td>
+      <td class="td_form">{{ things.purchase_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% else %}
+  <p class="messages">No Prescriptions bought yet</p>
+
+<!-- If walay available data -->
+{% endif %} {% endblock %}

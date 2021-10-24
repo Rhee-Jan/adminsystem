@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p class = 'patient_add_form'>
+	<button class="back_button" type="submit"><a href="{% url 'income_options' %}">Income</a></button>
+	<button class="back_button" type="submit"><a href="{% url 'expense_options' %}">Expense</a></button></p>
+	
+{% endblock %}
+
+<!-- 
+<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> View </a></button>
+
+-->

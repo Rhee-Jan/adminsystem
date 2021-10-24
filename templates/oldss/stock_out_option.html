@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">StockOut Options</h1>
+<div class="patient_add_form">
+  <p>
+    <a href="{% url 'inventory_options' %}"
+      ><button class="back_button" type="submit">Back</button></a
+    >
+  </p>
+
+  <table class="table2_form">
+    <tr>
+      <th>
+        <a href="{% url 'view_stockout_tools' %}"
+          ><button class="normal_button" type="submit">
+            Tools/Items Used
+          </button></a
+        >
+      </th>
+      <th>
+        <a href="{% url 'view_stockout_presc' %}"
+          ><button class="normal_button" type="submit">
+            Prescriptions Bought
+          </button></a
+        >
+      </th>
+      <th>
+        <a href="{% url 'view_expired_items' %}"
+          ><button class="normal_button" type="submit">Expired Items</button></a
+        >
+      </th>
+    </tr>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1> Editing Additional Info of Employee {{ all_data_emp_info.profile_id }}</h1>
+
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+
+	<p>Do not leave fields with '*' blank</p>
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p> Profile Info</p>
+	<p> Full Name: <input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" ></p>
+	<p> Profile Type: <input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly></p>
+	<p> Phone Number: <input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" > (+63 format only) </p>
+	<p> Address: <input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" ></p>
+
+
+	<p> Birthday: <input class="form-control mr-sm-2" type="date" name="bday" value="{{ all_data_prof.bday | date:'Y-m-d'}}" ></p>
+	
+
+	{% if all_data_prof.gender == "Male" %}
+	<p> Gender: <label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option value="Male" selected>Male</option>
+	<option value="Female">Female</option>
+	</select></p>
+	{% endif %}
+
+
+	{% if all_data_prof.gender == "Female" %}
+	<p> Gender: <label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option placeholder = "Choose gender" selected> </option>
+	<option value="Male">Male</option>
+	<option value="Female" selected>Female</option>
+	</select></p>
+	{% endif %}
+
+	<p> Emergency Contact Person Info </p>
+	<p> Emergency Contact Person Name: <input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" ></p>
+	<p> Emergency Contact Person Phone Number: <input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" > (+63 format only) </p>
+	<p> Emergency Contact Person Relationship: <input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" ></p>
+	<p> Emergency Contact Person Address: <input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" ></p>
+
+
+
+	<p><label> Employee Name: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.profile_id }}"aria-label="Search" readonly> </p>
+
+
+	<p><label> Position: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_position }}"aria-label="Search" name="emp_position" > *</p>
+
+
+	<p><label> Employee Status: </label></p>
+	{% if all_data_emp_info.emp_status == 'Employed' %}
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = 'Employed' checked> Employed </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Retired"> Retired </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Intern"> Intern </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Part-time"> Part-time </p>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Retired' %}
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = 'Employed' > Employed </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Retired" checked> Retired </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Intern"> Intern </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Part-time"> Part-time </p>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Intern' %}
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = 'Employed' > Employed </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Retired"> Retired </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Intern" checked> Intern </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Part-time"> Part-time </p>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Part-time' %}
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = 'Employed' > Employed </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Retired"> Retired </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Intern"> Intern </p>
+	<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Part-time"checked> Part-time </p>
+	{% endif %}
+
+
+	
+	<p><button class="btn btn-outline-success my-2 my-sm-0" type="save"> Edit Save</button></p>
+	</form>
+	
+	
+{% endblock %}

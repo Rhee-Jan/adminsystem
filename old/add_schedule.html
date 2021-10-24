@@ -1,0 +1,24 @@
+
+
+{% block content %}
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_schedule' %}"> Back</a> </button></p>	
+	<h1> ADD NEW SCHEDULE </h1>
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+			<p><label> Date: </label><input class="form-control mr-sm-2" type="date" placeholder="Input what tpye of service" aria-label="Search" name="date"> *</p>
+			<p><label> Time: </label><input class="form-control mr-sm-2" type="time" placeholder="Input service fee" aria-label="Search" name="time"> *</p>
+			<p><label> Doctor_Lastname: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Dela Cruz" aria-label="Search" name="doctor_lastname"> *</p>
+
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+				
+			</form>
+
+
+
+{% endblock %}

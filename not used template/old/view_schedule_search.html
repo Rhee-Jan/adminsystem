@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Available Schedules</h1>
+<div class="patient_add_form">
+  <p>
+    <button class="back_button" type="submit">
+      <a style="color: #ffffff" href="{% url 'appointments_addorview' %}">
+        Back
+      </a>
+    </button>
+    <button class="normal_button" type="submit">
+      <a style="color: #ffffff" href="{% url 'add_schedule' %}">
+        Add New Available Schedule
+      </a>
+    </button>
+  </p>
+</div>
+
+<form
+  class="search_form"
+  method="POST"
+  action="{% url 'view_schedule_search' %}"
+>
+  {% csrf_token %}
+  <div class="search_con">
+    <p><button type="submit">Search</button></p>
+    <p>
+      <label>Month & Year: </label
+      ><input
+        type="month"
+        placeholder="search month"
+        name="date"
+        aria-label="search"
+      />
+    </p>
+
+    <p>
+      <label>Doctor: </label
+      ><input
+        type="search"
+        placeholder="search doctor"
+        name="name"
+        aria-label="search"
+      />
+    </p>
+  </div>
+</form>
+<p class="search_form">
+  <a href="{% url 'view_schedule' %}"
+    ><button type="submit">Reset Filter and Searched Query</button></a
+  >
+</p>
+
+{% if all_data_schedule %}
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Schedule ID</th>
+      <th class="th_form">Date</th>
+      <th class="th_form">Time</th>
+      <th class="th_form">Doctor Assigned</th>
+      <th class="th_form">Status</th>
+      <th class="th_form"></th>
+    </tr>
+  </thead>
+  {% for things in all_data_schedule %}
+  <tr class="tr_form">
+    <td class="td_form">{{ things.id }}</td>
+    <td class="td_form">{{ things.date }}</td>
+    <td class="td_form">{{ things.time }}</td>
+    <td class="td_form">{{ things.doctor_lastname }}</td>
+    {% if things.availability %}
+    <td class="td_form">Available</td>
+    {% else %}
+    <td class="td_form">Reserved</td>
+    {% endif %}
+    <td class="td_form">
+      <a
+        style="color: #000000"
+        href="{% url 'editform' things.id 'schedule' %}"
+      >
+        <button class="edit_button">Edit</button>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<center class="messages">Search not found</center>
+
+{% endif %} {% endblock %}

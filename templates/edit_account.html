@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">Edit account</h1>
+
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+
+<div class="patient_add_form">
+  <a href="{% url 'accounts_addorview' %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</div>
+<form class="patient_add_form" method="POST">
+  {% csrf_token %} {{ form.as_p }}
+
+  <button class="edit_button" type="submit">Create</button>
+</form>
+
+{% endblock %}

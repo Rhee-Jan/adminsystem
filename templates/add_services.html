@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">ADD NEW SERVICES</h1>
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+
+<p class="patient_add_form">
+  <a href="{% url 'view_services' %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</p>
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <p class="patient_add_instructions">
+    All Fields with "*" is required DO NOT LEAVE IT BLANK
+  </p>
+  <p class="patient_add_instructions">INPUT at 2 decimal places</p>
+  <p>
+    <label> Service Type: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Ex: Extraction"
+      aria-label="Search"
+      name="service_type"
+      name ="a"
+    />
+  </p>
+  <p>
+    <label> Service Fee: Php*</label
+    ><input
+      class="form-control mr-sm-2"
+      type="number"
+      step="0.01"
+      placeholder="Ex: 199.99"
+      aria-label="Search"
+      name="service_fee"
+    />
+  </p>
+
+  <button class="save_button" type="submit">Save</button>
+</form>
+
+{% endblock %}

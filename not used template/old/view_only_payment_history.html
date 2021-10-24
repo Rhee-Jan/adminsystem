@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_only_appointment_history' primary_key %}">Back</a> </button>
+{% if all_data_payment %}
+	<td><b>Payment Info</b></td>
+	<table class='table'>
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Appointment Date</th>
+			<th> Appointment Time</th>
+			<th> Total Payment</th>
+			<th> Payment Method </th>
+			<th> Date Paid </th>
+		</tr>
+	</thead>
+			<tr>
+			<th>{{ all_data_payment.appointment_id.patient_id.fullname }}</th>	
+			<th>{{ all_data_payment.appointment_id.schedule_id.date }}</th>
+			<th>{{ all_data_payment.appointment_id.schedule_id.time }}</th>	
+			<th>Php. {{ all_data_payment.total_payment }}</th>
+			<th>{{ all_data_payment.payment_method }}</th>
+			<th>{{ all_data_payment.date_paid }}</th>
+		</tr>
+{% else %}
+<p>This patient did not paid for this appointment yet please process this in THE VIEW FINISHED APPOINTMENTS TAB UNDER APPOINTMENTS AND put necessary data there</p>
+{% endif %}
+
+{% endblock %}
+
+

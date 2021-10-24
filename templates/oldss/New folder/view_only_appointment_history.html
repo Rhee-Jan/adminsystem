@@ -1,0 +1,117 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">VIEW FINISHED APPOINTMENTS</h1>
+<div class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'view_patient_appointment_history' new_primary_key %}"
+      >Back</a
+    >
+  </button>
+</div>
+<div class="patient_add_form">
+  <p class="second_messages">APPOINTMENT DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Patient Name</th>
+        <th class="th_form">Schedule Date</th>
+        <th class="th_form">Schedule Time</th>
+        <th class="th_form">Assigned Doctor</th>
+        <th class="th_form">Service Chosen</th>
+        <th class="th_form">Service Fee</th>
+        <th class="th_form">Complain</th>
+        <th class="th_form">Appointment Status</th>
+      </tr>
+    </thead>
+
+    <tr class="tr_form">
+      <td class="td_form">{{ all_data_appointments.patient_id }}</td>
+      <td class="td_form">{{ all_data_appointments.schedule_id.date }}</td>
+      <td class="td_form">{{ all_data_appointments.schedule_id.time }}</td>
+      <td class="td_form">
+        {{ all_data_appointments.schedule_id.doctor_lastname }}
+      </td>
+      <td class="td_form">
+        {{ all_data_appointments.service_id.service_type }}
+      </td>
+      <td class="td_form">
+        {{ all_data_appointments.service_id.service_fee }}
+      </td>
+      <td class="td_form">{{ all_data_appointments.complain }}</td>
+      <td class="td_form">{{ all_data_appointments.appointment_status }}</td>
+    </tr>
+  </table>
+
+  {% if all_data_procedures %}
+  <p class="second_messages">PROCEDURE DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Appointment Date</th>
+        <th class="th_form">Appointment Time</th>
+        <th class="th_form">Procedures Done</th>
+        <th class="th_form">Teeth Position</th>
+        <th class="th_form">Procedure Fee</th>
+      </tr>
+    </thead>
+    
+    <tr class="tr_form">
+
+    {% for things in all_data_procedures %}
+      <td class="td_form">{{ all_data_appointments.schedule_id.date }}</td>
+      <td class="td_form">{{ all_data_appointments.schedule_id.time }}</td>
+      <td class="td_form">{{ things.procedures_done }}</td>
+      <td class="td_form">{{ things.teeth_position }}</td>
+      <td class="td_form">Php. {{ things.procedures_fee }}</td>
+      
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="messages">
+    NO AVAILABLE PROCEDURES DATA IN THIS APPOINTMENT 
+  </p>
+  {% endif %} {% if all_data_tools_items_used %}
+  <p class="second_messages">ITEMS/TOOLS USED DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Appointment Date</th>
+        <th class="th_form">Appointment Time</th>
+        <th class="th_form">Item Name</th>
+        <th class="th_form">Quantity used</th>
+        <th class="th_form">Units</th>
+        <th class="th_form">Fee</th>
+        <th class="th_form">Date used</th>
+      </tr>
+    </thead>
+
+    <tr class="tr_form">
+      {% for things in all_data_tools_items_used %}
+      <td class="td_form">{{ all_data_appointments.schedule_id.date }}</td>
+      <td class="td_form">{{ all_data_appointments.schedule_id.time }}</td>
+      <td class="td_form">{{ things.item_id.itemname }}</td>
+      <td class="td_form">{{ things.quantity_used }}</td>
+      <td class="td_form">{{ things.units }}</td>
+      <td class="td_form">Php. {{ things.item_tools_fee }}</td>
+      <td class="td_form">{{ things.date_used }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="messages">
+    NO AVAILABLE TOOLS/ITEMS USED DATA IN THIS APPOINTMENT 
+  </p>
+  {% endif %} {% if all_data_appointments.payment_status == 'Paid' %}
+  <center><button class="normal_button" type="submit">
+    <a href="{% url 'view_only_payment_history' all_data_appointments.id %}">
+      View Payment Informations
+    </a>
+  </button></center>
+  {% else %}
+  <p class="messages">
+    This patient did not pay for this appointment yet please process this in THE
+    VIEW FINISHED APPOINTMENTS TAB UNDER APPOINTMENTS AND put necessary data
+    there
+  </p>
+</div>
+{% endif %} {% endblock %}

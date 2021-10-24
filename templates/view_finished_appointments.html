@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="patient_add_form">
+  <div class="patient_add_form">
+    <a href="{% url 'view_appointments' %}"
+      ><button class="back_button" type="submit">Back</button></a
+    >
+  </div>
+  <h2 class="page_header">FINISHED APPOINTMENTS WITH PENDING PAYMENT STATUS</h2>
+
+  <ul class="messages_sucess">
+    {% for message in messages %}
+    {% if message %}
+	 <script>alert("{{ message }}");</script>
+	  {% endif %}
+      {{ message }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if all_data_appointments %}
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Patient Name</th>
+        <th class="th_form">Appointment Type</th>
+        <th class="th_form">Schedule Date</th>
+        <th class="th_form">Schedule Time</th>
+        <th class="th_form">Assigned Doctor</th>
+        <th class="th_form">Service Chosen</th>
+        <th class="th_form">Service Price</th>
+        <th class="th_form">Complain</th>
+        <th class="th_form">Appointment Status</th>
+        <th class="th_form">Payment Status</th>
+        <th class="th_form">Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in all_data_appointments %} {% if things.appointment_status ==
+        'Finished' %}
+        <tr class="tr_form">
+          <td class="td_form" data-label="Patient Name">{{ things.patient_id }}</td>
+          <td class="td_form" data-label="Appointment Type">{{ things.appointment_type }}</td>
+          <td class="td_form" data-label="Schedule Date">{{ things.schedule_id.date }}</td>
+          <td class="td_form" data-label="Schedule Time">{{ things.schedule_id.time }}</td>
+          <td class="td_form" data-label="Assigned Doctor">{{ things.schedule_id.doctor_lastname }}</td>
+          <td class="td_form" data-label="Service Chosen">{{ things.service_id }}</td>
+          <td class="td_form" data-label="Service Price">Php {{ things.service_id.service_fee }}</td>
+          <td class="td_form" data-label="Complain">{{ things.complain }}</td>
+          <td class="td_form" data-label="Appointment Status">{{ things.appointment_status }}</td>
+          <td class="td_form" data-label="Payment Status">{{ things.payment_status }}</td>
+          <td class="td_form" data-label="Payment">
+            <a href="{% url 'view_additional_appointment_info' things.id %}"><button class="edit_button" type="submit"> Proceed to Payment and adding of necessary info
+            </button></a>
+          </td>
+        </tr>
+    
+        {% endif %} {% endfor %}
+    </tbody>
+  </table>
+
+  {% else %}
+  <!-- if wala pay finished appointments -->
+
+  <center>
+    <p class="messages">
+      No finished appointments yet or all finished appointments had already
+      processed their payments
+    </p>
+  </center>
+
+  {% endif %}
+</div>
+
+{% endblock %}

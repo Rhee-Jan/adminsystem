@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">Choose preferred date for appointment</h1>
+<p class="patient_add_form">
+  <a style="color: #ffffff" href="{% url 'add_appointments'%}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</p>
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <p><label></label><input type="date" aria-label="Search" name="date" /></p>
+  <button class="save_button" type="submit">Go</button>
+</form>
+
+{% endblock %}

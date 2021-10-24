@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin System</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '../static/css/styles.css' %}"
+    />
+
+    <!--<script src="{% static '../static/javascript/script.js' %}"></script> -->
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static '../static/images/favicon.ico' %}"
+    />
+    <!--
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    -->
+  </head>
+  <body>
+    <header class="nav_header">
+      <div class="nav_title">
+        <h1 class="company">Alvarado-Quinto Dental Clinic</h1>
+        <h2 class="datsys">Database System</h2>
+        <br></br>
+        <nav class="nav_nav">
+          <div class="nav_center">
+            <ul class="nav_links" id="menuList">
+              <li class="nav1" ><a href="{% url 'home' %}">Home</a></li>
+              <li class="nav2">
+                <a href="{% url 'prof_view' %}">Patients</a>
+              </li>
+              <li class="nav3">
+                <a href="{% url 'appointments_addorview' %}">Appointments</a>
+              </li>
+              <li class="nav4">
+                <a href="{% url 'inventory_options' %}">Inventory</a>
+              </li>
+              <li class="nav5">
+                <a href="{% url 'income_expense_options' %}"
+                  >Income and Expense</a
+                >
+              </li>
+              {% if user.username == 'admin' %}
+              <li class="nav6">
+                <a href="{% url 'emp_view' %}">Employee Profiles</a>
+              </li>
+              {% else %}
+              <li class="nav6">
+                <a href="{% url 'logout_user' 'invalid' %}"
+                  >Employee Profiles</a
+                >
+              </li>
+              {% endif %}
+              <!--<table class="table4_form">
+                <tr>
+                  <th>
+                    
+                  </th>
+                  <th>
+                    
+                  </th>
+                  <th>
+                    
+                  </th>
+                  <th>
+                    
+                  </th>
+                  <th>
+                    
+                  </th>
+                  <th>
+                    
+                  </th>
+                </tr>
+              </table>-->
+            </ul>
+          </div>
+          <!--<img
+            src="../static/images/toothtooth.png"
+            class="toothnav"
+            onclick="togglemenu()"
+          /> -->
+          <div>
+            <a href="{% url 'logout_user' 'valid' %}"
+              ><button class="logout_button" id="logout_button">
+                Logout
+              </button></a
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!--<script>
+      var menuList = document.getElementById("menuList");
+
+      menuList.style.maxHeight = "0px";
+
+      function togglemenu() {
+        if (menuList.style.maxHeight == "0px") {
+          menuList.style.maxHeight = "130px";
+        } else {
+          menuList.style.maxHeight = "0px";
+        }
+      }
+    </script> -->
+    {% block content %} {% endblock %}
+  </body>
+</html>

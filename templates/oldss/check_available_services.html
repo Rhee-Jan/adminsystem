@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+
+<h1 class='page_header' >Available Services </h1>
+<p class = 'patient_add_form'><button class="back_button" type="submit"><a href="{% url 'add_appointmentinfo' profile_id date%}"> Back</a> </button></p>
+{% if services_data %}
+<form class="search_form" method = POST action ="{% url 'check_available_services_search' profile_id date %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button></p>
+		<p><label>Service Type:</label><input type='search' placeholder="search Service type" name = 'name' aria-label ='search'></p>
+	  </div>
+	</form>
+
+
+<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Service ID </th>
+			<th class="th_form">Service Type </th>
+			<th class="th_form">Service Fee </th>
+			
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">
+		{% for things in services_data %}
+		<td class="td_form">{{ things.id }}</td>
+		<td class="td_form">{{ things.service_type }}</td>
+		<td class="td_form">{{ things.service_fee }}</td>
+	
+	</tr>
+	{% endfor %}
+
+	</table>
+	{% else %}
+		<center class ='messages'>No available Services kindly go to 'Add New Available Services' to add</center>
+		<br></br>
+	{% endif %}
+	
+
+	
+{% endblock %}
+

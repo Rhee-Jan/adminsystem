@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li {% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+
+
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_appointments' %}"> Back </a></button></p>
+	<p>VIEW FINISHED APPOINTMENTS WITH PENDING PAYMENT STATUS</p>
+	{% if all_data_appointments %}
+	<table class ='table'>
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Appointment Type </th>
+			<th> Schedule Date</th>
+			<th> Schedule Time</th>
+			<th> Assigned Doctor</th>
+			<th> Service Chosen </th>
+			<th> Service Price </th>
+			<th> Complain </th>
+			<th> Appointment Status </th>
+			<th> Payment Status </th>
+		</tr>
+	</thead>
+	{% for things in all_data_appointments %}
+	{% if things.appointment_status == 'Finished' %}
+	<tr>
+		<th>{{ things.patient_id }}</th>
+		<th>{{ things.appointment_type }}</th>
+		<th>{{ things.schedule_id.date }}</th>
+		<th>{{ things.schedule_id.time }}</th>
+		<th>{{ things.schedule_id.doctor_lastname }}</th>
+		<th>{{ things.service_id }}</th>
+		<th>Php {{ things.service_id.service_fee }}</th>
+		<th>{{ things.complain }}</th>
+		<th>{{ things.appointment_status }}</th>
+		<th>{{ things.payment_status }}</th>
+			<!--<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'add_procedures' things.id %}"> Add procedures </a> </button></th>
+			<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'add_tools_items_used' things.id %}"> Add Tools </a> </button></th>-->
+			<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_additional_appointment_info' things.id %}"> Proceed to Payment and adding of necessary info </a> </button></th>
+	</tr>
+	{% endif %}
+	{% endfor %}
+	<p>All finished appointments that had their payments already processed cannot be seen here pls proceed to the patient's profile to see details if empty meaning all finished appointment are already paid</p>
+	</table>
+	{% else %}  <!-- if wala pay finished appointments -->
+
+	<h1>NO finished appointments yet or all finished appointments had already processed their payments</h1>
+
+
+	{% endif %}
+	</form>
+	
+	
+	
+{% endblock %}
+

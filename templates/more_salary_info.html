@@ -1,0 +1,117 @@
+	{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> Salary of {{ all_data_emp_salary.profile_id.fullname|title }} </h1>
+	
+	
+
+	<p class="patient_add_form">
+		<a href="{% url 'viewsalary' key %}"><button class="back_button" type="submit"> Back </button></a>
+		<a style="color: #000000" href="{% url 'editform' primary_key 'salary' %}"><button class="normal_button" >Edit</button></a>
+		
+		<a href="{% url 'generate_pdf_salary' primary_key %}"><button class="normal_button" type="submit"> Generate PDF </button></a>
+	</p>
+	
+	
+	<ul class ="messages_sucess">
+       {% for message in messages %}
+       {% if message %}
+          <script>alert("{{ message }}");</script>
+           {% endif %}
+       {% endfor %}
+  	</ul>
+	{% if all_data_emp_salary %}
+	
+	<h1 class="page_header">Salary</h1>	
+	
+		<table class='table_form'>
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form2">Employee Name</th>
+			<th class="th_form2">Regular</th>
+			<th class="th_form2">Overtime</th>
+			<th class="th_form2">Bonus</th>
+			<th class="th_form2">Tips</th>
+			<th class="th_form2">Severance</th>
+		</tr>
+		</thead>
+			<tr class="tr_form">
+				<td class="td_form">{{ all_data_emp_salary.profile_id.fullname|title }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.regular }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.overtime }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.bonus }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tips }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.severance }}</th>
+			</tr>
+		</table>
+
+	<h1 class="page_header">Deductions</h1>		
+		<table class='table_form'>
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form2">Philhealth</th>
+				<th class="th_form2">SSS</th>
+				<th class="th_form2">Pagibig</th>
+				<th class="th_form2">Insurance</th>
+				<th class="th_form2">Tax</th>
+				<th class="th_form2">Others</th>
+			</tr>
+		</thead>
+
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.philhealth }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.sss }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.pagibig }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.insurance }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tax }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.others }}</th>
+			</tr>
+		</table>
+
+
+
+
+
+		<h1 class="page_header">Payroll</h1>		
+		<table class='table_form'>
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form2">Total Salary</th>
+				<th class="th_form2">Total Deduction</th>
+				<th class="th_form2">Total Amount</th>
+				<th class="th_form2">Date Given</th>
+				
+			</tr>
+		</thead>
+
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.total_salary }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_deduction }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_amount }}</th>
+				<td class="td_form">{{ all_data_emp_salary.date_given }}</th>
+				
+			</tr>
+		</table>
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+	{% else %} 
+		<center class ='messages'>An error occured try again later</center>
+	    
+	{% endif %}
+
+	
+	
+{% endblock %}

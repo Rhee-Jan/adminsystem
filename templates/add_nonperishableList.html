@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">ADD NON PERISHABLE</h1>
+
+<p class="patient_add_form">
+  <a href="{% url 'stock_in_options' %}"><button class="back_button" type="submit">Back</button></a>
+</p>
+{% if items_data %}
+
+<form class="search_form" method = POST action ="{% url 'add_nonperishableList_search' %}">
+    {% csrf_token %}
+    <div class="search_con">
+      <p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+      <p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+      <p><label>Barcode: </label><input type='search' placeholder="00000000" name = 'code' aria-label ='search'></p>
+      <p><label>Item name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+    </div>
+    <div class="search_con"></div>
+    <div class="search_con">
+      <p><button type='submit'>Search</button></p>
+    </div>
+</form>
+  <br></br>
+  
+  <center><p class="third_messages">( Click table headers to sort )</p></center>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'itemname' %}">Item Name</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'barcode' %}">Barcode</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'itemcategory' %}">Category</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'location' %}">Location</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'item_fee' %}">Item Fee if Bought/Used</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'quantity' %}">Quantity Available</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'add_nonperishableList_filter' 'units' %}">Units</th>
+		<th class="th_form2">StockIn</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in items_data %}
+    <tr class="tr_form">
+      <td class="td_form" data-label="Item Name">{{ things.itemname|title }}</td>
+      <td class="td_form" data-label="Barcode">{{ things.barcode }}</td>
+      <td class="td_form" data-label="Category">{{ things.itemcategory }}</td>
+      <td class="td_form" data-label="Location">{{ things.location|title }}</td>
+      <td class="td_form" data-label="Item Fee if Bought/Used">Php. {{ things.item_fee }}</td>
+      <td class="td_form" data-label="Quantity Available">{{ things.quantity }}</td>
+      <td class="td_form" data-label="Units">{{ things.units|title }}</td>
+      <td class="td_form" data-label="StockIn">
+        <a href="{% url 'add_nonperishable' things.id %}"><button class="normal_button" type="submit"> STOCK IN</button></a>
+      </th>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+    
+  {% else %}
+  <center class="messages"><i>No Non-Persihable Data Available</i></center>
+  {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">Salary Expense</h1>
+	<p class="patient_add_form">
+		<a style="color: #ffffff" href="{% url 'expense_options' %}"><button class="back_button" type="submit">Back</button></a>
+	</p>
+	{% if salary_details %}
+	<form class = "search_form" method = POST action ="{% url 'view_salary_expense_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<button type='submit'>Search</button>
+		<p><label>Month & Year:</label><input type='month' name = 'date' aria-label ='search'></p>
+	  </div>
+	  
+	</form>
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_salary_expense_filter' 'profile_id'%}">Employee Name</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_salary_expense_filter' 'total_salary'%}">Salary</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_salary_expense_filter' 'total_deduction'%}">Total Deductions</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_salary_expense_filter' 'total_amount'%}">Total Salary</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_salary_expense_filter' 'date_given'%}">Date Given</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in salary_details %}
+		<tr class="tr_form">
+			
+			<td class="td_form" data-label="Employee Name">{{ things.profile_id.fullname|title }}</td>
+			<td class="td_form" data-label="Salary">Php. {{ things.total_salary }}</td>
+			<td class="td_form" data-label="Total Deductions">Php. {{ things.total_deduction }}</td>
+			<td class="td_form" data-label="Total Salary">Php. {{ things.total_amount }}</td>
+			<td class="td_form" data-label="Date Given">{{ things.date_given }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+
+
+	{% else %}
+		<center class ='messages'>No Salary Expense Data available</center>
+	
+	    
+	
+	{% endif %}
+	
+{% endblock %}
+
+

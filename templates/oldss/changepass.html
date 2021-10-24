@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<ul class ="messages">
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+	</ul>
+	<!--
+	<h1>{{ curr_user }}</h1>
+	<h1>{{ user }}</h1>-->
+<form class="patient_add_form" method="POST">{% csrf_token %}
+	<button class="back_button" type="submit"><a href="{% url 'accounts_view' %}"> Back</a> </button></p>
+	<p >
+	<li class='patient_add_instructions'>Below the input fields are the guides needed to be followed</li>
+	<!--
+	<li class='patient_add_instructions'>The statements below the password's guide is the error that needs to be resolved in order to create an account</li>-->
+	<li class='patient_add_instructions'>If an error occured check the blue colored statements and the statements under the password's guide and resolve them</li>
+	</p>
+
+	
+	{{ form }}
+	<br></br><br></br>
+	<button class='save_button' type='submit'>Save password</button>
+	</form>
+
+
+	
+{% endblock %}
+
+

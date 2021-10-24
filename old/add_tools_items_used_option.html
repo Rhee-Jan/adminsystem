@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'add_more_tools_items_used' %}"> Add more tools </a></button>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_additional_appointment_info' primary_key %}"> Finish Adding </a></button>
+{% endblock %}
+
+

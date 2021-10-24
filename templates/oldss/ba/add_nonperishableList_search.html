@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">ADD NON PERISHABLE</h1>
+
+<p class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'stock_in_options' %}">Back</a>
+  </button>
+</p>
+
+<form class="search_form" method = POST action ="{% url 'add_nonperishableList_search' %}">
+    {% csrf_token %}
+    <p><button type='submit'>Search</button></p>
+    <p><label>Barcode: </label><input type='search' placeholder="00000000" name = 'code' aria-label ='search'></p>
+    <p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+    <p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+    <p><label>Item name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+  </form>
+
+  <br></br>
+  <p class="search_form"><a href="{% url 'add_nonperishableList' %}"><button type='submit'>Reset Filter and Searched Query</button></a></p>
+
+  <br></br>
+  {% if items_data %}
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Item Name</th>
+        <th class="th_form">Barcode</th>
+        <th class="th_form">Category</th>
+        <th class="th_form">Location</th>
+        <th class="th_form">Item Fee if Bought/Used</th>
+        <th class="th_form">Quantity Available</th>
+        <th class="th_form">Units</th>
+		<th class="th_form">StockIn</th>
+      </tr>
+    </thead>
+    {% for things in items_data %}
+    <tr class="tr_form">
+      <td class="td_form">{{ things.itemname }}</td>
+      <td class="td_form">{{ things.barcode }}</td>
+      <td class="td_form">{{ things.itemcategory }}</td>
+      <td class="td_form">{{ things.location }}</td>
+      <td class="td_form">Php. {{ things.item_fee }}</td>
+      <td class="td_form">{{ things.quantity }}</td>
+      <td class="td_form">{{ things.units }}</td>
+      <td class="td_form">
+        <button class="normal_button" type="submit">
+          <a href="{% url 'add_nonperishable' things.id %}">STOCK IN</a>
+        </button>
+      </th>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <center class="messages"> Search Not Found</center>
+  {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin System</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+    <h1 class="company">Alvarado-Quinto Dental Clinic</h1>
+    <h2 class="datsys">Database System</h2>
+
+   
+
+    <body class="login_body">
+       
+
+      <form class="login_box" method="POST">{% csrf_token %}
+        <h1>Login</h1>
+        <div class ="messages">
+         {% for message in messages %}
+         {% if message %}
+          <script>alert("{{ message }}");</script>
+           {% endif %}
+            {% endfor %}
+        </div>
+        <input type="text" name="username" placeholder="Username" />
+        <input type="password" name="password" placeholder="Password" />
+        <input type="submit"  value="Login" /></a>
+      </form>
+    </body>
+  {% block content %}
+
+  {% endblock %}
+</html>

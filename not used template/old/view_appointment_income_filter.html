@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1 class="page_header">APPOINTMENT INCOME</h1>
+	<p class="patient_add_form">
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'income_options' %}">Back</a></button></p>
+	
+	<form class="search_form" method = POST action ="{% url 'view_appointment_income_search' %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button>
+		<p><label>Month & Year (Date Paid):</label><input type='month' name = 'date' aria-label ='search'></p>
+		<p><label>Doctor Assigned:</label><input type='search' placeholder="doctor lastname" name = 'doc' aria-label ='search'></p>
+		<p><label>Service Done:</label><input type='search' placeholder="service" name = 'service' aria-label ='search'></p>
+		<p><label>Patient Name:</label><input type='search' placeholder="patient" name = 'name' aria-label ='search'></p>
+	  </p>
+	</form>
+	<p class="search_form"><a href="{% url 'view_appointment_income' %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+	
+	{% if payment_details %}
+	<p><center class="second_messages">( Click table headers to use filters )</center></p>
+	<table class ='table_form'>
+
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'appointment_id' %}">Patient Name</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'appointment_id'%}">Appointment Date</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'appointment_id'%}">Appointment Time</th>
+				<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'appointment_id'%}">Doctor assigned</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'appointment_id'%}">Service Done</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'total_payment'%}">Total Payment</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'payment_method'%}">Payment Method</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_appointment_income_filter' 'date_paid'%}">Date Paid</th>
+			
+
+		</tr>
+	</thead>
+
+	
+
+
+	<tr class="tr_form">
+		{% for things in payment_details %}
+		<td class="td_form">{{ things.appointment_id.patient_id.fullname }}</td>
+		<td class="td_form">{{ things.appointment_id.schedule_id.date }}</td>
+		<td class="td_form">{{ things.appointment_id.schedule_id.time }}</td>
+		<td class="td_form">{{ things.appointment_id.schedule_id.doctor_lastname }}</td>
+		<td class="td_form">{{ things.appointment_id.service_id.service_type }}</td>
+		<td class="td_form">{{ things.total_payment }}</td>
+		<td class="td_form">{{ things.payment_method }}</td>
+		<td class="td_form">{{ things.date_paid }}</td>
+	</tr>
+		{% endfor %}
+	</table>
+
+
+
+	{% else %} <!-- if no data available -->
+	<center class ='messages'>No Appointment income data available :"(</center>
+	{% endif %}
+	
+{% endblock %}
+
+

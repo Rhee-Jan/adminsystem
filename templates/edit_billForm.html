@@ -1,0 +1,96 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">EDITING BILLS EXPENSE</h1>
+<div class="patient_add_form">
+  <a href="{% url 'view_bills' %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</div>
+
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <p class="patient_add_instructions">
+    All Fields with "*" is required DO NOT LEAVE IT BLANK
+  </p>
+  <p>
+    <label> Bill Type: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ bills_data.bill_type }}"
+      aria-label="Search"
+      name="bill_type"
+    />
+  </p>
+
+  <label>Billing Month: *</label>
+  <select name="bill_month">
+    <option value="{{ bills_data.bill_month }}" selected>
+      {{ bills_data.bill_month }}
+    </option>
+    <option value="January">January</option>
+    <option value="Febuary">Febuary</option>
+    <option value="March">March</option>
+    <option value="April">April</option>
+    <option value="May">May</option>
+    <option value="June">June</option>
+    <option value="July">July</option>
+    <option value="August">August</option>
+    <option value="September">September</option>
+    <option value="October">October</option>
+    <option value="November">November</option>
+    <option value="December">December</option>
+  </select>
+
+  <p>
+    <label> Billing Year: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ bills_data.bill_year }}"
+      aria-label="Search"
+      name="bill_year"
+    />
+  </p>
+
+  <p>
+    <label> Total Amount: Php. *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      aria-label="Search"
+      value="{{ bills_data.total_amount }}"
+      name="total_amount"
+    />
+  </p>
+
+  <label>Paid By: *</label>
+  <select name="paid_by">
+    <option value="{{ bills_data.paid_by }}">{{ bills_data.paid_by }}</option>
+    {% for things in name %}
+    <option value="{{ things }}">{{things}}</option>
+    {% endfor %}
+  </select>
+
+  <p>
+    <label> Date Paid: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="date"
+      value="{{ bills_data.date_paid | date:'Y-m-d' }}"
+      aria-label="Search"
+      name="date_paid"
+    />
+  </p>
+
+  <button class="save_button" type="submit">Save</button>
+</form>
+
+{% endblock %}

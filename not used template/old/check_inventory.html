@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> CHECK INVENTORY </h1>
+	<div class="patient_add_form">
+	<p>
+		<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'add_tools_items_used' primary_key %}"> Back </a></button>
+	</p>
+	</div>
+	
+	{% if all_data_inventory %}
+	<form class="search_form" method = POST action ="{% url 'check_inventory_search' primary_key %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button></p>
+	  <p><label>Item name:</label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+	  <p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+	  <p><label>Expiry Status: </label><input type='search' placeholder="expiry status" name = 'exp' aria-label ='search'></p>
+	  <p><label>Expiry Date: </label><input type='month' name = 'date' aria-label ='search'></p>
+	  <p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+	  <p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+	</form>
+
+
+	<p><center class="second_messages">( Click table headers to use filters )</center></p>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'id'%}"> Item Id </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'itemname'%}"> Item Name </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'barcode'%}"> Barcode </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'itemcategory'%}"> Category </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'location'%}"> Location </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'item_fee'%}"> Item Fee if Bought/Used </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'quantity'%}"> Quantity Available</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'units'%}"> Units </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'expiry_date'%}"> Expiry Date </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'check_inventory_filter' primary_key 'expiry_status'%}"> Expiry Status </th>
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">
+		{% for things in all_data_inventory %}
+		<td class="td_form">{{ things.id }}</th>
+		<td class="td_form">{{ things.itemname }}</th>
+		<td class="td_form">{{ things.barcode }}</th>
+		<td class="td_form">{{ things.itemcategory }}</th>
+		<td class="td_form">{{ things.location }}</th>
+		<td class="td_form">Php. {{ things.item_fee }}</th>
+		<td class="td_form">{{ things.quantity }}</th>
+		<td class="td_form">{{ things.units }}</th>
+		{% if things.expiry_date == None %}
+		<td class="td_form"> {{ things.expiry_date }}</th>
+		<td class="td_form"> {{ things.expiry_status }}</th>
+		{% elif things.expiry_date != None %}
+		<td class="td_form">{{ things.expiry_date }}</th>
+		<td class="td_form">{{ things.expiry_status }}</th>
+		{% endif %}
+		
+	</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+		<center class ='messages'>No Inventory Data kindly go to "Add Inventory Item" to add ^^</center>
+	    
+	{% endif %}
+	
+{% endblock %}
+

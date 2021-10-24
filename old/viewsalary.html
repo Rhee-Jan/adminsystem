@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">EMPLOYEE SALARY</h1>
+	<a class="patient_add_form" href="{% url 'emp_view' %}"><button class="back_button" type="submit"> Back </button></a><br></br>
+
+	<form class ="search_form" method = POST action ="{% url 'viewsalary_search' primary_key %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button>Month & Year: <input type='month' name = 'date' aria-label ='search'></p>
+	</form>
+	
+	
+		<table class='table_form'>
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<!--
+			<th class="th_form">Regular</th>
+			<th class="th_form">Overtime</th>
+			<th class="th_form">Bonus</th>
+			<th class="th_form">Tips</th>
+			<th class="th_form">Severance</th>
+			<th class="th_form">Philhealth</th>
+			<th class="th_form">SSS</th>
+			<th class="th_form">Pagibig</th>
+			<th class="th_form">Insurance</th>
+			<th class="th_form">Tax</th>
+			<th class="th_form">Others</th>
+			-->
+			<th class="th_form">Total Salary</th>
+			<th class="th_form">Total Deduction</th>
+			<th class="th_form">Total Amount</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'viewsalary_filter' primary_key 'date_given'%}">Date given</th>
+			<th class="th_form"> </th>
+		</tr>
+		</thead>
+		{% if all_data_emp_salary %}
+			<tr class="tr_form">
+				{% for things in all_data_emp_salary %}
+				<td class="td_form">{{ things.profile_id }}</th>
+				<!--
+				<td class="td_form">Php. {{ things.regular }}</th>
+				<td class="td_form">Php. {{ things.overtime }}</th>
+				<td class="td_form">Php. {{ things.bonus }}</th>
+				<td class="td_form">Php. {{ things.tips }}</th>
+				<td class="td_form">Php. {{ things.severance }}</th>
+				<td class="td_form">Php. {{ things.philhealth }}</th>
+				<td class="td_form">Php. {{ things.sss }}</th>
+				<td class="td_form">Php. {{ things.pagibig }}</th>
+				<td class="td_form">Php. {{ things.insurance }}</th>
+				<td class="td_form">Php. {{ things.tax }}</th>
+				<td class="td_form">Php. {{ things.others }}</th>
+				-->
+				<td class="td_form">Php. {{ things.total_salary }}</th>
+				<td class="td_form">Php. {{ things.total_deduction }}</th>
+				<td class="td_form">Php. {{ things.total_amount }}</th>
+				<td class="td_form">{{ things.date_given }}</th>
+				<td class="td_form">
+					<a style="color: #000000" href="{% url 'editform' things.id 'salary' %}">Edit</a>
+				</td>
+				<!--<td class="td_form"><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'editform' things.id 'salary' %}"> Edit </a></button></th>-->	
+			</tr>
+				{% endfor %}
+	{% else %} <!-- IF WALA PAY SALARY ANG ISA KA EMPLOYEE -->
+		<center class ='messages'>Employee has no Salary informations yet... go to "Add Salary" to add ^^</center>
+	    <br></br>
+	    <tr class="tr_form">
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	    </tr>
+	{% endif %}
+
+	
+	
+{% endblock %}

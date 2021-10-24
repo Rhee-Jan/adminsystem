@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1 class="page_header"> ADD NEW ITEM IN THE INVENTORY </h1>
+	<div class="patient_add_form">
+		<button class="back_button" type="submit"><a href="{% url 'view_inventory' %}"> Back</a> </button></p>	
+	
+	</div>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	 {% endfor %}
+	</ul>
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions"> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+		<p class="patient_add_instructions"> INTPUT in 2 decimal places</p>
+			<p><label> Item name: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Mouth mirror" aria-label="Search" name="itemname"></p>
+			<p><label> Barcode: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: 00000000" aria-label="Search" name="barcode"></p>
+
+
+			<!-- <p><label> Item Category: *</label><input class="form-control mr-sm-2" type="search" placeholder=" Dental tool" aria-label="Search" name="itemcategory"></p> -->
+
+			<p><label> Item Category: *</label>
+			<select name="itemcategory">
+			  <option ></option>
+			  <option value="Medicine">Medicine</option>
+			  <option value="Dental Tool">Dental Tool</option>
+			  <option value="Basic Tool">Basic Tool</option>
+			  <option value="Antibiotics">Antibiotics</option>
+			  <option value="Sanitary Item">Sanitary Item</option>
+			  <option value="Pain reliever">Pain reliever</option>
+			  <option value="Tranexamic Acid">Tranexamic Acid</option>
+			</select></p>
+
+
+			<p><label> Location: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Main drawer" aria-label="Search" name="location"></p>
+			<p><label> Item fee if bought or used: Php. * <i>(Put 0 if item does not have a fee)</i></label><input class="form-control mr-sm-2" type="number" step="0.01" placeholder="" aria-label="Search" name="item_fee"></p>
+			<p><label> Quantity Available: *</label><input class="form-control mr-sm-2" type="number"  placeholder="" aria-label="Search" name="quantity"></p>
+			<p><label> Unit: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: pieces" aria-label="Search" name="units"></p>
+			<p><label> Expiry Date: *</label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="expiry_date"></p>
+			
+
+			<button class="save_button" type="submit">Save</button>
+				
+			</form>
+
+
+
+{% endblock %}
+<!-- <p><label> Expiry Date: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="expiry_date"> *</p> -->

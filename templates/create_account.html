@@ -1,0 +1,46 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1 class='page_header'> Create account </h1>
+	
+	<ul class ="messages">
+   	 {% for message in messages %}
+		{% if message %}
+		<script>alert("{{ message }}");</script>
+		 {% endif %}
+    	  {% endfor %}
+	</ul>
+
+
+<div class="patient_add_form">
+	<a href="{% url 'accounts_make' %}"><button class="back_button" type="submit">Back</button></a>
+</div>
+{% if emp_name %}
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	
+	<li class='patient_add_instructions'>Below the input fields are the guides needed to be followed</li>
+	<!--
+	<li class='patient_add_instructions'>The statements below the password's guide is the error that needs to be resolved in order to create an account</li>-->
+	<li class='patient_add_instructions'>If an error occured check the statements under the password's guide and resolve them</li>
+	</p>
+
+	
+	{{ form.as_p }}
+	
+	<button class='save_button' type='submit'>Create Account</button>
+	</form>
+{% else %}
+<center><h3 style="color:red"class='page_header'><i> Employee account already exist </i></h3></center>
+{% endif %}	
+{% endblock %}
+
+<!--S
+
+	<p><label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus required id="id_username"> <span class="helptext"><i>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
+	<p><label for="id_password1">Password:</label> <input type="password" name="password1" autocomplete="new-password" required id="id_password1"> <span class="helptext"><ul><li><i>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span></p>
+	<p><label for="id_password2">Password confirmation:</label> <input type="password" name="password2" autocomplete="new-password" required id="id_password2"> <span class="helptext">Enter the same password as before, for verification.</span></p>
+	-->

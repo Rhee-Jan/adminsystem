@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">Prescriptions of {{ all_data_prof.fullname }}</h1>
+<h1 class="second_messages">Patient ID: {{ primary_key }}</h1>
+
+<ul class ="messages">
+     {% for message in messages %}
+       <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+        {% endfor %}
+</ul>
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <button class="back_button" type="submit">
+    <a href="{% url 'prescriptions_addorview' primary_key%}"> Back</a>
+  </button>
+  <p class="patient_add_instructions">
+    All Fields with "*" is required DO NOT LEAVE IT BLANK
+  </p>
+  <p>
+    <label> Patient Name: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ all_data_prof.fullname }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+  <p>
+    <label> Patient ID: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ primary_key }}"
+      aria-label="Search"
+      name="patient_id"
+    />
+  </p>
+
+  <p>
+    <label> Given by: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Input doctor name"
+      aria-label="Search"
+      name="given_by"
+    />
+  </p>
+
+  <p>
+    <label> Meds Prescribed: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Ex: Paracetamol"
+      aria-label="Search"
+      name="meds_prescription"
+    />
+  </p>
+
+  <p>
+    <label> Quantity: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="number"
+      placeholder=""
+      aria-label="Search"
+      name="quantity"
+    />
+  </p>
+
+  <p>
+    <label> Units: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Ex: Tablets"
+      aria-label="Search"
+      name="units"
+    />
+  </p>
+
+  <p><label> Intake Instructions: </label> *</p>
+
+  <p>
+    <textarea
+      class="form-control mr-sm-2"
+      placeholder="Ex: 3 tablets per day"
+      name="intake_instructions"
+      style="height: 122px; width: 457px"
+    ></textarea>
+  </p>
+
+  <p>
+    <label> Date Given: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="date"
+      aria-label="Search"
+      name="date_given"
+    />
+  </p>
+
+  <button class="save_button" type="submit">Save</button>
+</form>
+
+{% endblock %}

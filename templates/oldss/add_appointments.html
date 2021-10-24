@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<h1 class="page_header">Add Patient's Appointment</h1>	
+	<div class="patient_add_form">
+		<a href="{% url 'view_appointments' %}"><button class="back_button" type="submit">Back</button></a></p>
+	</div>	
+	{% if all_data_prof %}
+
+	<form class="search_form" method = POST action ="{% url 'add_appointments_search' %}">
+		{% csrf_token %}
+		<button type='submit'>Search</button><input type='search' placeholder="search name" name = 'name' aria-label ='search'></input>
+	</form>
+		<center>
+			<table class='table'>
+			{% for things in all_data_prof %}
+				{% if things.profile_type == 'Patient' %}
+					<tr>
+						<td> 
+							<p> <text>Patient name:</text> <b>{{ things.fullname }}</b>
+							<a href="{% url 'choose_date' things.id %}"><button class="normal_button" type="submit">Choose This Patient</button></a></p><br></br>
+						</td>
+
+					</tr>
+				
+				
+				{% endif %}
+
+			{% endfor %}
+			</table>
+
+			
+		</center>
+	{% else %} <!-- if walay patient -->
+		<center class ='messages'>No Patient Available for scheduling</center>
+	{% endif %}
+	
+
+
+
+
+{%endblock%}
+

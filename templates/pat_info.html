@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% block content %}
+<ul>
+  <h1 class="page_header">Additional Patient Info</h1>
+</ul>
+<h3 class="page_header"><p class="messages">DO NOT LEAVE THIS PAGE</p></h3>
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+<div class="patient_add_form">
+  <a href="{% url 'prof_addorview' %}"
+    ><button class="back_button">Back</button></a
+  >
+</div>
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+
+  <p></p>
+  <p class="patient_add_instructions">
+    For the teeth type : Select Adult if the patient have permanent teeth
+    otherwise select Baby
+  </p>
+
+  <p>
+    <label>Patient Name: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ prof_id }}"
+      aria-label="Search"
+      name="profile_id"
+      hidden
+    />
+    <h1>{{ profile_data_all.fullname }}</h1>
+  </p>
+  <p>
+    <label>Age: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ realage }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <!--
+					<p> <label>Teeth Type: </label><input class="form-control mr-sm-2" type="search" value = '{{ teethtype }}' aria-label="Search" name= 'teeth_type'></p>
+					-->
+
+  <label>Teeth Type:</label>
+  <select name="teeth_type">
+    <option></option>
+    <option value="Adult">Adult</option>
+    <option value="Baby">Baby</option>
+  </select>
+
+  <p>
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ prof_id }}"
+      aria-label="Search"
+      name="patient_id"
+      hidden
+    />
+  </p>
+
+  <p>
+    <label>Occupation: </label>
+    <input
+      class="form-control mr-sm-2"
+      type="search"
+      placeholder="Occupation"
+      aria-label="Search"
+      name="pat_occupation"
+    />
+  </p>
+
+  <p><label>Do you have any allergies?: </label></p>
+  <p><label>If yes, input all known allergies and if no put "None":</label></p>
+  <p>
+    <textarea
+      name="pat_allergies"
+      placeholder="Seafoods"
+      class="form-control mr-sm-2"
+      style="height: 122px; width: 457px"
+    >
+    </textarea>
+  </p>
+
+  <button class="save_button" type="submit">Save</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Bought Items/Tools for Patient Prescriptions</h1>
+<div class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'stock_out_option' %}">Back</a>
+  </button>
+</div>
+<form
+  class="search_form"
+  method="POST"
+  action="{% url 'view_stockout_presc_search' %}"
+>
+  {% csrf_token %}
+  <div class="search_con">
+    <button type="submit">Search</button>
+    <p>
+      <label>Purchase date: </label
+      ><input type="month" name="date" aria-label="search" />
+    </p>
+    <p>
+      <label>Location: </label
+      ><input
+        type="search"
+        placeholder="search location"
+        name="loc"
+        aria-label="search"
+      />
+    </p>
+    <p>
+      <label>Barcode:</label
+      ><input
+        type="search"
+        placeholder="barcode search "
+        name="code"
+        aria-label="search"
+      />
+    </p>
+    <p>
+      <label>Medicine: </label
+      ><input
+        type="search"
+        placeholder="search medicine"
+        name="med"
+        aria-label="search"
+      />
+    </p>
+    <p>
+      <label>Patient: </label
+      ><input
+        type="search"
+        placeholder="search patient"
+        name="name"
+        aria-label="search"
+      />
+    </p>
+  </div>
+</form>
+<p class="search_form">
+  <a href="{% url 'view_stockout_presc' %}"
+    ><button type="submit">Reset Filter and Searched Query</button></a
+  >
+</p>
+{% if prescription_data %}
+
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Patient Name</th>
+      <th class="th_form">Medicine</th>
+      <th class="th_form">Barcode</th>
+      <th class="th_form">Location</th>
+      <th class="th_form">Quantity</th>
+      <th class="th_form">Units</th>
+      <th class="th_form">Purchased Date</th>
+    </tr>
+  </thead>
+  {% for things in prescription_data %}
+  <tr class="tr_form">
+    <td class="td_form">{{ things.patient_id.fullname }}</td>
+    <td class="td_form">{{ things.item_id.itemname }}</td>
+    <td class="td_form">{{ things.item_id.barcode }}</td>
+    <td class="td_form">{{ things.item_id.location }}</td>
+    <td class="td_form">{{ things.quantity }}</td>
+    <td class="td_form">{{ things.units }}</td>
+    <td class="td_form">{{ things.purchase_date }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %}
+<p class="messages">Search not found</p>
+
+<!-- If walay available data -->
+{% endif %} {% endblock %}

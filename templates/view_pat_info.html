@@ -1,0 +1,101 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Patient Info</h1>
+
+<div class="patient_add_form">
+  <a href="{% url 'prof_view' %}">
+    <button class="back_button" type="submit">Back</button></a
+  >
+  <a href="{% url 'edit_pat_info' key %}">
+    <button class="edit_button" type="submit">Edit</button>
+  </a>
+</div>
+<ul class="messages_sucess">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+
+{% if all_data_pat_info %}
+
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form2">Full Name</th>
+      <th class="th_form2">Contact Number</th>
+      <th class="th_form2">Adress</th>
+      <th class="th_form2">Birthday</th>
+      <th class="th_form2">Gender</th>
+      <th class="th_form2">Occupation</th>
+      <th class="th_form2">Allergies</th>
+      <th class="th_form2">Date added</th>
+      <th class="th_form2">Last updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tr_form">
+      <td class="td_form" data-label="Full Name">
+        {{ all_data_pat_info.profile_id.fullname| title }}
+      </td>
+      <td class="td_form" data-label="Contact Numbe">
+        {{ all_data_pat_info.profile_id.contact_number }}
+      </td>
+      <td class="td_form" data-label="Adress">
+        {{ all_data_pat_info.profile_id.profile_fulladress| title }}
+      </td>
+      <td class="td_form" data-label="Birthday">
+        {{ all_data_pat_info.profile_id.bday }}
+      </td>
+      <td class="td_form" data-label="Gender">
+        {{ all_data_pat_info.profile_id.gender }}
+      </td>
+      <td class="td_form" data-label="Occupation">
+        {{ all_data_pat_info.pat_occupation| title }}
+      </td>
+      <td class="td_form" data-label="Allergies">
+        {{ all_data_pat_info.pat_allergies }}
+      </td>
+      <td class="td_form" data-label="Date added">
+        {{ all_data_pat_info.profile_id.added }}
+      </td>
+      <td class="td_form" data-label="Last updated">
+        {{ all_data_pat_info.profile_id.update }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 class="page_header">Patient Emergency Contact Person</h1>
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form2">Patient Full Name</th>
+      <th class="th_form2">Ecp Fullname</th>
+      <th class="th_form2">Ecp Contact Number</th>
+      <th class="th_form2">Ecp Relationship</th>
+      <th class="th_form2">Ecp Adress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tr_form">
+      <td class="td_form" data-label="Patient Full Name">
+        {{ all_data_pat_info.profile_id.fullname| title }}
+      </td>
+      <td class="td_form" data-label="Ecp Fullname">
+        {{ all_data_pat_info.profile_id.ecp_fullname| title }}
+      </td>
+      <td class="td_form" data-label="Ecp Contact Number">
+        {{ all_data_pat_info.profile_id.ecp_contactnum }}
+      </td>
+      <td class="td_form" data-label="Ecp Relationship">
+        {{ all_data_pat_info.profile_id.ecp_relationship| title }}
+      </td>
+      <td class="td_form" data-label="Ecp Adress">
+        {{ all_data_pat_info.profile_id.ecp_fulladress| title }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{% endif %} {% endblock %}

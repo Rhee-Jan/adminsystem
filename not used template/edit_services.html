@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> EDIT AVAILABLE SERVICES </h1>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	
+	<p>
+		<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'view_services' %}"> Back </a></button>
+	</p>
+	</form>
+	{% if all_data_services %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Service ID </th>
+			<th class="th_form"> Service Type </th>
+			<th class="th_form"> Service Fee </th>
+			<th class="th_form"> Availability </th>
+			<th class="th_form">  </th>
+		</tr>
+	</thead>
+		<tr class="tr_form">
+			{% for things in all_data_services %}
+			<td class="td_form">{{ things.id }}</th>
+			<td class="td_form">{{ things.service_type }}</th>
+			<td class="td_form">Php {{ things.service_fee }}</th>
+			{% if things.availability %}
+			<td class="td_form">Available</th>
+			{% else %}
+			<td class="td_form">Unavailable</th>
+			{% endif %}
+			<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'services' %}" > Edit </a></th>
+		</tr>
+	{% endfor %}
+	</table>
+	{% endif %}
+
+	
+	
+{% endblock %}
+

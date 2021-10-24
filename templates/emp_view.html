@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="page_header">EMPLOYEE LIST</h1>
+
+<p class="patient_add_form">
+  <a href="{% url 'addemp' %}"><button class="back_button" type="submit">Add Employee Profile</button></a>
+  <a href="{% url 'accounts_view' %}"><button class="normal_button" type="submit">Employee Accounts</button></a> <p>
+
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+
+{% if all_data_prof %}
+<form class = "search_form" method = POST action ="{% url 'emp_view_searched' %}">
+  {% csrf_token %}
+  <div class="search_con">
+    <button type='submit'>Search</button>
+  <p><label>Name</label><input type='search' placeholder="search name" name = 'search'aria-label ='search'></p>
+  </div>
+</form>
+<div class="search_con"></div>
+ <center><p class="third_messages">( Click table headers to sort )</p></center>
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form"><a style="color: #000000" href="{% url 'emp_view_filter' 'fullname'%}">Full name</th>
+      <th class="th_form2">Profile Type</th>
+	  <th class="th_form2">Additional Info</th>
+	  <th class="th_form2">Add Salary</th>
+	  <th class="th_form2">View Salary</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for things in all_data_prof %}
+  <tr class="tr_form">
+    <td class="td_form" data-label="Full Name">{{ things.fullname|title }}</th>
+    <td class="td_form" data-label="Profile Type">{{ things.profile_type }}</th>
+    <td class="td_form" data-label="Additional Info">
+        <a href="{% url 'view_emp_info' things.id %}">
+			<button class="normal_button" type="submit">
+          View Additional Informations</button>
+        </a>
+    </th>
+    <td class="td_form" data-label="Add Salary">
+        <a href="{% url 'addsalaryinfo' things.id %}"><button class="normal_button" type="submit">Add Salary</button></a>
+    </th>
+    <td class="td_form" data-label="View Salary">
+        <a href="{% url 'viewsalary' things.id %}"> 
+			<button class="normal_button" type="submit">View Salary</button></a>
+    </th>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% else %}
+    <center class ='messages'><i>No Employee profile kindly go to 'Add Employee Profile' to add</i></center>
+    <br></br>
+    
+
+
+{% endif %} 
+{% endblock %}

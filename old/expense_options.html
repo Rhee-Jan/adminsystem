@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p><button class="back_button" type="submit"><a href="{% url 'income_expense_options' %}">Back</a></button></p>
+	<button class="back_button" type="submit"><a href="{% url 'view_salary_expense' %}">Salary</a></button>
+	<button class="back_button" type="submit"><a href="{% url 'view_stockin_expense' %}">Item/Tools Purchase (Stock In)</a></button>
+	<button class="back_button" type="submit"><a href="{% url 'bills_options' %}">Bills </a></button>
+	
+{% endblock %}

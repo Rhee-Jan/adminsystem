@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_prescriptions' primary_key %}">Back </a></button></th>
+<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"> Buy Prescriptions </button></th>
+PRESCRIPTIONS OF {{ primary_key }} Full name: {{ all_data_prof.fullname }}
+
+{% if all_data_prescriptions %} <!-- check if naay prescriptions si patient -->
+	<p><h1>Prescriptions of Patient {{ all_data_prof.fullname }}</h1></p>
+	
+	<table class='table'>
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Meds Prescribed </th>
+			<th> Quantity</th>
+			<th> Units</th>
+			<th> Intake Instructions </th>
+			<th> Date Given </th>
+			<th> Prescription Status</th>
+			<th> Given by </th>
+
+		</tr>
+	</thead>
+	{% for things in all_data_prescriptions %}
+			<tr>
+			<th>{{ things.patient_id.fullname }}</th>	
+			<th>{{ things.meds_prescription }}</th>	
+			<th>{{ things.quantity }}</th>
+			<th>{{ things.units }}</th>
+			<th>{{ things.intake_instructions }}</th>
+			<th>{{ things.date_given }}</th>
+			<th>{{ things.presc_status }}</th>
+			<th>{{ things.given_by }}</th>
+				<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'editform' things.id 'prescriptions' %}"> Edit</a> </button></th>
+
+		</tr>
+	{% endfor %}
+	{% else %} <!-- if walay prescriptions si patient -->
+	<h1> Patient has no prescriptions yet </h1>
+	{% endif %}
+	</table>
+
+
+
+{% endblock %}

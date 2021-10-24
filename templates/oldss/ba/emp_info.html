@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul><h2 class="page_header"> Additional Info of Employee {{ profile_data_all.fullname }}</h2></ul>
+<h3 class="page_header"> <p class="messages">DO NOT LEAVE THIS PAGE </p></h3>
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+  	</ul>
+
+<form class="patient_add_form" method="POST">
+				{% csrf_token %}
+				<p><a href="{% url 'emp_addorview' %}"><button class="back_button" type="submit">Back</button></a></p>
+					<p> ID number: <input class="form-control mr-sm-2" type="search" value = {{ prof_id }} aria-label="Search" name="profile_id" readonly></p>
+					<p> Position: <input class="form-control mr-sm-2" type="search" placeholder="Position" aria-label="Search" name="emp_position"></p>
+
+
+					<p><label> Employee Status: </label></p>
+					<input type="radio" name="emp_status" value = 'Employed' checked="checked" id="Employed" > <label for="Employed" class="radio_buttons">Employed</label>
+					<!--<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="emp_status" value = "Retired"> Retired </p>-->
+					<input type="radio" name="emp_status" value = "Intern" id="Intern"><label for="Intern" class="radio_buttons">Intern</label>
+					<input type="radio" name="emp_status" value = "Part-time" id="Part-time"><label for="Part-time" class="radio_buttons">Part-time</label>
+
+
+					
+				<button class="save_button" type="submit">Save</button>
+
+			</form>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> Bills Info </h1>
+<p class="patient_add_form">
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'expense_options' %}">Back</a></button>
+	<button class="normal_button" type="submit"><a href="{% url 'add_bills' %}">Add Bills Expense</a></button></p>
+	
+	
+
+	{% if bills_data %}
+	<form class = "search_form" method = POST action ="{% url 'view_bills_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button> 
+			<label>Bill Type:</label><input type='search' placeholder="search bill type" name = 'name'aria-label ='search'></p>
+		  <p><label>Bill Month and Year:</label><input type='month' name = 'date' aria-label ='search'>
+	  </div>
+	  <div class="search_con"><p><label>Date Paid:</label><input type='month' name = 'date2' aria-label ='search'>
+	  </p></div>
+	</form>
+
+	<ul class ="messages_sucess">
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+  	</ul>
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to use filters )</p></center>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_type'%}">Bill Type</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_month'%}">Bill Month</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_year'%}">Bill Year</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'total_amount'%}">Total Amount</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'paid_by'%}">Paid By</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'date_paid'%}">Date Paid</th>
+			<th class="th_form">Edit</th>
+		</tr>
+	</thead>
+		
+		<tr class="tr_form">
+			{% for things in bills_data %}
+			<td class="td_form">{{ things.bill_type }}</td>
+			<td class="td_form">{{ things.bill_month }}</td>
+			<td class="td_form">{{ things.bill_year }}</td>
+			<td class="td_form">Php. {{ things.total_amount }}</td>
+			<td class="td_form">{{ things.paid_by }}</td>
+			<td class="td_form">{{ things.date_paid }}</td>
+			<td class="td_form"><a style="color: #000000" href="{% url 'edit_billForm' things.id %}"><button class="edit_button">Edit</button></a></td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+	<p class="messages"> No available Data for Bills </p>
+    <br></br>
+   
+	{% endif %}
+	
+{% endblock %}

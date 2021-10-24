@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1 class="page_header">Prescription Income</h1>
+	<p class="patient_add_form">
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'income_options' %}">Back</a></button>
+	</p>
+	<form class = "search_form" method = POST action ="{% url 'view_presc_income_search' %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button>
+	  Month & Year (Date Paid): <input type='month' name = 'date' aria-label ='search'></p>
+	</form>
+	
+
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'patient_id'%}">Patient Name</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'item_id'%}">Medecine Bought</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'quantity'%}">Quantity</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'units'%}">Units</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'total_amount'%}">Total Payment</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'payment_method'%}">Payment Method</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'purchase_date'%}">Purchase Date</th>
+		</tr>
+	</thead>
+	{% if presc_details %}
+		<tr class="tr_form">
+			{% for things in presc_details %}
+			<td class="td_form">{{ things.patient_id.fullname }}</td>
+			<td class="td_form">{{ things.item_id.itemname }}</td>
+			<td class="td_form">{{ things.quantity }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">{{ things.total_amount }}</td>
+			<td class="td_form">{{ things.payment_method }}</td>
+			<td class="td_form">{{ things.purchase_date }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %} <!-- if no data available -->
+	<center class ='messages'> Search not found  </center>
+	    <br></br>
+	    <tr class="tr_form">
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	    </tr>
+	{% endif %}
+	
+{% endblock %}
+
+

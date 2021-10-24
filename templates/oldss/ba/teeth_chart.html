@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class= "page_header"> TEETH CHART OF PATIENT {{ all_data_prof.fullname }}</h1>
+<form class="patient_add_form" method="POST">{% csrf_token %}
+<button class="back_button" type="submit"><a href="{% url 'prof_view' %}"> Back </a></button>
+</form>
+{% if teeth_data.teeth_type == 'Baby' %}
+   <div class="teeth_notes">
+   
+   <h1 class="teeth_notes_header">Teeth Type: Baby</h1>
+   {% if procedures_data %}
+      <p><b>Recent teeth that got involved in a procedure:</b> </p>
+      <p class="teeth_notes_ital"><i>(Click the tooth to view more details about the procedure)</i></p>
+   <div class="teeth_fin">
+   {% for things in procedures_data %}
+   <p> - {{ things.teeth_position }}</p>
+   {% endfor %}
+   </div>
+   {% else %}
+      <p>No procedure data for this patient</p>
+   {% endif %}
+   </div>
+   <br></br>
+   <img class ='baby_teeth' src = "{% static 'images/baby_teeth.png' %}">   
+   <p><a class ='image5 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UCI_left  %}">5<!-- Upper Central Incisor(Left)--></a></p>
+   <p><a class ='image4 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.ULI_left  %}">4<!-- Upper Lateral Incisor(Left)--></a></p>
+   <p><a class ='image3 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UC_left  %}">3<!-- Upper Canine(Left)--></a></p>
+   <p><a class ='image2 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UF_left  %}">2<!-- Upper First Molar(Left)--></a></p>
+   <p><a class ='image1 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.USM_left  %}">1<!--Upper Second Molar(Left) --></a></p>
+   <p><a class ='image6 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UCI_right  %}">6<!--Upper Central Incisor(Right) --></a></p>
+   <p><a class ='image7 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.ULI_right  %}">7<!--Upper Lateral Incisor(Right) --></a></p>
+   <p><a class ='image8 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UC_right  %}">8<!--Upper Canine(Right) --></a></p>
+   <p><a class ='image9 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UFM_right  %}">9<!-- Upper First Molar(Right) --></a></p>
+   <p><a class ='image10 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.USM_right  %}">10<!-- Upper Second Molar(Right) --></a></p>
+
+
+   <p><a class ='image15 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LCI_left  %}">16<!-- Lower Central Incisor(Left) --></a></p>  
+   <p><a class ='image14 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LLI_left  %}">17<!-- Lower Lateral Incisor(Left) --></a></p>
+   <p><a class ='image13 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LC_left  %}">18<!-- Lower Canine(Left) --></a></p>
+   <p><a class ='image12 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LF_left  %}">19<!-- Lower First Molar(Left) --></a></p>
+   <p><a class ='image11 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LSM_left  %}">20<!-- Lower Second Molar(Left) --></a></p>
+   <p><a class ='image16 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LCI_right  %}">15<!-- Lower Central Incisor(Right) --></a></p>
+   <p><a class ='image17 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LLI_right  %}">14<!-- Lower Lateral Incisor(Right) --></a></p>
+   <p><a class ='image18 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LC_right  %}">13<!-- Lower Canine(Right) --></a></p>
+   <p><a class ='image19 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LFM_right  %}">12<!-- Lower First Molar(Right) --></a></p>
+   <p><a class ='image20 inv_tooth'href="{% url 'teeth_history' primary_key  teeth.LSM_right  %}">11<!-- Lower Second Molar(Right) --></a></p>
+
+   <div class = 'legend_adult'>
+      <div class="legend_base"><h4><b>Legend:</b></h4></div>
+      <div class="legend_list">
+         <p><b>1</b> -Upper Second Molar <i>(Left)</i></p>
+         <p><b>2</b> - Upper First Molar <i>(Left)</i></p>
+         <p><b>3</b> - Upper Canine <i>(Left)</i></p>
+         <p><b>4</b> - Upper Lateral Incisor <i>(Left)</i></p>
+         <p><b>5</b> - Upper Central Incisor <i>(Left)</i></p>
+         <p><b>6</b> -Upper Central Incisor <i>(Right)</i></p>
+         <p><b>7</b> -Upper Lateral Incisor <i>(Right)</i></p>
+         <p><b>8</b> -Upper Canine <i>(Right)</i></p>
+         <p><b>9</b> - Upper First Molar <i>(Right)</i></p>
+         <p><b>10</b> - Upper Second Molar <i>(Right)</i></p>
+         <p><b>11</b> - Lower Second Molar <i>(Right)</i></p>
+         <p><b>12</b> - Lower First Molar <i>(Right)</i></p>
+         <p><b>13</b> - Lower Canine <i>(Right)</i></p>
+         <p><b>14</b> - Lower Lateral Incisor <i>(Right)</i></p>
+         <p><b>15</b> - Lower Central Incisor <i>(Right)</i></p>
+         <p><b>16</b> - Lower Central Incisor <i>(Left)</i></p>
+         <p><b>17</b> - Lower Lateral Incisor <i>(Left)</i></p>
+         <p><b>18</b> - Lower Canine <i>(Left)</i></p>
+         <p><b>19</b> - Lower First Molar <i>(Left)</i></p>
+         <p><b>20</b> - Lower Second Molar <i>(Left)</i></p>
+      </div>
+   </div>
+
+   
+   {% elif teeth_data.teeth_type == 'Adult' %}
+   <div class="teeth_notes">
+   <h1 class="teeth_notes_header">Teeth Type: Adult</h1>
+   {% if procedures_data %}
+   <p><b>Recent teeth that got involved in a procedure:</b> </p>
+   <p class="teeth_notes_ital"><i>(Click the tooth to view more details about the procedure)</i></p>
+   <div class="teeth_fin">
+   {% for things in procedures_data %}
+   <p> - {{ things.teeth_position }}</p>
+   {% endfor %}
+   </div>
+   {% else %}
+      <p>No procedure data for this patient</p>
+   {% endif %}
+   </div>
+   <br></br>
+   
+   <img class ='adult_teeth' src = "{% static 'images/adult_teethchart.png' %}">
+   <p><a class ='a_image8 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UCI_left  %}">8<!-- Upper Central Incisor(Left) --></a></p>
+   <p><a class ='a_image7 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.ULI_left  %}">7<!-- Upper Lateral Incisor(Left) --></a></p>
+   <p><a class ='a_image6 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UC_left  %}">6<!-- Upper Canine(Left) --></a></p>
+            <p><a class ='a_image5 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U1PM_left  %}">5<!-- Upper 1st Premolar(Left) --></a></p>
+            <p><a class ='a_image4 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U2PM_left  %}">4<!-- Upper 2nd Premolar(Left) --></a></p>
+   <p><a class ='a_image3 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UF_left  %}">3<!-- Upper First Molar(Left) --></a></p>
+   <p><a class ='a_image2 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.USM_left  %}">2<!-- Upper Second Molar(Left) --></a></p>
+            <p><a class ='a_image1 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UTM_left  %}">1<!--Upper Third Molar(Left) --></a></p>
+   <p><a class ='a_image9 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UCI_right  %}">9<!-- Upper Central Incisor(Right) --></a></p>
+   <p><a class ='a_image10 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.ULI_right  %}">10<!-- Upper Lateral Incisor(Right) --></a></p>
+   <p><a class ='a_image11 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UC_right  %}">11<!-- Upper Canine(Right) --></a></p>
+            <p><a class ='a_image12 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U1PM_right  %}">12<!-- Upper 1st Premolar(Right) --></a></p>
+            <p><a class ='a_image13 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U2PM_right  %}">13<!-- Upper 2nd Premolar(Right) --></a></p>
+   <p><a class ='a_image14 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UFM_right  %}">14<!-- Upper First Molar(Right) --></a></p>
+   <p><a class ='a_image15 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.USM_right  %}">15<!-- Upper Second Molar(Right) --></a></p>
+            <p><a class ='a_image16 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UTM_right  %}">16<!-- Upper Third Molar(right) --></a></p>
+
+
+   <p><a class ='a_image24 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LCI_left  %}">25<!-- Lower Central Incisor(Left) --></a></p>  
+   <p><a class ='a_image23 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LLI_left  %}">26<!-- Lower Lateral Incisor(Left) --></a></p>
+   <p><a class ='a_image22 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LC_left  %}">27<!-- Lower Canine(Left) --></a></p>
+            <p><a class ='a_image21 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U1PM_left  %}">28<!-- Upper 1st Premolar(Left) --></a></p>
+            <p><a class ='a_image20 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U2PM_left  %}">29<!-- Upper 2nd Premolar(Left) --></a></p>
+   <p><a class ='a_image19 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LF_left  %}">30<!-- Lower First Molar(Left) --></a></p>
+   <p><a class ='a_image18 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LSM_left  %}">31<!-- Lower Second Molar(Left) --></a></p>
+            <p><a class ='a_image17 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.UTM_left  %}">32<!-- Upper Third Molar(Left) --></a></p>
+
+   <p><a class ='a_image25 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LCI_right  %}">24<!-- Lower Central Incisor(Right) --></a></p>
+   <p><a class ='a_image26 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LLI_right  %}">23<!-- Lower Lateral Incisor(Right) --></a></p>
+   <p><a class ='a_image27 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LC_right  %}">22<!-- Lower Canine(Right) --></a></p>
+            <p><a class ='a_image28 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U1PM_right  %}">21<!-- Upper 1st Premolar(Right) --></a></p>
+            <p><a class ='a_image29 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.U2PM_right  %}">20<!-- Upper 2nd Premolar(Right) --></a></p>
+   <p><a class ='a_image30 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LFM_right  %}">19<!-- Lower First Molar(Right) --></a></p>
+   <p><a class ='a_image31 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LSM_right  %}">18<!-- Lower Second Molar(Right) --></a></p>
+            <p><a class ='a_image32 inv_tooth' href="{% url 'teeth_history' primary_key  teeth.LTM_right  %}">17<!-- Lower Third Molar(right) --></a></p>
+
+   <div class = 'legend_adult'>
+      <div class="legend_base"><h4><b>Legend:</b></h4></div>
+      <div class="legend_list">
+            <p><b>1</b> - Upper Third Molar <i>(Left)</i></p> 
+            <p><b>2</b> - Upper Second Molar <i>(Left)</i></p>  
+            <p><b>3</b> - Upper First Molar <i>(Left)</i></p> 
+            <p><b>4</b> - Upper 2nd Premolar <i>(Left)</i></p>  
+            <p><b>5</b> - Upper 1st Premolar <i>(Left)</i></p> 
+            <p><b>6</b> - Upper Canine <i>(Left)</i></p> 
+            <p><b>7</b> - Upper Lateral Incisor <i>(Left)</i></p> 
+            <p><b>8</b> - Upper Central Incisor <i>(Left)</i></p>  
+            <p><b>9</b> - Upper Central Incisor <i>(Right)</i></p> 
+            <p><b>10</b> - Upper Lateral Incisor <i>(Right)</i></p> 
+            <p><b>11</b> - Upper Canine <i>(Right)</i></p> 
+            <p><b>12</b> - Upper 1st Premolar <i>(Right)</i></p> 
+            <p><b>13</b> - Upper 2nd Premolar <i>(Right)</i></p> 
+            <p><b>14</b> - Upper First Molar <i>(Right)</i></p> 
+            <p><b>15</b> - Upper Second Molar <i>(Right)</i></p> 
+            <p><b>16</b> - Upper Third Molar <i>(Right)</i></p> 
+            <p><b>17</b> - Lower Third Molar <i>(Right)</i></p> 
+            <p><b>18</b> - Lower Second Molar <i>(Right)</i></p> 
+            <p><b>19</b> - Lower First Molar <i>(Right)</i></p> 
+            <p><b>20</b> - Upper 2nd Premolar <i>(Right)</i></p> 
+            <p><b>21</b> - Upper 1st Premolar <i>(Right)</i></p> 
+            <p><b>22</b> - Lower Canine <i>(Right)</i></p> 
+            <p><b>23</b> - Lower Lateral Incisor <i>(Right)</i></p> 
+            <p><b>24</b> - Lower Central Incisor <i>(Right)</i></p> 
+            <p><b>25</b> - Lower Central Incisor <i>(Right)</i></p> 
+            <p><b>26</b> - Lower Lateral Incisor <i>(Right)</i></p> 
+            <p><b>27</b> - Lower Canine <i>(Right)</i></p> 
+            <p><b>28</b> - Upper 1st Premolar <i>(Left)</i></p> 
+            <p><b>29</b> - Upper 2nd Premolar <i>(Left)</i></p> 
+            <p><b>30</b> - Lower First Molar <i>(Left)</i></p> 
+            <p><b>31</b> - Lower Second Molar <i>(Left)</i></p> 
+            <p><b>32</b> - Upper Third Molar <i>(Left)</i></p> 
+      </div>
+   </div>
+   {% endif %}
+{% endblock %}
+

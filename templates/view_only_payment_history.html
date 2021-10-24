@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Payment Information</h1>
+<div class="patient_add_form">
+  <a href="{% url 'view_only_appointment_history' primary_key %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</div>
+{% if all_data_payment %}
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form2">Patient Name</th>
+      <th class="th_form2">Appointment Date</th>
+      <th class="th_form2">Appointment Time</th>
+      <th class="th_form2">Total Payment</th>
+      <th class="th_form2">Payment Method</th>
+      <th class="th_form2">Date Paid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tr_form">
+      <td class="td_form" data-label="Patient Name">
+        {{ all_data_payment.appointment_id.patient_id.fullname|title }}
+      </td>
+      <td class="td_form" data-label="Appointment Date">
+        {{ all_data_payment.appointment_id.schedule_id.date }}
+      </td>
+      <td class="td_form" data-label="Appointment Time">
+        {{ all_data_payment.appointment_id.schedule_id.time }}
+      </td>
+      <td class="td_form" data-label="Total Payment">
+        Php. {{ all_data_payment.total_payment }}
+      </td>
+      <td class="td_form" data-label="Payment Method">
+        {{ all_data_payment.payment_method|title }}
+      </td>
+      <td class="td_form" data-label="Date Paid">
+        {{ all_data_payment.date_paid }}
+      </td>
+    </tr>
+  </tbody>
+  {% else %}
+  <p class="warning_messages">
+    This patient did not paid for this appointment yet please process this in
+    THE VIEW FINISHED APPOINTMENTS TAB UNDER APPOINTMENTS AND put necessary data
+    there
+  </p>
+  {% endif %} {% endblock %}
+</table>

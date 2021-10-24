@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p><h1  class="page_header">Appointment History</h1></p>
+	<div class="patient_add_form">
+		<p><a href="{% url 'prof_view' %}"><button class="back_button" type="submit">Back</button></a></p>
+	</div>
+
+
+{% if all_data_appointments %}
+
+<form class ="search_form" method = POST action ="{% url 'view_patient_appointment_history_search' primary_key %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><label>Appointment date: </label><input type='month'  name = 'date'aria-label ='search'></p>
+		<p><label>Doctor: </label><input type='search' placeholder="Search Doctor name" name = 'doc'aria-label ='search'></p>
+		<p><label>Service: </label><input type='search' placeholder="Search Service" name = 'service'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con"><button type='submit'>Search</button></div>
+</form>
+<div class="some_space"></div>
+<p class="search_form search_con"><a href="{% url 'view_patient_appointment_history' primary_key %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+
+{% if appointments_finished %}
+
+
+
+<!-- ---------------------------------------FINISHED APPOINTMENTS---------------------------------------------  -->
+	
+	<div class="some_space"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class="table_form">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'patient_id'%}">Patient Name </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'appointment_type'%}"> Appointment Type </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Appointment Date</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Appointment Time</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'service_id'%}">Service Chosen </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Assigned Doctor</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'complain'%}">Complain </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'appointment_status'%}">Appointment Status </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'payment_status'%}">Payment Status  </th>
+			<th class="th_form2"> More Info</th>
+		</tr>
+	</thead>
+	 <!-- check if naay finished appointment si patient -->
+	
+			<tr class="tr_form">
+			{% for things in appointments_finished %}
+			<td class="td_form">{{ things.patient_id.fullname|title }}</td>	
+			<td class="td_form">{{ things.appointment_type }}</td>	
+			<td class="td_form">{{ things.schedule_id.date }}</td>
+			<td class="td_form">{{ things.schedule_id.time }}</td>
+			<td class="td_form">{{ things.service_id }}</td>
+			<td class="td_form">{{ things.schedule_id.doctor_lastname }}</td>
+			<td class="td_form">{{ things.complain|title }}</td>
+			<td class="td_form">{{ things.appointment_status }}</td>
+			<td class="td_form">{{ things.payment_status }}</td>
+			{% if things.appointment_status == 'Finished'  %}
+			<td class="td_form"><a href="{% url 'view_only_appointment_history' things.id %}"><button class="normal_button" type="submit">View More Info</button> </a></td> 
+			{% endif %}
+		</tr>
+	{% endfor %}
+	{% else %} <!-- if walay finished appointment si patient -->
+	<div class="messages"> 
+		<br></br>
+		<center> Patient have no Finished Appointments</center>
+	</div>
+	{% endif %}
+	</table>
+
+
+<!-- ---------------------------------------CANCELLED APPOINTMENTS---------------------------------------------  -->
+	{% if appointments_cancelled %}
+	<p><h1 class="page_header">Appointment History(cancelled)</h1></p>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class="table_form">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'patient_id'%}">Patient Name </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'appointment_type'%}"> Appointment Type </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Appointment Date</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Appointment Time</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'service_id'%}">Service Chosen </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'schedule_id'%}">Assigned Doctor</th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'complain'%}">Complain </th>
+			<th class="th_form">  <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'appointment_status'%}">Appointment Status </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_patient_appointment_history_filter' primary_key 'payment_status'%}">Payment Status  </th>
+		</tr>
+	</thead>
+	 <!-- check if naay cancelled appointment si patient -->
+	 <tbody>
+		{% for things in appointments_finished %}
+		<tr class="tr_form">
+		
+		<td class="td_form" data-label="Patient Name">{{ things.patient_id.fullname|title }}</td>	
+		<td class="td_form" data-label="Appointment Type">{{ things.appointment_type }}</td>	
+		<td class="td_form" data-label="Appointment Date">{{ things.schedule_id.date }}</td>
+		<td class="td_form" data-label="Appointment Time">{{ things.schedule_id.time }}</td>
+		<td class="td_form" data-label="Service Chosen">{{ things.service_id }}</td>
+		<td class="td_form" data-label="Assigned Doctor">{{ things.schedule_id.doctor_lastname }}</td>
+		<td class="td_form" data-label="Complain">{{ things.complain|title }}</td>
+		<td class="td_form" data-label="Appointment Status">{{ things.appointment_status }}</td>
+		<td class="td_form" data-label="Payment Status">{{ things.payment_status }}</td>
+		{% if things.appointment_status == 'Finished'  %}
+		<td class="td_form" data-label="More Info"><a href="{% url 'view_only_appointment_history' things.id %}"><button class="normal_button" type="submit">View More Info</button> </a></td> 
+		{% endif %}
+	</tr>
+{% endfor %}
+	 </tbody>
+	</table>
+{% else %} <!-- if walay finished appointment si patient -->
+	<div class="messages"> 
+		<br></br>
+		<center> Patient have no Cancelled Appointments</center>
+	</div>
+{% endif %}	
+
+{% else %} <!-- if walay finished appointment si patient -->
+	<div class="messages"> 
+		<br></br>
+		<center> Patient have no Appointment History</center>
+	</div>
+{% endif %}	
+
+{% endblock %}

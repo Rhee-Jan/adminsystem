@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header">Appointments Page</h1>
+	<div class="page_center" >
+		
+	<!--<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> Back </a></button> -->
+	<!--<button class="back_button" type="submit"> <a href="{% url 'add_appointments' %}"> Add Appointments </a></button> -->
+	<a href="{% url 'view_appointments'%}"><button class="page_button" type="submit">View Appointments</button></a>
+	<!--
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_appointments_cancelled' %}"> View Cancelled Appointments</a></button>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_finished_appointments' %}"> View Finished Appointments to proceed with payment</a></button>
+	-->
+	<!--
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'add_services' %}"> Add New Services </a></button>-->
+		<a href="{% url 'view_services' %}"><button class="page_button" type="submit">View all Services</button></a>
+
+	<!--
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'add_schedule' %}"> Add New Available Schedule </a> </button>
+-->
+	<a href="{% url 'view_schedule' %}"><button class="page_button" type="submit">View all Available Schedule</button></a>
+
+
+
+	<!-- <a href="{% url 'prof_view' %}"> View/Edit/Delete Profile</a> -->
+	</p>
+	</div>
+	
+	
+{% endblock %}
+
+
+

@@ -1,0 +1,53 @@
+
+{% block content %}
+
+	<h1> You sure you want to delete Profile number {{ all_data_prof.id }} ?</h1>
+
+	{% if all_data_prof %}
+		
+	{% if all_data_emp_info%}
+		<p><button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="{% url 'editemp' %}">Back</a></button></p>
+		<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+		<p> Full Name: <input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" readonly></p>
+		<p> Profile Type: <input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly ></p>
+		<p> Phone Number: <input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" readonly></p>
+		<p> Address: <input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" readonly></p>
+		<p> Birthday: <input class="form-control mr-sm-2" type="text" name="bday" value="{{ all_data_prof.bday }}" readonly></p>
+		<p> Gender: <input class="form-control mr-sm-2" type="text" name="gender" value="{{ all_data_prof.gender }}" readonly></p>
+		<p> Emergency Contact Person Name: <input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" readonly></p>
+		<p> Emergency Contact Person Phone Number: <input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" readonly></p>
+		<p> Emergency Contact Person Relationship: <input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" readonly></p>
+		<p> Emergency Contact Person Address: <input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" readonly></p>
+		<p>Employee Additional Infos</p>
+		<p> Employee name: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.profile_id }}" aria-label="	Search" readonly></p>
+		<p> Position: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_position }}" aria-label="Search" name="emp_position"readonly></p>
+		<p> Status: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_status }}" aria-label="Search" name="emp_status"readonly></p>
+	{% endif %}
+
+	{% if all_data_pat_info%}
+		<p><button class="btn btn-outline-success my-2 my-sm-0" type="submit"><a href="{% url 'editprof' %}">Back</a></button></p>
+		<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+		<p> Full Name: <input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" readonly></p>
+		<p> Profile Type: <input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly ></p>
+		<p> Phone Number: <input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" readonly></p>
+		<p> Address: <input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" readonly></p>
+		<p> Birthday: <input class="form-control mr-sm-2" type="text" name="bday" value="{{ all_data_prof.bday }}" readonly></p>
+		<p> Gender: <input class="form-control mr-sm-2" type="text" name="gender" value="{{ all_data_prof.gender }}" readonly></p>
+		<p> Emergency Contact Person Name: <input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" readonly></p>
+		<p> Emergency Contact Person Phone Number: <input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" readonly></p>
+		<p> Emergency Contact Person Relationship: <input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" readonly></p>
+		<p> Emergency Contact Person Address: <input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" readonly></p>
+		<p>Patient Additional Infos</p>
+		<p> Patient Name: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.profile_id }}" aria-label="Search" readonly></p>
+		<p> Occupation: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.pat_occupation }}" aria-label="Search" name="pat_occupation"readonly></p>
+		<p> Do you have any allergies? </p>
+		<p>If yes input all known allergies and if none put "None":</p>
+		<p><textarea name="pat_allergies" class="form-control mr-sm-2" style ="height: 122px; width: 457px;"readonly>{{ all_data_pat_info.pat_allergies }} </textarea>
+	{% endif %}
+
+	<p><button class="btn btn-outline-success my-2 my-sm-0" type="save"> Delete</button></p>
+	</form>
+	{% endif %}
+
+{%endblock%}
+	

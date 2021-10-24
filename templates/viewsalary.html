@@ -1,0 +1,63 @@
+	{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">EMPLOYEE SALARY</h1>
+	
+	
+	
+	<a class="patient_add_form" href="{% url 'emp_view' %}"><button class="back_button" type="submit"> Back </button></a><br></br>
+
+	<ul class="messages">
+	  {% for message in messages %} {% if message %}
+	  <script>
+	    alert("{{ message }}");
+	  </script>
+	  {% endif %} {% endfor %}
+	</ul>
+    
+	{% if all_data_emp_salary %}
+	<form class ="search_form" method = POST action ="{% url 'viewsalary_search' primary_key %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button>
+			<label>Month & Year:</label><input type='month' name = 'date' aria-label ='search'></p>
+	  </div>
+	</form>
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	
+		<table class='table_form'>
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form2">Employee Name</th>
+			<th class="th_form2">Total Salary</th>
+			<th class="th_form2">Total Deduction</th>
+			<th class="th_form2">Total Amount</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'viewsalary_filter' primary_key 'date_given'%}">Date Given</th>
+			<th class="th_form2">Edit</th>
+		</tr>
+		</thead>
+		<tbody>
+			{% for things in all_data_emp_salary %}
+			<tr class="tr_form">
+				
+				<td class="td_form" data-label="Employee Name">{{ things.profile_id.fullname|title }}</th>
+				<td class="td_form" data-label="Total Salar">Php. {{ things.total_salary }}</th>
+				<td class="td_form" data-label="Total Deduction">Php. {{ things.total_deduction }}</th>
+				<td class="td_form" data-label="Total Amount">Php. {{ things.total_amount }}</th>
+				<td class="td_form" data-label="Date Given">{{ things.date_given }}</th>
+				<td class="td_form" data-label="Edit">
+					<a style="color: #000000" href="{% url 'more_salary_info' things.id %}"><button class="edit_button" >More details</button></a>
+				</td>
+			</tr>
+				{% endfor %}
+		</tbody>
+			</table>
+	{% else %} <!-- IF WALA PAY SALARY ANG ISA KA EMPLOYEE -->
+		<center class ='messages'><i>Employee has no Salary informations yet... go to "Add Salary" to add</i></center>
+	    
+	{% endif %}
+
+	
+	
+{% endblock %}

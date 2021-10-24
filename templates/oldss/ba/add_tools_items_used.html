@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="page_header">ADD TOOLS AND ITEMS USED HERE </h1>
+	<div class="patient_add_form">
+		<a><button class="back_button" type="submit"><a href="{% url 'view_additional_appointment_info' primary_key %}">Back</a></button></a>
+		<a><button class="normal_button" type="submit"><a href="{% url 'check_inventory' primary_key %}">  Check Available Item Quantity and Fees </a></button></a>
+	</div>
+
+	
+	
+
+	<ul class ="messages"> <!-- ERROR MESSAGE -->
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+  	</ul>
+
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	
+		
+
+
+		{% if all_data_appointments %}
+		
+		<p><label> Patient: </label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_appointments.patient_id }}" aria-label="Search"  readonly></p>
+		<p><label> Appointment ID: </label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_appointments.id }}" aria-label="Search" name="appointment_id" readonly></p>
+		{% else %}
+		<p><label> Appointment ID: </label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_tools_items_used.appointment_id.id }}" aria-label="Search" name="appointment_id" readonly>{{ all_data_tools_items_used.appointment_id.patient_id }}</p>
+		{% endif %}
+		<!--
+		<p><label> Item name: </label> <select name="item_id" >
+		<option placeholder = " " selected></option>
+		{% for things in all_data_inventory %}
+			<option value= '{{ things.id }}' >ID: {{ things.id }} | Barcode: {{ things.barcode }} | Item: {{ things.itemname }} </option>
+		{% endfor %}
+		</select> *</p>
+		-->
+
+		<p><label> Item name: * <i>(select the ID of the item)</i> </label>
+		<input list="item" name="item_id">
+		<datalist id="item" >
+		{% for things in all_data_inventory %}
+		  <option value="{{ things.id }}">ID: {{ things.id }} | Barcode: {{ things.barcode }} | Item: {{ things.itemname }} </option>
+		{% endfor %}  
+		</datalist></input></p>
+
+
+		<p><label> Quantity used: *</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 2" aria-label="Search" name="quantity_used"></p>
+		<p><label> Units: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Bottles" aria-label="Search" name="units"></p>
+		<!--<p><label> Total Fee: </label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 199.99" aria-label="Search" name="item_tools_fee"> *</p> -->
+		<p><label> Date used: *</label><input class="form-control mr-sm-2" type="date" value="{{ all_data_appointments.schedule_id.date | date:'Y-m-d'}}"  aria-label="Search" name="date_used"readonly></p>
+
+
+
+
+	<th><button class="save_button" type="submit">Save</button></th>
+	</form>
+	
+{% endblock %}
+
+

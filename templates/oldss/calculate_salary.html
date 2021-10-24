@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	
+	<h1 class="page_header">Salary of employee {{ all_data_prof.id }}</h1>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<p  class="patient_add_instructions"> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+	
+	<p><label> Employee Name: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" value = "{{ all_data_prof.fullname }}" readonly></p>
+	
+	<p><label> Profile ID: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" name="profile_id" value = {{ all_data_prof.id }} readonly> </p>
+	<p class="page_header">SALARY</p>
+	<p><label> Regular: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.regular }}" aria-label="Search" ></p>
+
+
+	<p><label> Overtime: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.overtime }}" aria-label="Search" ></p>
+
+	<p><label> Bonus: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.bonus }}" aria-label="Search"></p>
+
+	<p><label> Tips: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.tips }}" aria-label="Search" ></p>
+
+	<p><label> Severance: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.severance }}" aria-label="Search"></p>
+
+	<p class="page_header">DEDUCTIONS</p>
+
+	<p><label> Philhealth: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.philhealth }}" aria-label="Search"></p>
+
+	<p><label> SSS: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.sss }}" aria-label="Search" name="sss"></p>
+
+	<p><label> Pagibig: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.pagibig }}" aria-label="Search" name="pagibig"></p>
+
+	<p><label> Insurance: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.insurance }}" aria-label="Search" name="insurance"></p>
+
+	<p><label> Tax: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.tax }}" aria-label="Search" name="tax"></p>
+
+	<p><label> Others: Php.</label><input class="form-control mr-sm-2" type="number" value = "{{ salary_data.others }}" aria-label="Search" name="others"></p>
+
+	
+	<p><label> Date Given:</label><input class="form-control mr-sm-2" type="date" value = "{{ salary_data.date_given | date:'Y-m-d'}}" aria-label="Search" name="date_given" ></p>
+
+	<p><label> Total Salary: Php.</label><input class="form-control mr-sm-2" type="search" value = "{{ salary }}" aria-label="Search" name="total_salary" readonly></p>
+
+	<p><label> Total Deductions: Php.</label><input class="form-control mr-sm-2" type="search" value = "{{ deductions }}" aria-label="Search" name="total_deduction" readonly></p>
+
+	<p><label> Total payroll: Php.</label><input class="form-control mr-sm-2" type="search" value = "{{ total }}" aria-label="Search" name="total_amount" readonly></p>
+
+	<!--<p><label> Date given: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="date_given" ></p> -->
+
+
+	<button class="save_button" type="submit"> Save </button>
+
+	</form>
+
+
+
+
+{%endblock%}
+
+

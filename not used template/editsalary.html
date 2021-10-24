@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+
+	{% if all_data_emp_salary %}
+		<table class='table'>
+		<thead>
+			<tr>
+				<th>Employee Name</th>
+				<th>Regular</th>
+				<th>Overtime</th>
+				<th>Bonus</th>
+				<th>Tips</th>
+				<th>Severance</th>
+				<th>Philhealth</th>
+				<th>SSS</th>
+				<th>Pagibig</th>
+				<th>Insurance</th>
+				<th>Tax</th>
+				<th>Others</th>
+				<th>Total Salary</th>
+				<th>Total Deduction</th>
+				<th>Total Amout</th>
+				<th>Date given</th>
+			</tr>
+		</thead>	
+		{% for things in all_data_emp_salary %}
+				<tr>
+					<th>{{ things.profile_id }}</th>
+					<th>{{ things.regular }}</th>
+					<th>{{ things.overtime }}</th>
+					<th>{{ things.bonus }}</th>
+					<th>{{ things.tips }}</th>
+					<th>{{ things.severance }}</th>
+					<th>{{ things.philhealth }}</th>
+					<th>{{ things.sss }}</th>
+					<th>{{ things.pagibig }}</th>
+					<th>{{ things.insurance }}</th>
+					<th>{{ things.tax }}</th>
+					<th>{{ things.others }}</th>
+					<th>{{ things.regular }}</th>
+					<th>{{ things.total_deduction }}</th>
+					<th>{{ things.total_amount }}</th>
+					<th>{{ things.date_given }}</th>
+						<th><a href="{% url 'editform' things.id 'salary' %}" > Edit </a></th>
+						
+				</tr>
+		{% endfor %}
+	{% endif %}
+
+	
+	
+{% endblock %}
+<!-- <th><a href="{% url 'deleteprof' things.id 'salary'%}"> Delete </a></th> -->

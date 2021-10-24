@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+
+<h1 class="page_header">Add Appointment for {{ all_data_prof.fullname }}</h1>
+<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+</ul>
+<form class="patient_add_form" method="POST">{% csrf_token %}
+	<button class="back_button" type="submit"><a href="{% url 'choose_date' profile_id%}"> Back</a> </button>
+	<button class="normal_button" type="submit"><a href="{% url 'check_available_schedule' profile_id date %}"> Check Available Schedules</a> </button>
+	<button class="normal_button" type="submit"><a href="{% url 'check_available_services' profile_id date %}"> Check Available Services</a> </button></p>
+	<p class="patient_add_instructions"> All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+	<div class="datetime">
+		<p>Date Today: {{ dateT }} </p>
+	<p>Current Time: {{ timeN }} </p>
+	</div>
+	<p><label> Appointment_type: *</label><select name="appointment_type">
+	<option placeholder = "Choose gender" selected></option>
+	<option value="Appointment">Appointment</option>
+	<option value="Walk-In">Walk-In</option>
+	</select></p>
+
+	<p><label> Patient Name: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" value = "{{ all_data_prof.fullname }}" readonly> </p>
+
+	<p><label> Profile ID: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" name="patient_id" value = {{ all_data_prof.id }} readonly> </p>
+
+
+	<!--
+	<p><label> Available Time Schedules: *</label></p>
+	{% if all_data_available_schedules %}
+	{% for things in all_data_available_schedules %}
+		<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="schedule_id" value = "{{ things.id }}">Date: {{ things.date }} | Time: {{ things.time }} | Doctor Assigned: {{ things.doctor_lastname }} </p>
+	{% endfor %}
+	{% else %}
+	<p><i>No Available Schedules for this date... go to the 'View Available Schedule' Button and click 'Add New Available Schedule' to add new Schedules</p>
+	{% endif %}
+
+	-->
+	
+
+	{% if all_data_available_schedules %}
+	<p><label> Available Time Schedules: *<i>(select the ID of the Schedule)*</label>
+		<input list="item2" name="schedule_id"> 
+		<datalist id="item2" >
+		
+		{% for things in all_data_available_schedules %}
+			<option value="{{ things.id }}">Date: {{ things.date }} | Time: {{ things.time }} | Doctor Assigned: {{ things.doctor_lastname }}</option>
+		{% endfor %}
+		{% else %}
+		<p><i>No Available Schedules for this date... go to the 'View Available Schedule' Button and click 'Add New Available Schedule' to add new Schedules</p>
+	</datalist></input></p>
+	{% endif %}
+
+
+
+	<!--
+	<p><label> Available Services: *</label></p>
+	{% if all_data_available_services %}
+	{% for things2 in all_data_available_services %}
+		{% if things2.availability %}
+		<p><input class="form-control mr-sm-2" type="radio" aria-label="Search" name="service_id" value = "{{ things2.id }}">{{ things2.service_type }} </p>
+		{% endif %}
+	{% endfor %}
+	{% else %}
+	<p><i>No Available Services for now.... go to the 'View Services' Button and click 'Add New Services' To add new Services</p>
+	{% endif %}
+	-->
+	{% if all_data_available_services %}
+	<p><label> Available Services: *<i>(select the ID of the Service)*</label>
+		<input list="item" name="service_id"> 
+		<datalist id="item" >
+		
+		{% for things2 in all_data_available_services %}
+			<option value="{{ things2.id }}">{{ things2.service_type }} | Price: Php. {{ things2.service_fee }} </option>
+		{% endfor %}
+		{% else %}
+		<p><i>No Available Services for now.... go to the 'View Services' Button and click 'Add New Services' To add new Services</p> 
+	</datalist></input></p>
+	{% endif %}
+
+
+	<p><label>Complain: *</label><input class="form-control mr-sm-2" type="search" aria-label="Search" name="complain"></p>
+
+	<button class="save_button" type="submit">Submit </button>
+</form>
+	
+
+	
+	
+{% endblock %}
+
+<!-- 
+	DROP DOWN OPTIONS
+ 	<p><label> Available Services: </label> <select name="service_id" >
+	<option placeholder = " " selected></option>
+	{% for things2 in all_data_available_services %}
+		<option value= '{{ things2.id }}' >{{ things2.service_type }}</option>
+	{% endfor %}
+	</select> *</p>
+
+	<p><label> Available Time Schedules: </label> <select name="schedule_id" >
+	<option placeholder = " " selected></option>
+		{% for things in all_data_available_schedules %}
+		{% if things.date %}
+			<option value= '{{ things.id }}' >Date: {{ things.date }} | Time: {{ things.time }} | Doctor Assigned: {{ things.doctor_lastname }}</option>
+		{% endif %}
+	{% endfor %}
+	</select> *</p>
+
+
+
+
+
+Appointment for {{ all_data_prof.fullname }}
+	{% for things in all_data_available_schedules %}
+	------------------schedules------------------
+	<p>{{ things.date }}</p>
+	<p>{{ things.time }}</p>
+	<p>{{ things.doctor_lastname }}</p>
+	<p>{{ things.availability }}</p>
+
+	{% endfor %}
+
+	{% for things in all_data_available_services %}
+	------------------SERVICES------------------
+	<p>{{ things.service_type }}</p>
+	<p>{{ things.service_fee }}</p>
+	<p>{{ things.availability }}</p>
+
+	{% endfor %}
+
+
+
+
+
+
+-->

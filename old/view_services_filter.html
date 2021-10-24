@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> AVAILABLE SERVICES </h1>
+	<div class="patient_add_form" >
+	
+	<p>
+		<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'appointments_addorview' %}"> Back </a></button>
+		<button class="back_button" type="submit"> <a style="color: #ffffff" href="{% url 'add_services' %}"> Add New Services </a></button>
+	</p>
+	</div>
+
+	<form class="search_form" method = POST action ="{% url 'view_services_search' %}">
+	  {% csrf_token %}
+	  <button type='submit'>Search</button><input type='search' placeholder="search service" name = 'search'aria-label ='search'>
+	</form>
+
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_services_filter' 'id'%}"> Service ID </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_services_filter' 'service_type'%}"> Service Type </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_services_filter' 'service_fee'%}"> Service Fee </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_services_filter' 'availability'%}"> Availability </th>
+			<th class="th_form">   </th>
+		</tr>
+	</thead>
+	{% if all_data_services %}
+		<tr class="tr_form">
+			{% for things in all_data_services %}
+			<td class="td_form">{{ things.id }}</th>
+			<td class="td_form">{{ things.service_type }}</th>
+			<td class="td_form">Php {{ things.service_fee }}</th>
+			{% if things.availability %}
+			<td class="td_form">Available</th>
+			{% else %}
+			<td class="td_form">Unavailable</th>
+			{% endif %}
+			<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'services' %}" > Edit </a></th>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+		<center class ='messages'>No available services kindly go to 'Add New Services' to add ^^</center>
+		<br></br>
+		<tr class="tr_form">
+			<td class="td_form"> - </td>
+			<td class="td_form"> - </td>
+			<td class="td_form"> - </td>
+			<td class="td_form"> - </td>
+			<td class="td_form"> - </td>
+
+		</tr>
+		
+	{% endif %}
+	
+	
+	
+{% endblock %}

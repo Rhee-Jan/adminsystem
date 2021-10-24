@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class='page_header'>VIEW ACCOUNTS HERE</h1>
+	<div class="patient_add_form">
+		<a href="{% url 'emp_view' %}"><button class="back_button" type="submit">Back</button></a>
+		<a href="{% url 'accounts_make' %}"><button class="normal_button" type="submit">Make another account</button></a>
+
+	</p>
+	</div>
+
+
+
+	<ul class ="messages_sucess">
+   	 {% for message in messages %}
+		{% if message %}
+		<script>alert("{{ message }}");</script>
+		 {% endif %}
+    	  {% endfor %}
+  	</ul>
+
+	{% if acc_data %}
+	<form class="search_form" method = POST action ="{% url 'accounts_view_search' %}">
+	  {% csrf_token %}
+		<p><button type='submit'>Search</button></p>
+		<p><label>Name:</label><input type='search' placeholder="search name" name = 'name'aria-label ='search'></p>
+	</form>
+	<br></br>
+
+
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form2">Employee Name</th>
+			<th class="th_form2">Username </th>
+			<!-- <th class="th_form">Password </th> -->
+			<th class="th_form2">Last Log in </th>
+			<th class="th_form2">Action </th>
+			
+		</tr>
+	</thead>
+	
+	<tbody>
+		{% for things in acc_data %}
+		<tr class="tr_form">
+			{% if things.username == 'admin' %}
+			<td class="td_form" data-label="Employee Name">{{ things.first_name }}</th>
+			<td class="td_form" data-label="Username">{{ things.username }}</th>
+			<!-- <td class="td_form">p4$$word</th> -->
+			<td class="td_form" data-label="Last Log in">{{ things.last_login }}</th>
+			<td class="td_form" data-label="Action"><a style="color: #000000" href="{% url 'changepass' things.id %}" ><button class="normal_button">Change Password</button> </a></th>	
+			{% else %}
+			<td class="td_form" data-label="Employee Name">{{ things.first_name }}</th>
+			<td class="td_form" data-label="Username">{{ things.username }}</th>
+			<!--<td class="td_form">emp_p4$$word</th> -->
+			<td class="td_form" data-label="Last Log in">{{ things.last_login }}</th>
+				<td class="td_form" data-label="Action">
+					<a style="color: #000000" href="{% url 'delete_account' things.id %}" ><button class="edit_button">Delete account</button> </a>
+					<a style="color: #000000" href="{% url 'changepass' things.id %}" ><button class="normal_button">Change Password</button> </a>
+					
+				</td>
+				
+			{% endif %}
+	
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+
+
+	{% else %}
+	<center><p class='messages'>No accounts data available</p></center>
+	{% endif %}
+	
+{% endblock %}
+
+

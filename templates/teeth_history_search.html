@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">Teeth History of {{ all_data_prof.fullname }}</h1>
+<h3 class="page_header">Teeth Position: {{ teeth_pos }}</h3>
+
+<div class="patient_add_form">
+  <a href="{% url 'teeth_chart' primary_key %}">
+    <button class="back_button" type="submit">Back</button>
+  </a>
+</div>
+  <form class="search_form" method = POST action ="{% url 'teeth_history_search' primary_key teeth_pos %}">
+    {% csrf_token %}
+    <div class="search_con">
+      <button type='submit'>Search</button></p>
+    <p><label>Procedure: </label><input type='search' placeholder="search procedure done" name = 'name' aria-label ='search'></p>
+    <p><label>Month & Year (Procedure date): </label><input type='month' name = 'date' aria-label ='search'>
+    </div>
+  </form>
+  <div class="some_space"></div>
+  <p class="search_form search_con"><a href="{% url 'teeth_history' primary_key teeth_pos %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+
+  {% if procedure_data %}
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Procedures Done</th>
+        <th class="th_form">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in procedure_data %}
+    <tr class="tr_form">
+      <td class="td_form" data-label="Procedures Done">{{ things.procedures_done|title }}</td>
+      <td class="td_form" data-label="Date">{{ things.appointment_id.schedule_id.date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <br></br>
+  <center class="messages">Search not found</center>
+  {% endif %} {% endblock %}
+
+
+<!--  <h1>Admin login</h1>
+   <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Log In </a></button> -->

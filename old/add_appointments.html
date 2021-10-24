@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	<h1 class="page_header">Add Patient's Appointment</h1>	
+	<div class="patient_add_form">
+		<button class="back_button" type="submit"><a href="{% url 'appointments_addorview' %}"> Back</a> </button></p>	
+	{% if all_data_prof %}
+		<table class='table'>
+		{% for things in all_data_prof %}
+			{% if things.profile_type == 'Patient' %}
+				<tr>
+					<td> 
+						<p> <text>Patient name:</text> <b>{{ things.fullname }}</b>
+						<a href="{% url 'add_appointmentinfo' things.id %}"><button class="normal_button" type="submit">Choose This Patient</button></a></p>
+					</td>
+				</tr>
+			
+			
+			{% endif %}
+
+		{% endfor %}
+		</table>
+	{% else %} <!-- if walay patient -->
+		<h1>NO PATIENT AVAILABLE FOR SCHEDULING </h1>
+	{% endif %}
+	</div>
+
+
+
+
+{%endblock%}
+

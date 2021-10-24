@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_additional_appointment_info' primary_key %}">Back</a> </button>
+<p>EDIT FINISHED APPOINTMENTS</p>
+<table class ='table'>
+	<p> APPOINTMENT DETAILS </p>
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Schedule Date</th>
+			<th> Schedule Time</th>
+			<th> Assigned Doctor</th>
+			<th> Service Chosen </th>
+			<th> Service Fee </th>
+			<th> Complain </th>
+			<th> Appointment Status </th>
+		</tr>
+	</thead>
+
+	<tr>
+		<th>{{ all_data_appointments.patient_id }}</th>
+		<th>{{ all_data_appointments.schedule_id.date }}</th>
+		<th>{{ all_data_appointments.schedule_id.time }}</th>
+		<th>{{ all_data_appointments.schedule_id.doctor_lastname }}</th>
+		<th>{{ all_data_appointments.service_id }}</th>
+		<th>{{ all_data_appointments.service_id.service_fee }}</th>
+		<th>{{ all_data_appointments.complain }}</th>
+		<th>{{ all_data_appointments.appointment_status }}</th>
+	</tr>
+</table>
+
+{% if all_data_procedures %}
+<p> PROCEDURE DETAILS </p>
+<table class ='table'>
+	<thead>
+		<tr>
+			<th> Appointment Date </th>
+			<th> Appointment Time </th>
+			<th> Procedures Done</th>
+			<th> Teeth Position</th>
+			<th> Procedure Fee </th>
+		</tr>
+	</thead>
+	{% for things in all_data_procedures %}
+	<tr>
+		<th>{{ all_data_appointments.schedule_id.date }}</th>
+		<th>{{ all_data_appointments.schedule_id.time }}</th>
+		<th>{{ things.procedures_done }}</th>
+		<th>{{ things.teeth_position }}</th>
+		<th>Php. {{ things.procedures_fee }}</th>
+		<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'editform' things.id 'procedure' %}">Edit Details</a></button></th>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+
+
+{% if all_data_tools_items_used %}
+<table class ='table'>
+	<p> ITEMS/TOOLS USED DETAILS </p>
+	<thead>
+		<tr>
+			<th> Appointment Date </th>
+			<th> Appointment Time </th>
+
+			<th> Item Name</th>
+			<th> Quantity used </th>
+			<th> Units </th>
+			<th> Fee </th>
+			<th> Date used </th>
+		</tr>
+	</thead>
+
+	<tr>
+		{% for things in all_data_tools_items_used %}
+		<th>{{ all_data_appointments.schedule_id.date }}</th>
+		<th>{{ all_data_appointments.schedule_id.time }}</th>
+
+		<th>{{ things.item_id.itemname }}</th>
+		<th>{{ things.quantity_used }}</th>
+		<th>{{ things.units }}</th>
+		<th>Php. {{ things.item_tools_fee }}</th>
+		<th>{{ things.date_used }}</th>
+		<th><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'editform' things.id 'tools_items_used' %}">Edit Details</a></button></th>
+		</tr>
+	</tr>
+	{% endfor %}
+</table>
+{% endif %}
+
+
+{% endblock %}
+

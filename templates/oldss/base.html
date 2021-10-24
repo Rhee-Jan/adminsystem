@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin System</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '../static/css/styles.css' %}"
+    />
+    <script src="{% static '../static/javascript/script.js' %}"></script>
+    <!--<link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static '../static/images/favicon.ico' %}"
+    /> -->
+    <!--
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    -->
+  </head>
+  <body>
+    <header class="nav_header">
+      <div class="nav_title">
+        <h1 class="company">Alvarado-Quinto Dental Clinic</h1>
+        <h2 class="datsys">Database System</h2>
+        <nav class="nav_nav">
+          <ul class="nav_links" id="menuList">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'prof_view' %}">Patients</a></li>
+            <li>
+              <a href="{% url 'appointments_addorview' %}">Appointments</a>
+            </li>
+            <li><a href="{% url 'inventory_options' %}">Inventory</a></li>
+            
+            <li>
+              <a href="{% url 'income_expense_options' %}"
+                >Income and Expense</a
+              >
+            </li>
+            {% if user.username == 'admin' %}
+            <li><a href="{% url 'emp_view' %}">Employee Profiles</a></li>
+            {% else %}
+            <li><a href="{% url 'logout_user' 'invalid' %}">Employee Profiles</a></li>
+            {% endif %}
+            
+          </ul>
+          <!--<img
+            src="../static/images/toothtooth.png"
+            class="toothnav"
+            onclick="togglemenu()"
+          /> -->
+          <div>
+            <a id="logout_button" href="{% url 'logout_user' 'valid' %}"
+              ><button class="logout_button" id="logout_button">
+                Logout
+              </button></a
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!--<script>
+      var menuList = document.getElementById("menuList");
+
+      menuList.style.maxHeight = "0px";
+
+      function togglemenu() {
+        if (menuList.style.maxHeight == "0px") {
+          menuList.style.maxHeight = "130px";
+        } else {
+          menuList.style.maxHeight = "0px";
+        }
+      }
+    </script> -->
+    {% block content %} {% endblock %}
+  </body>
+</html>

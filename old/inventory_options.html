@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<!--<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Back to home </a></button>-->
+		<button class="back_button" type="submit"><a href="{% url 'add_inventory' %}"> Add Item in Inventory </a></button>
+
+		<button class="back_button" type="submit"><a href="{% url 'view_inventory' %}"> View All Items in Inventory </a></button>
+		<button class="back_button" type="submit"><a href="{% url 'stock_in_options' %}">Stock In </a></button>
+		<button class="back_button" type="submit"><a href="{% url 'stock_out_option' %}"> Stock Out </a></button>
+
+	</form>
+{% endblock %}
+
+<!-- 
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> View </a></button>
+
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'edit_inventory' %}"> Edit Item in Inventory </a></button>
+-->

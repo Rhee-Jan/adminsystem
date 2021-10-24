@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Income and Expense Page</h1>
+<div class="page_center">
+  <a href="{% url 'income_options' %}"
+    ><button class="page_button" type="submit">Income</button></a
+  >
+  <a href="{% url 'expense_options' %}"
+    ><button class="page_button" type="submit">Expense</button></a
+  >
+  <a href="{% url 'total_monthly_profit' %}"
+    ><button class="page_button" type="submit">
+      Calculate Total Net Income by Month
+    </button></a
+  >
+</div>
+
+{% endblock %}
+
+<!-- 
+<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> View </a></button>
+
+-->

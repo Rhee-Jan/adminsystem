@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+<div class="patient_add_form">
+  <h1 class="page_header">
+    Prescriptions of Patient {{ all_data_prof.fullname|title }}
+  </h1>
+  <h1 class="second_messages">Patient ID: {{ primary_key }}</h1>
+  <a href="{% url 'prescriptions_addorview' primary_key %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+  <!--
+	<a href="{% url 'buy_prescriptions' primary_key %}"><button class="normal_button" type="submit">Buy Prescriptions</button></a> -->
+</div>
+
+<form
+  class="search_form"
+  method="POST"
+  action="{% url 'view_prescriptions_search' primary_key %}"
+>
+  {% csrf_token %}
+  <div class="search_con">
+    <button type="submit">Search</button>
+    <p>
+      <label>Medicine Name</label
+      ><input
+        type="search"
+        placeholder="search medicine"
+        name="name"
+        aria-label="search"
+      />
+    </p>
+  </div>
+</form>
+<div class="some_space"></div>
+<p class="search_form search_con">
+  <a href="{% url 'view_prescriptions' primary_key %}"
+    ><button type="submit">Reset Filter and Searched Query</button></a
+  >
+</p>
+{% if all_data_prescriptions %}
+<!-- check if naay prescriptions si patient -->
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Patient Name</th>
+      <th class="th_form">Meds Prescribed</th>
+      <th class="th_form">Quantity</th>
+      <th class="th_form">Units</th>
+      <th class="th_form">Intake Instructions</th>
+      <th class="th_form">Date Given</th>
+      <th class="th_form">Given by</th>
+      <th class="th_form2">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for things in all_data_prescriptions %}
+    <tr class="tr_form">
+      <td class="td_form" data-label="Patient Name">
+        {{ things.patient_id.fullname|title }}
+      </td>
+      <td class="td_form" data-label="Meds Prescribed ">
+        {{ things.meds_prescription|title }}
+      </td>
+      <td class="td_form" data-label="Quantity">{{ things.quantity }}</td>
+      <td class="td_form" data-label="Units">{{ things.units|title }}</td>
+      <td class="td_form" data-label="Intake Instructions">
+        {{ things.intake_instructions }}
+      </td>
+      <td class="td_form" data-label="Date Given">{{ things.date_given }}</td>
+      <td class="td_form" data-label="Given by">{{ things.given_by|title }}</td>
+      <td class="td_form" data-label="Edit">
+        <a
+          style="color: #000000"
+          href="{% url 'editform' things.id 'prescriptions' %}"
+          ><button class="edit_button">Edit</button></a
+        >
+      </td>
+      <td></td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+  {% else %}
+  <!-- if walay prescriptions si patient -->
+  <br></br>
+  <center class="messages">Search Not Found</center>
+
+  {% endif %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Tools Used During Appointments</h1>
+<div class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'stock_out_option' %}">Back</a>
+  </button>
+  </div>
+
+  <form class="search_form"method = POST action ="{% url 'view_stockout_tools_search' %}">
+    {% csrf_token %}
+    <button type='submit'>Search</button></p>
+    <p><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+    <p><label>Date used (Appointment date): </label><input type='month' name = 'date' aria-label ='search'>
+  </form>
+  {% if tools_data %}
+
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'item_id'%}">Tools/Items Used</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'quantity_used'%}">Quantity</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'units'%}">Units</th>
+        <th class="th_form"><a style="color: #000000" href="{% url 'view_stockout_tools_filter' 'appointment_id'%}">Appointment Date</th>
+      </tr>
+    </thead>
+    <tr class="tr_form">
+      {% for things in tools_data %}
+      <td class="td_form">{{ things.item_id.itemname }}</td>
+      <td class="td_form">{{ things.quantity_used }}</td>
+      <td class="td_form">{{ things.units }}</td>
+      <td class="td_form">{{ things.appointment_id.schedule_id.date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h1 class="warning_messages">No tools were used during an appointment</h1>
+  <!-- If walay available data -->
+</div>
+{% endif %} {% endblock %}

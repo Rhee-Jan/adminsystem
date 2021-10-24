@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">ADD NON PERISHABLE</h1>
+
+<div class="patient_add_form">
+  <button class="back_button" type="submit">
+    <a href="{% url 'stock_in_options' %}">Back</a>
+  </button>
+</div>
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %} {% if items_data %}
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Item Name</th>
+        <th class="th_form">Category</th>
+        <th class="th_form">Location</th>
+        <th class="th_form">Item Fee if Bought/Used</th>
+        <th class="th_form">Quantity Available</th>
+        <th class="th_form">Units</th>
+		<th class="th_form">StockIn</th>
+      </tr>
+    </thead>
+    {% for things in items_data %}
+    <tr class="tr_form">
+      <td class="td_form">{{ things.itemname }}</td>
+      <td class="td_form">{{ things.itemcategory }}</td>
+      <td class="td_form">{{ things.location }}</td>
+      <td class="td_form">Php. {{ things.item_fee }}</td>
+      <td class="td_form">{{ things.quantity }}</td>
+      <td class="td_form">{{ things.units }}</td>
+      <td class="td_form">
+        <button class="normal_button" type="submit">
+          <a href="{% url 'add_nonperishable' things.id %}">STOCK IN</a>
+        </button>
+      </th>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <button class="normal_button" type="submit">
+    <a href="{% url 'add_inventory' %}">
+      No available data to show.... add instead?</a
+    >
+  </button>
+  {% endif %}
+</form>
+
+{% endblock %}

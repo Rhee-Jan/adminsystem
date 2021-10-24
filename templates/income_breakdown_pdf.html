@@ -1,0 +1,130 @@
+{% block content %}
+<header>
+  <style>
+    table {
+      border: 1px solid black;
+    }
+    th,
+    td {
+      /*width: 120px;*/
+      white-space: nowrap;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      /*font-size: 18px;*/
+      background-color: #a39e9e;
+    }
+    /*td {
+      font-size: 15px;
+    } */
+    h2 {
+      font-size: 22px;
+    }
+  </style>
+</header>
+<center class="page_header">
+  <h2><b>Alvarado-Quinto Dental Clinic</b></h2>
+  <h3><i>Door 2, Elimar Building, San Isidro, NHA, Buhangin, Davao City</i></h3>
+  <h3><i>For Inquiry kindly contact - +639177161211</i></h3>
+  <br></br>
+
+  <br></br>
+  <h1>Income Report for {{ d }}</h1>
+  </center>
+
+<!------------------------- APPOINTMENT INCOME ------------------------->
+{% if payment_details %}
+<br></br>
+<center><h1 class="page_header">Appointment Income</h1></center>
+<table align="center">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Patient Name</th>
+      <th class="th_form">Appointment Date</th>
+      <th class="th_form">Appointment Time</th>
+      <th class="th_form">Doctor assigned</th>
+      <th class="th_form">Service Done</th>
+      <th class="th_form">Total Payment</th>
+      <th class="th_form">Payment Method</th>
+      <th class="th_form">Date Paid</th>
+    </tr>
+  </thead>
+
+  <tr class="tr_form">
+    {% for things in payment_details %}
+    <td class="td_form">{{ things.appointment_id.patient_id.fullname|title }}</td>
+    <td class="td_form">{{ things.appointment_id.schedule_id.date }}</td>
+    <td class="td_form">{{ things.appointment_id.schedule_id.time }}</td>
+    <td class="td_form">
+      {{ things.appointment_id.schedule_id.doctor_lastname|title }}
+    </td>
+    <td class="td_form">{{ things.appointment_id.service_id.service_type|title }}</td>
+    <td class="td_form">Php. {{ things.total_payment }}</td>
+    <td class="td_form">{{ things.payment_method|title }}</td>
+    <td class="td_form">{{ things.date_paid }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<br></br>
+<center class="page_header"><h1><u>Total Gross Income from Appointments: Php. {{ tot_pay }}</u></h1></center>
+
+{% else %}
+<br></br>
+<center class="messages"><i>No Appointment Income for this month</i></center>
+{% endif %}
+
+<!------------------------- PRESCRIPTION INCOME ------------------------->
+{% if presc_details %}
+<br></br>
+<center><h1 class="page_header">Prescription Sales Income</h1></center>
+<table align="center">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Patient Name</th>
+      <th class="th_form">Medicine Bought</th>
+      <th class="th_form">Barcode</th>
+      <th class="th_form">Quantity</th>
+      <th class="th_form">Units</th>
+      <th class="th_form">Total Payment</th>
+      <th class="th_form">Payment Method</th>
+      <th class="th_form">Purchase Date</th>
+    </tr>
+  </thead>
+
+  <tr class="tr_form">
+    {% for things in presc_details %}
+    <td class="td_form">{{ things.patient_id.fullname|title }}</td>
+    <td class="td_form">{{ things.item_id.itemname|title }}</td>
+    <td class="td_form">{{ things.item_id.barcode }}</td>
+    <td class="td_form">{{ things.quantity }}</td>
+    <td class="td_form">{{ things.units|title }}</td>
+    <td class="td_form">Php. {{ things.total_amount }}</td>
+    <td class="td_form">{{ things.payment_method|title }}</td>
+    <td class="td_form">{{ things.purchase_date }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<br></br>
+<center class="page_header"><h1><u>Total Gross Income from Prescription Sales: Php. {{ tot_presc }}</u></h1></center>
+{% else %}
+<br></br>
+<center class="messages"><i>No Prescription Income for this month</i></center>
+{% endif %}
+<br></br>
+<center class="page_header"><h1><u>Total Gross Income for {{ d }}: Php. {{ total_inc }}</u></h1></center>
+
+<br></br>
+<div class="pdf_div">
+  <div class="sign_div">
+    <br></br>
+    <h4 style="text-align: left;">________________________________</h4>
+    <h4 style="text-align: left;">Doctor signature over printed name</h4>
+  </div>
+  <div  class="sign_div2">
+    <br></br>
+    <h4 style="text-align: left;">________________________________</h4>
+    <h4 style="text-align: left;">Date issued</h4>
+  </div>
+</div>
+ {% endblock %}

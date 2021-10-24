@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Stock In Options</h1>
+<div class="patient_add_form">
+  <p>
+    <a href="{% url 'inventory_options' %}"
+      ><button class="back_button" type="submit">Back</button></a
+    >
+  </p>
+  <div class="appointment_messages">
+    <p><b>NOTE:</b></p>
+    <p>If you wish to add a new Item(Non-perishable) Click Stock In new Item</p>
+    <p>
+      If you wish to Stock In an Item that is currently in the inventory click
+      Non-perishable
+    </p>
+    <p>
+      Since doing a Stock In in a Perishable Item might cause some problems on
+      it's expiry dates we recommend you to add a new item with a different
+      Expiry Date (Click Perishable)
+    </p>
+  </div>
+  <div class="page_center">
+    <a href="{% url 'add_inventory2' %}"
+      ><button class="page_button" type="submit">Perishable</button></a
+    >
+    <a href="{% url 'add_nonperishableList' %}"
+      ><button class="page_button" type="submit">Non Perishable</button></a
+    >
+    <a href="{% url 'add_inventory3' %}"
+      ><button class="page_button" type="submit">Stock in New Item</button></a
+    >
+  </div>
+</div>
+{% endblock %}

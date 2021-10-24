@@ -1,0 +1,103 @@
+	{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> Salary of {{ all_data_emp_salary.profile_id }} </h1>
+	<a class="patient_add_form" href="{% url 'viewsalary' key %}"><button class="back_button" type="submit"> Back </button></a><br></br>
+
+	{% if all_data_emp_salary %}
+	
+	<h1 class="page_header">Salary</h1>	
+	
+		<table class='table_form'>
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<th class="th_form">Regular</th>
+			<th class="th_form">Overtime</th>
+			<th class="th_form">Bonus</th>
+			<th class="th_form">Tips</th>
+			<th class="th_form">Severance</th>
+		</tr>
+		</thead>
+			<tr class="tr_form">
+				<td class="td_form">{{ all_data_emp_salary.profile_id }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.regular }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.overtime }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.bonus }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tips }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.severance }}</th>
+			</tr>
+		</table>
+
+	<h1 class="page_header">Deductions</h1>		
+		<table class='table_form'>
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form">Philhealth</th>
+				<th class="th_form">SSS</th>
+				<th class="th_form">Pagibig</th>
+				<th class="th_form">Insurance</th>
+				<th class="th_form">Tax</th>
+				<th class="th_form">Others</th>
+			</tr>
+		</thead>
+
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.philhealth }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.sss }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.pagibig }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.insurance }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tax }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.others }}</th>
+			</tr>
+		</table>
+
+
+
+
+
+		<h1 class="page_header">Payroll</h1>		
+		<table class='table_form'>
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form">Total Salary</th>
+				<th class="th_form">Total Deduction</th>
+				<th class="th_form">Total Amount</th>
+				<th class="th_form">Date Given</th>
+				<th class="th_form"> </th>
+			</tr>
+		</thead>
+
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.total_salary }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_deduction }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_amount }}</th>
+				<td class="td_form">{{ all_data_emp_salary.date_given }}</th>
+				<td class="td_form">
+					<a style="color: #000000" href="{% url 'editform' primary_key 'salary' %}"><button class="edit_button" >Edit</button></a>
+				</td>
+			</tr>
+		</table>
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+	{% else %} 
+		<center class ='messages'>An error occured try again later</center>
+	    
+	{% endif %}
+
+	
+	
+{% endblock %}

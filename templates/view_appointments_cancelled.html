@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block content %}
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <h1 class="page_header">LIST OF ALL CANCELLED APPOINTMENTS</h1>
+  <div class="patient_add_form">
+    <a href="{% url 'view_appointments' %}">
+      <button class="back_button" type="submit">Back</button></a
+    >
+  </div>
+
+  {% if all_data_appointments %}
+
+  <ul class="messages_sucess">
+    {% for message in messages %} {% if message %}
+    <script>
+      alert("{{ message }}");
+    </script>
+    {% endif %} {% endfor %}
+  </ul>
+
+  <table class="table_form">
+    <!-- Cancelled appointments -->
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form2">Patient Name</th>
+        <th class="th_form2">Appointment Type</th>
+        <th class="th_form2">Schedule Date</th>
+        <th class="th_form2">Schedule Time</th>
+        <th class="th_form2">Service Chosen</th>
+        <th class="th_form2">Service Price</th>
+        <th class="th_form2">Assigned Doctor</th>
+        <th class="th_form2">Complain</th>
+        <th class="th_form2">Appointment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in all_data_appointments %}
+      <tr class="tr_form">
+        <td class="td_form" data-label="Patient Name">
+          {{ things.patient_id }}
+        </td>
+        <td class="td_form" data-label="Appointment Type">
+          {{ things.appointment_type }}
+        </td>
+        <td class="td_form" data-label="Schedule Date">
+          {{ things.schedule_id.date }}
+        </td>
+        <td class="td_form" data-label="Schedule Time">
+          {{ things.schedule_id.time }}
+        </td>
+        <td class="td_form" data-label="Service Chosen">
+          {{ things.service_id }}
+        </td>
+        <td class="td_form" data-label="Service Price">
+          Php {{ things.service_id.service_fee }}
+        </td>
+        <td class="td_form" data-label="Assigned Doctor">
+          {{ things.schedule_id.doctor_lastname }}
+        </td>
+        <td class="td_form" data-label="Complain">{{ things.complain }}</td>
+        <td class="td_form" data-label="Appointment Status">
+          {{ things.appointment_status }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="messages">No appontments were cancelled</p>
+  {% endif %}
+</form>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> CHECK MEDICINES </h1>
+	<div class="patient_add_form">
+	<p>
+		<a style="color: #ffffff" href="{% url 'buy_prescriptions' primary_key %}"><button class="back_button" type="submit">Back</button></a>
+	</p>
+	</div>
+
+	<form class="search_form" method = POST action ="{% url 'check_medicine_search' primary_key %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+		<p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+		<p><label>Item name:</label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con">
+		<p><label>Expiry Status: </label><input type='search' placeholder="expiry status" name = 'exp' aria-label ='search'></p>
+		<p><label>Expiry Date: </label><input type='month' name = 'date' aria-label ='search'></p>
+		<p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con"></div>
+	  <div class="search_con">
+	  	<p><button type='submit'>Search</button></p>
+	  </div>
+	</form>
+	
+	<p class="search_form search_con"><a href="{% url 'check_medicine' primary_key %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+
+	{% if item_data %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Item Id </th>
+			<th class="th_form"> Item Name </th>
+			<th class="th_form"> Barcode </th>
+			<th class="th_form"> Category </th>
+			<th class="th_form"> Location </th>
+			<th class="th_form"> Item Fee if Bought/Used </th>
+			<th class="th_form"> Quantity Available</th>
+			<th class="th_form"> Units </th>
+			<th class="th_form"> Expiry Date </th>
+			<th class="th_form"> Expiry Status </th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		{% for things in item_data %}
+	<tr class="tr_form">
+		
+		<td class="td_form" data-label="Item Id">{{ things.id }}</th>
+		<td class="td_form" data-label="Item Name">{{ things.itemname }}</th>
+		<td class="td_form" data-label="Barcode ">{{ things.barcode }}</th>
+		<td class="td_form" data-label="Category">{{ things.itemcategory }}</th>
+		<td class="td_form" data-label="Location">{{ things.location }}</th>
+		<td class="td_form" data-label="Item Fee if Bought/Used">Php. {{ things.item_fee }}</th>
+		<td class="td_form" data-label="Quantity Available">{{ things.quantity }}</th>
+		<td class="td_form" data-label="Units">{{ things.units }}</th>
+		{% if things.expiry_date == None %}
+		<td class="td_form" data-label="Expiry Date"> {{ things.expiry_date }}</th>
+		<td class="td_form" data-label="Expiry Status"> {{ things.expiry_status }}</th>
+		{% elif things.expiry_date != None %}
+		<td class="td_form" data-label="Expiry Date">{{ things.expiry_date }}</th>
+		<td class="td_form" data-label="Expiry Status">{{ things.expiry_status }}</th>
+		{% endif %}
+		
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	{% else %}
+	<br></br>
+		<center class ='messages'>Search Not found</center>
+	{% endif %}
+	
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> Bills Info </h1>
+<p class="patient_add_form">
+	<a style="color: #ffffff" href="{% url 'expense_options' %}"><button class="back_button" type="submit">Back</button></a>
+	<a href="{% url 'add_bills' %}"><button class="normal_button" type="submit">Add Bills Expense</button></a></p>
+
+
+	<form class = "search_form" method = POST action ="{% url 'view_bills_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+	  		<p><label>Date Paid:</label><input type='month' name = 'date2' aria-label ='search'></p>
+		  	<p><label>Bill Month and Year:</label><input type='month' name = 'date' aria-label ='search'></p>
+		  	<p><label>Bill Type:</label><input type='search' placeholder="search bill type" name = 'name'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con"></div>
+	  <div class="search_con">
+	  		<p><button type='submit'>Search</button></p>
+	  </div>
+	</form>
+	
+	
+	<p class="search_form search_con"><a href="{% url 'view_bills' %}"><button type='submit'>Remove Filter and Searched Query</button></a></p>
+	{% if bills_data %}
+
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Bill Type</th>
+			<th class="th_form">Bill Month</th>
+			<th class="th_form">Bill Year</th>
+			<th class="th_form">Total Amount</th>
+			<th class="th_form">Paid By</th>
+			<th class="th_form">Date Paid</th>
+			<th class="th_form2">Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in bills_data %}
+		<tr class="tr_form">
+			
+			<td class="td_form" data-label="Bill Type">{{ things.bill_type|title }}</td>
+			<td class="td_form" data-label="Bill Month">{{ things.bill_month }}</td>
+			<td class="td_form" data-label="Bill Year">{{ things.bill_year }}</td>
+			<td class="td_form" data-label="Total Amount">Php. {{ things.total_amount }}</td>
+			<td class="td_form" data-label="Paid By">{{ things.paid_by|title }}</td>
+			<td class="td_form" data-label="Date Paid">{{ things.date_paid }}</td>
+			<td class="td_form" data-label="Edit"><a style="color: #000000" href="{% url 'edit_billForm' things.id %}"><button class="edit_button">Edit</button></a></td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	{% else %}
+	<br></br>
+	<p class="messages"> Search not found </p>
+    <br></br>
+    
+	{% endif %}
+	
+{% endblock %}

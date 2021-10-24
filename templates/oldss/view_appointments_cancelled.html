@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <h1 class="page_header">
+    LIST OF ALL CANCELLED APPOINTMENTS 
+  </h1>
+  <p>
+    <a href="{% url 'view_appointments' %}">
+    <button class="back_button" type="submit">
+      Back</button></a>
+    
+  </p>
+
+  {% if all_data_appointments %}
+  
+  <ul class ="messages_sucess">
+     {% for message in messages %}
+       <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+        {% endfor %}
+    </ul>
+
+  <table class="table_form">
+    <!-- Cancelled appointments -->
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Patient Name</th>
+        <th class="th_form">Appointment Type</th>
+        <th class="th_form">Schedule Date</th>
+        <th class="th_form">Schedule Time</th>
+        <th class="th_form">Service Chosen</th>
+        <th class="th_form">Service Price</th>
+        <th class="th_form">Assigned Doctor</th>
+        <th class="th_form">Complain</th>
+        <th class="th_form">Appointment Status</th>
+      </tr>
+    </thead>
+    {% for things in all_data_appointments %}
+    <tr class="tr_form">
+      <td class="td_form">{{ things.patient_id }}</td>
+      <td class="td_form">{{ things.appointment_type }}</td>
+      <td class="td_form">{{ things.schedule_id.date }}</td>
+      <td class="td_form">{{ things.schedule_id.time }}</td>
+      <td class="td_form">{{ things.service_id }}</td>
+      <td class="td_form">Php {{ things.service_id.service_fee }}</td>
+      <td class="td_form">{{ things.schedule_id.doctor_lastname }}</td>
+      <td class="td_form">{{ things.complain }}</td>
+      <td class="td_form">{{ things.appointment_status }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="messages">No appontments were cancelled</p>
+  {% endif %}
+</form>
+
+{% endblock %}
+
+

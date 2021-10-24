@@ -1,0 +1,539 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<!-- start PROFILE EDIT EDIT -->
+
+	{% if all_data_prof %}
+
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+  	
+	<h1> Editing profile #{{ all_data_prof.fullname}}'s details</h1>
+
+
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p> Profile Info</p>
+	<p> Full Name: <input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" ></p>
+	<p> Profile Type: <input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly></p>
+	<p> Phone Number: <input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" > (+63 format only) </p>
+	<p> Address: <input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" ></p>
+
+
+	<p> Birthday: <input class="form-control mr-sm-2" type="date" name="bday" value="{{ all_data_prof.bday | date:'Y-m-d'}}" ></p>
+	
+
+	{% if all_data_prof.gender == "Male" %}
+	<p> Gender: <label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option value="Male" selected>Male</option>
+	<option value="Female">Female</option>
+	</select></p>
+	{% endif %}
+
+
+	{% if all_data_prof.gender == "Female" %}
+	<p> Gender: <label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option placeholder = "Choose gender" selected> </option>
+	<option value="Male">Male</option>
+	<option value="Female" selected>Female</option>
+	</select></p>
+	{% endif %}
+
+	<p> Emergency Contact Person Info </p>
+	<p> Emergency Contact Person Name: <input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" ></p>
+	<p> Emergency Contact Person Phone Number: <input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" > (+63 format only) </p>
+	<p> Emergency Contact Person Relationship: <input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" ></p>
+	<p> Emergency Contact Person Address: <input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" ></p>
+	
+
+	{% if all_data_pat_info %}
+	<p>Patient Additional Infos</p>
+	<p> Patient Name: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.profile_id }}" aria-label="Search" readonly></p>
+	<p> Occupation: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.pat_occupation }}" aria-label="Search" name="pat_occupation"></p>
+	<p> Do you have any allergies? </p>
+	<p>If yes input all known allergies and if none put "None":</p>
+	<p><textarea name="pat_allergies" class="form-control mr-sm-2" style ="height: 122px; width: 457px;">{{ all_data_pat_info.pat_allergies }} </textarea>
+
+	<!-- <p> Allergies: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.pat_allergies }}" aria-label="Search" name="pat_allergies" ;"></p> -->
+
+
+
+
+	{% endif %}
+
+
+
+	{% if all_data_emp_info %}
+	<p>Employee Additional Infos</p>
+	<p> Employee name: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.profile_id }}" aria-label="Search" readonly></p>
+	<p> Position: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_position }}" aria-label="Search" name="emp_position"></p>
+	<p> Status: <input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_status }}" aria-label="Search" name="emp_status"></p>
+
+	{% endif %}
+
+
+	<p><button class="btn btn-outline-success my-2 my-sm-0" type="save"> Edit Save</button></p>
+	</form>
+
+	{% endif %}
+	<!-- END PROFILE EDIT -->
+
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+	<!-- SALARY EDIT -->
+
+	{% if all_data_emp_salary %}
+
+
+	<h1 class="page_header"> Editing Employee {{ all_data_emp_salary.profile_id }}'s Salary</h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions">Do not leave fields with '*' blank</p>
+		<p class="patient_add_instructions"> Put '0' in the field if not applicable</p>
+	<p><label> Employee Name: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" value = "{{ all_data_emp_salary.profile_id }}" }}readonly></p>
+
+	<p class="appointment_messages">SALARY</p>
+	<p><label> Regular: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.regular }}" aria-label="Search" name="regular"></p>
+	<p><label> Overtime: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.overtime }}" aria-label="Search" name="overtime"></p>
+	<p><label> Bonus: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.bonus }}" aria-label="Search" name="bonus"></p>
+	<p><label> Tips: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.tips }}" aria-label="Search" name="tips"></p>
+	<p><label> Severance: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.severance }}" aria-label="Search" name="severance"></p>
+	
+	<p class="appointment_messages">DEDUCTIONS</p>
+	<p><label> Philhealth: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.philhealth }}" aria-label="Search" name="philhealth"></p>
+	<p><label> SSS: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.sss }}" aria-label="Search" name="sss"></p>
+	<p><label> Pagibig: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.pagibig }}" aria-label="Search" name="pagibig"></p>
+	<p><label> Insurance: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.insurance }}" aria-label="Search" name="insurance"></p>
+	<p><label> Tax: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.tax }}" aria-label="Search" name="tax"></p>
+	<p><label> Others: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_emp_salary.others }}" aria-label="Search" name="others"></p>
+	<!--
+	<p><label> Total Salary: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_salary.total_salary }}"aria-label="Search" name="total_salary" > </p>
+	<p><label> Total Deduction: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_salary.total_deduction }}"aria-label="Search" name="total_deduction" ></p>
+	<p><label> Total Amount: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_salary.total_amount }}"aria-label="Search" name="total_amount" ></p>
+-->
+	<p><label> Date given: *</label><input class="form-control mr-sm-2" type="date" value = "{{ all_data_emp_salary.date_given| date:'Y-m-d' }}"aria-label="Search" name="date_given" ></p>
+	
+
+
+
+	<p><button class="save_button" type="save"> Save </button></p>
+	</form>
+	{% endif %}
+	<!-- END SALARY EDIT -->
+
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+	<!-- START SERVICE EDIT -->
+	{% if all_data_services %}
+	<h1 class="page_header"> Editing the {{ all_data_services.service_type }} Service's Info</h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+
+	<p class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'view_services' %}"> Back</a> </button></p>	
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions">All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+
+	<p><label> Service Type: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_services.service_type }}"aria-label="Search" name="service_type" ></p>
+
+
+	<p><label> Service Fee: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_services.service_fee }}"aria-label="Search" name="service_fee" ></p>
+
+
+	<!--<p><label> Availability: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_services.availability }}"aria-label="Search" name="availability" > *(put 'False' here if it is no longer available) </p>
+	</select></p>-->
+
+	<p><label> Status: *</label></p>
+		{% if all_data_services.availability is True %}
+		<input class="form-control mr-sm-2" type="radio" value ='True' aria-label="Search" name="availability" checked> Available</p>
+		<input class="form-control mr-sm-2" type="radio" value ="False" aria-label="Search" name="availability"> Not available</p>
+		{% else %}
+		<input class="form-control mr-sm-2" type="radio" value ='True' aria-label="Search" name="availability" > Available</p>
+		<input class="form-control mr-sm-2" type="radio" value ="False" aria-label="Search" name="availability" checked> Not available</p>
+		{% endif %}
+
+	
+	<p><button class="save_button" type="save"> Edit Save</button></p>
+	</form>
+
+	{% endif %}
+	<!-- END SERVICE EDIT -->
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+	<!-- START OF AVAILABLE SCHED EDIT -->
+	{% if all_data_schedule %}
+
+	<h1 class="page_header"> Editing the Available Schedules Info</h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	
+	<p class ="patient_add_form"><a href="{% url 'view_schedule' %}"><button class="back_button" type="submit">Back</button></a></p>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions">All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+
+	<p><label>Date: *</label><input class="form-control mr-sm-2" type="date" value = "{{ all_data_schedule.date | date:'Y-m-d' }}"aria-label="Search" name="date" ></p>
+
+
+	<p><label>Time: *</label><input class="form-control mr-sm-2" type="time" value = "{{ all_data_schedule.time | date:'G:i' }}"aria-label="Search" name="time" ></p>
+
+
+	<p><label>Doctor Assigned: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_schedule.doctor_lastname }}"aria-label="Search" name="doctor_lastname"></p>
+
+
+	<p><label>Status: *</label></p>
+		{% if all_data_schedule.availability is True %}
+		<input class="form-control mr-sm-2" type="radio" value ='True' aria-label="Search" name="availability" checked> Available</p>
+		<input class="form-control mr-sm-2" type="radio" value ="False" aria-label="Search" name="availability"> Not available</p>
+		{% else %}
+		<input class="form-control mr-sm-2" type="radio" value ='True' aria-label="Search" name="availability" > Available</p>
+		<input class="form-control mr-sm-2" type="radio" value ="False" aria-label="Search" name="availability" checked> Not available</p>
+		{% endif %}
+	
+	<p><button class="save_button" type="save"> Edit Save</button></p>
+	</form>
+	{% endif %}
+	<!-- END OF AVAILABLE SCHED EDIT -->
+
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	
+
+	<!-- START OF INVENTORY EDIT -->
+
+	{% if all_data_inventory %}
+
+	<h1 class="page_header"> Editing the Items in Inventory Info</h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	
+	<a class="patient_add_form" href="{% url 'view_inventory' %}"><button class="back_button" type="submit">Back</button></a>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions">Do not leave fields with '*' blank</p>
+
+	<p><label> Item name: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.itemname }}"aria-label="Search" name="itemname" ></p>
+
+	<p><label> Barcode: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.barcode }}"aria-label="Search" name="barcode" ></p>
+
+	<p><label> Category: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.itemcategory }}"aria-label="Search" name="itemcategory" ></p>
+
+
+	<p><label> Location: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.location }}"aria-label="Search" name="location"> *</p>
+	</select></p>
+
+	<p><label> Item Fee if Used/Bought: *</label><input class="form-control mr-sm-2" type="number" step="0.01" value = "{{ all_data_inventory.item_fee }}"aria-label="Search" name="item_fee"></p>
+	</select></p>
+
+
+	<p><label> Quantity: *</label><input class="form-control mr-sm-2" type="number" value = "{{ all_data_inventory.quantity }}"aria-label="Search" name="quantity" ></p>
+
+	<p><label> Units: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.units }}"aria-label="Search" name="units" ></p>
+
+	{% if all_data_inventory.expiry_date %}
+	<p><label> Expiry date: *</label><input class="form-control mr-sm-2" type="date" value = "{{ all_data_inventory.expiry_date | date:'Y-m-d' }}"aria-label="Search" name="expiry_date" ></p>
+	
+	{% else %}
+	<p><label> Expiry date: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_inventory.expiry_date | date:'Y-m-d' }}" aria-label="Search" name="expiry_date" readonly></p>
+	
+	{% endif %}
+
+	
+	<p><button class="save_button" type="save"> Edit Save</button></p>
+	</form>
+
+
+
+	{% endif %}
+	<!-- END OF INVENTORY EDIT -->
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+	<!-- START OF APPOINTMENT EDIT -->
+	{% if all_data_appointments %}
+	
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+	</ul>
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p> Edit Appointment for {{ all_data_appointments.patient_id }}</p>
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+
+	<p><label> Appointment_type: *</label><select name="appointment_type">
+	{% if all_data_appointments.appointment_type == 'Appointment' %}
+
+	<option value="Appointment"selected>Appointment</option>
+	<option value="Walk-In" >Walk-In</option>
+	</select></p>
+	{% endif %}
+	{% if all_data_appointments.appointment_type == 'Walk-In' %}
+	<option value="Appointment">Appointment</option>
+	<option value="Walk-In" selected>Walk-In</option>
+	</select> *</p>
+	{% endif %}
+
+
+	<p><label> Patient Name: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" value = "{{ all_data_appointments.patient_id }}" readonly> </p>
+	<p><label> Schedule: *</label><input class="form-control mr-sm-2" type="search"  aria-label="Search"  checked> Date: {{ all_data_appointments.schedule_id.date }} | Time: {{ all_data_appointments.schedule_id.time }} | Doctor Assigned: {{ all_data_appointments.schedule_id.doctor_lastname }} </p>
+
+
+	<p><label> Service Chosen: *</label><input class="form-control mr-sm-2" type="search"  aria-label="Search"  checked> {{ all_data_appointments.service_id.service_type }}  |  Price: Php. {{ all_data_appointments.service_id.service_fee }} </p>
+
+
+
+	<p><label> Complain: *</label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_appointments.complain }}" aria-label="Search" name="complain"></p>
+
+	<p><label> Status: *</label></p>
+		{% if all_data_appointments.appointment_status == 'Ongoing' %}
+		<input class="form-control mr-sm-2" type="radio" value ='Ongoing' aria-label="Search" name="appointment_status" checked> Ongoing</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Finished" aria-label="Search" name="appointment_status"> Finished</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Cancelled" aria-label="Search" name="appointment_status"> Cancelled</p>
+		{% elif all_data_appointments.appointment_status == 'Finished' %}
+		<input class="form-control mr-sm-2" type="radio" value ='Ongoing' aria-label="Search" name="appointment_status"> Ongoing</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Finished" aria-label="Search" name="appointment_status"checked> Finished</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Cancelled" aria-label="Search" name="appointment_status"> Cancelled</p>
+		{% elif all_data_appointments.appointment_status == 'Cancelled' %}
+		<input class="form-control mr-sm-2" type="radio" value ='Ongoing' aria-label="Search" name="appointment_status"> Ongoing</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Finished" aria-label="Search" name="appointment_status"> Finished</p>
+		<input class="form-control mr-sm-2" type="radio" value ="Cancelled" aria-label="Search" name="appointment_status"checked> Cancelled</p>
+		{% endif %}
+
+
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> Sumbit </button>
+
+</form>
+	{% endif %}
+	<!-- END OF APPOINTMENT EDIT -->
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+	<!-- START OF PROCEDUE EDIT -->
+
+
+
+	{% if all_data_procedures %}
+
+	<h1> Editing Procedures done Info</h1>
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+	</ul>
+	<p>All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+
+	<p><label> Appointment ID: </label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_procedures.appointment_id.id }}" aria-label="Search" readonly></p>
+
+	<p><label> Teeth of Patient: </label><input class="form-control mr-sm-2" type="search" value = '{{ all_data_procedures.patient_id }}' aria-label="Search" readonly> {{ all_data_appointments.patient_id }}</p>
+
+	<p><label> Teeth Type: </label><input class="form-control mr-sm-2" type="search" value = '{{ teeth.teeth_type }}' aria-label="Search" readonly></p>
+
+	<p><label> Procedure Type: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_procedures.procedures_done }}"aria-label="Search" name="procedures_done" ></p>
+
+	{% if teeth.teeth_type == 'Baby'%}
+		<label >Teeth Positions: *</label>
+		<select name="teeth_position">
+		  <option value ="{{ all_data_procedures.teeth_position }}" selected>{{ all_data_procedures.teeth_position }}</option>
+		  <option value="Lower Central Incisor(Left)">Lower Central Incisor(Left)</option>
+		  <option value="Lower Lateral Incisor(Left)">Lower Lateral Incisor(Left)</option>
+		  <option value="Lower Canine(Left)">Lower Canine(Left)</option>
+		  <option value="Lower First Molar(Left)">Lower First Molar(Left)</option>
+		  <option value="Lower Second Molar(Left)">Lower Second Molar(Left)</option>
+		  <option value="Lower Central Incisor(Right)">Lower Central Incisor(Right)</option>
+		  <option value="Lower Lateral Incisor(Right)">Lower Lateral Incisor(Right)</option>
+		  <option value="Lower Canine(Right)">Lower Canine(Right)</option>
+		  <option value="Lower First Molar(Right)">Lower First Molar(Right)</option>
+		  <option value="Lower Second Molar(Right)">Lower Second Molar(Right)</option>
+		  <option value="Upper Central Incisor(Left)">Upper Central Incisor(Left)</option>
+		  <option value="Upper Lateral Incisor(Left)">Upper Lateral Incisor(Left)</option>
+		  <option value="Upper Canine(Left)">Upper Canine(Left)</option>
+		  <option value="Upper First Molar(Left)">Upper First Molar(Left)</option>
+		  <option value="Upper Second Molar(Left)">Upper Second Molar(Left)</option>
+		  <option value="Upper Central Incisor(Right)">Upper Central Incisor(Right)</option>
+		  <option value="Upper Lateral Incisor(Right)">Upper Lateral Incisor(Right)</option>
+		  <option value="Upper Canine(Right)">Upper Canine(Right)</option>
+		  <option value="Upper First Molar(Left)">Upper First Molar(Left)</option>
+		  <option value="Upper Second Molar(Right)">Upper Second Molar(Right)</option>
+		</select>
+		{% elif teeth.teeth_type == 'Adult' %}
+		<label >Teeth Positions: *</label>
+		<select name="teeth_position">
+		  <option value ="{{ all_data_procedures.teeth_position }}" selected>{{ all_data_procedures.teeth_position }}</option>
+		  
+		  <option value="Lower Central Incisor(Left)">Lower Central Incisor(Left)</option>
+		  <option value="Lower Lateral Incisor(Left)">Lower Lateral Incisor(Left)</option>
+		  <option value="Lower Canine(Left)">Lower Canine(Left)</option>
+		  			<option value="Lower 1st Premolar(Left)">Lower 1st Premolar(Left)</option>
+		  			<option value="Lower 2nd Premolar(Left)">Lower 2nd Premolar(Left)</option>
+		  <option value="Lower First Molar(Left)">Lower First Molar(Left)</option>
+		  <option value="Lower Second Molar(Left)">Lower Second Molar(Left)</option>
+		   			<option value="Lower Third Molar(Left)">Lower Third Molar(Left)</option>
+
+		  <option value="Lower Central Incisor(Right)">Lower Central Incisor(Right)</option>
+		  <option value="Lower Lateral Incisor(Right)">Lower Lateral Incisor(Right)</option>
+		  <option value="Lower Canine(Right)">Lower Canine(Right)</option>
+		  			<option value="Lower 1st Premolar(Right)">Lower 1st Premolar(Right)</option>
+		  			<option value="Lower 2nd Premolar(Right)">Lower 2nd Premolar(Right)</option>
+		  <option value="Lower First Molar(Right)">Lower First Molar(Right)</option>
+		  <option value="Lower Second Molar(Right)">Lower Second Molar(Right)</option>
+		   			<option value="Lower Third Molar(Right)">Lower Third Molar(Right)</option>
+
+		  <option value="Upper Central Incisor(Left)">Upper Central Incisor(Left)</option>
+		  <option value="Upper Lateral Incisor(Left)">Upper Lateral Incisor(Left)</option>
+		  <option value="Upper Canine(Left)">Upper Canine(Left)</option>
+		  			<option value="Upper 1st Premolar(Left)">Upper 1st Premolar(Left)</option>
+		  			<option value="Upper 2nd Premolar(Left)">Upper 2nd Premolar(Left)</option>
+		  <option value="Upper First Molar(Left)">Upper First Molar(Left)</option>
+		  <option value="Upper Second Molar(Left)">Upper Second Molar(Left)</option>
+		   			<option value="Upper Third Molar(Left)">Upper Third Molar(Left)</option>
+
+		  <option value="Upper Central Incisor(Right)">Upper Central Incisor(Right)</option>
+		  <option value="Upper Lateral Incisor(Right)">Upper Lateral Incisor(Right)</option>
+		  <option value="Upper Canine(Right)">Upper Canine(Right)</option>
+				  	<option value="Upper 1st Premolar(Right)">Upper 1st Premolar(Right)</option>
+				  	<option value="Upper 2nd Premolar(Right)">Upper 2nd Premolar(Right)</option>
+		  <option value="Upper First Molar(Right)">Upper First Molar(Right)</option>
+		  <option value="Upper Second Molar(Right)">Upper Second Molar(Right)</option>
+		  			<option value="Upper Third Molar(Right)">Upper Third Molar(Right)</option>  
+		</select>
+		{% endif %}
+
+	<p><label> Procedure Fee: *</label><input class="form-control mr-sm-2" type="number" value = "{{ all_data_procedures.procedures_fee }}"aria-label="Search" name="procedures_fee" ></p>
+
+
+	<p><button class="btn btn-outline-success my-2 my-sm-0" type="save"> Edit Save</button></p>
+	</form>
+
+
+	{% endif %}
+
+	<!-- END OF PROCEDURE EDIT -->
+
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- START OF TOOLS AND ITEMS USED EDIT -->
+
+	{% if all_data_items_tools_used %}
+
+	<ul class ="messages"> <!-- ERROR MESSAGE -->
+   	 {% for message in messages  %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+
+	<h1> Editing Items/Tools used Info</h1>
+	<p>Do not leave fields with '*' blank</p>
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+
+
+	<!-- <p><label> Item name: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_items_tools_used.item_id }}"aria-label="Search" name="item_id" > *</p> -->
+	<!--
+	<p><label> Item name: </label> <select name="item_id" >
+		<option placeholder = " " selected></option>
+		{% for things in inventory %}
+			{% if things.id == all_data_items_tools_used.item_id.id %}
+			<option value= '{{ things.id }}'  selected readonly> {{ things.itemname }} | Expiry date: {{ things.expiry_date }}</option>
+			{% else %}
+			<option value= '{{ things.id }}'> {{ things.itemname }} | Expiry date: {{ things.expiry_date }}</option>
+			{% endif %}
+		{% endfor %}
+	</select> *</p>
+	-->
+	<p><label> Item ID: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_items_tools_used.item_id.id }}"aria-label="Search" name="item_id" readonly> </p>
+	<p><label> Item Name: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_items_tools_used.item_id }}"aria-label="Search"  readonly> </p>
+	<p><label> Bar Code: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_items_tools_used.item_id.barcode }}"aria-label="Search"  readonly> </p>
+
+	<!--
+	<p><label> Item name: *</label>
+		<input list="item" name="item_id"> (select the ID of the item)
+		<datalist id="item" value = "{{ all_data_items_tools_used.item_id.itemname }}">
+		{% for things in inventory %}
+			{% if things.id == all_data_items_tools_used.item_id.id %}
+			<option value="{{ things.id }}" selected>ID: {{ things.id }} | Barcode: {{ things.barcode }} | Item: {{ things.itemname }} </option>
+			{% else %}
+		  	<option value="{{ things.id }}">ID: {{ things.id }} | Barcode: {{ things.barcode }} | Item: {{ things.itemname }} </option>
+			{% endif %}
+		{% endfor %}  
+	</datalist></input></p>
+	-->
+
+	<p><label> Quantity Used: </label><input class="form-control mr-sm-2" type="number" value = "{{ all_data_items_tools_used.quantity_used }}"aria-label="Search" name="quantity_used" > *</p>
+
+	<p><label> Units: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_items_tools_used.units }}"aria-label="Search" name="units" readonly> </p>
+
+	<p><label> Date used: </label><input class="form-control mr-sm-2" type="date" value = "{{ all_data_items_tools_used.date_used | date:'Y-m-d'}}"aria-label="Search" name="date_used" readonly> </p>
+
+	
+	<p><button class="btn btn-outline-success my-2 my-sm-0" type="save"> Edit Save</button></p>
+	</form>
+
+	{% endif %}
+
+
+	<!-- END OF TOOLS AND ITEMS USED EDIT -->
+
+	<!-- START OF PRESCRIPTION EDIT -->
+
+	{% if all_data_prescriptions %}
+	<h1 class="page_header">EDITING PRESCRIPTION INFO</h1>
+	<p class="patient_add_form"><a href="{% url 'view_prescriptions' key %}"><button class="back_button" type="submit">Back</button></a></p>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+
+	
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+		
+	<p><label> Patient Name: *</label><input class="form-control mr-sm-2" type="search" value= '{{ all_data_prescriptions.patient_id.fullname }}' aria-label="Search" readonly></p>
+
+
+	<p><label> Given by: *</label><input class="form-control mr-sm-2" type="search" value="{{ all_data_prescriptions.given_by }}" aria-label="Search" name="given_by"></p>
+
+	<p><label> Meds Prescribed: *</label><input class="form-control mr-sm-2" type="search" value="{{ all_data_prescriptions.meds_prescription }}" aria-label="Search" name='meds_prescription'></p>
+
+	<p><label> Quantity: *</label><input class="form-control mr-sm-2" type="number" value="{{ all_data_prescriptions.quantity }}" aria-label="Search" name='quantity'></p>
+
+	<p><label> Units: *</label><input class="form-control mr-sm-2" type="search" value="{{ all_data_prescriptions.units }}" aria-label="Search" name='units'></p>
+
+	<p><label> Intake Instructions: *</label><input class="form-control mr-sm-2" type="search" value="{{ all_data_prescriptions.intake_instructions }}" aria-label="Search" name= 'intake_instructions'></p>
+
+
+	<p><label> Date Given: *</label><input class="form-control mr-sm-2" value = "{{ all_data_prescriptions.date_given | date:'Y-m-d'}}" type="date" aria-label="Search" name="date_given"></p>
+			
+	<button class="save_button" type="submit">Save</button>
+
+	
+	</form>
+
+	{% endif %}
+
+	<!-- END OF PRESCRIPTION EDIT -->
+
+
+
+
+{%endblock%}
+	

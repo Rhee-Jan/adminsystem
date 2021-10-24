@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+	
+	<h1>Salary of employee {{ all_data_prof.id }}</h1>
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+	<p><label> Employee Name: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" value = "{{ all_data_prof.fullname }}" readonly></p>
+	SALARY
+	<p><label> Profile ID: </label><input class="form-control mr-sm-2" type="search" aria-label="Search" name="profile_id" value = {{ all_data_prof.id }} readonly> </p>
+
+	<p><label> Regular: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="regular"> *</p>
+	<p><label> Overtime: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="overtime"> *</p>
+	<p><label> Bonus: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="bonus"> *</p>
+	<p><label> Tips: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="tips"> *</p>
+	<p><label> Severance: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="severance"> *</p>
+
+
+	DEDUCTIONS
+	<p><label> Philhealth: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="philhealth"> *</p>
+	<p><label> SSS: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="sss"> *</p>
+	<p><label> Pagibig: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="pagibig"> *</p>
+	<p><label> Insurance: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="insurance"> *</p>
+	<p><label> Tax: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="tax"> *</p>
+
+	<p><label> Others: Php.</label><input class="form-control mr-sm-2" type="number" placeholder="Ex: 1999.99" aria-label="Search" name="others"> *</p>
+
+	
+	<p><label> Date Given: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="date_given" ></p>
+
+	<!--<p><label> Date given: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="date_given" ></p> -->
+
+
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit">  Calculate </button>
+
+	</form>
+
+
+
+
+{%endblock%}
+
+

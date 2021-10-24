@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="page_header">Change Password</h1>
+<ul class ="messages">
+   	 {% for message in messages %}
+		{% if message %}
+		<script>alert("{{ message }}");</script>
+		 {% endif %}
+    	  {% endfor %}
+	</ul>
+	<!--
+	<h1>{{ curr_user }}</h1>
+	<h1>{{ user }}</h1>-->
+	<div class="patient_add_form">
+		<a href="{% url 'accounts_view' %}"><button class="back_button" type="submit"> Back</button></a> 
+	</div>
+<form class="patient_add_form" method="POST">{% csrf_token %}
+	<li class='patient_add_instructions'>Below the input fields are the guides needed to be followed</li>
+	<!--
+	<li class='patient_add_instructions'>The statements below the password's guide is the error that needs to be resolved in order to create an account</li>-->
+	<li class='patient_add_instructions'>If an error occured check the blue colored statements and the statements under the password's guide and resolve them</li>
+	</p>
+
+	
+	{{ form }}
+	<br></br><br></br>
+	<button class='save_button' type='submit'>Save password</button>
+	</form>
+
+
+	
+{% endblock %}
+
+

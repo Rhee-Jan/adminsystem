@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> Available Schedules </h1>
+	<div class="patient_add_form">
+	<p><a style="color: #ffffff" href="{% url 'appointments_addorview' %}"><button class="back_button" type="submit">Back</button></a>
+		<a style="color: #ffffff" href="{% url 'add_schedule' %}"><button class="normal_button" type="submit">Add New Available Schedule</button></a>
+	
+	</div>
+	<ul class ="messages_sucess">
+   	 {% for message in messages %}
+		{% if message %}
+		<script>alert("{{ message }}");</script>
+		 {% endif %}
+    	  {% endfor %}
+  	</ul>
+	
+	{% if all_data_schedule %}
+	<form class="search_form" method = POST action ="{% url 'view_schedule_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button></p>
+		<p><label>Month & Year: </label><input type='month' placeholder="search month" name = 'date' aria-label ='search'></p>
+  
+		<p><label>Doctor: </label><input type='search' placeholder="search doctor" name = 'name' aria-label ='search'></p>
+	  </div>
+	  
+	</form>
+
+	
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_schedule_filter' 'id'%}"> Schedule ID </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_schedule_filter' 'date'%}"> Date </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_schedule_filter' 'time'%}"> Time </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_schedule_filter' 'doctor_lastname'%}"> Doctor Assigned </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_schedule_filter' 'availability'%}"> Status </th>
+			<th class="th_form2"> Edit  </th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in all_data_schedule %}
+	<tr class="tr_form">
+		
+		<td class="td_form" data-label="Schedule ID ">{{ things.id }}</td>
+		<td class="td_form" data-label="Date">{{ things.date }}</td>
+		<td class="td_form" data-label="Time">{{ things.time }}</td>
+		<td class="td_form" data-label="Doctor Assigned">{{ things.doctor_lastname|title }}</td>
+		{% if things.availability %}
+			<td class="td_form" data-label="Status">Available</td>
+			{% else %}
+			<td class="td_form" data-label="Status">Reserved</td>
+		{% endif %}
+		<td class="td_form" data-label="Edit"><a style="color: #000000" href="{% url 'editform' things.id 'schedule' %}" > <button class="edit_button">Edit</button> </a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+
+	</table>
+	{% else %}
+		<center class ='messages'><i>No available schedule kindly go to 'Add New Available Schedule' to add</i></center>
+		<br></br>
+	{% endif %}
+	
+	
+	
+{% endblock %}

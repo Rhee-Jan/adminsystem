@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<p><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_appointments' %}"> Back </a></button></p>
+	<p> LIST OF ALL cancelled APPOINTMENTS if empty meaning no cancelled appointments </p>
+	{% if all_data_appointments %}
+
+	<table class ='table'> <!-- Cancelled appointments -->
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Appointment Type </th>
+			<th> Schedule Date</th>
+			<th> Schedule Time</th>
+			<th> Service Chosen </th>
+			<th> Service Price </th>
+			<th> Assigned Doctor</th>
+			<th> Complain </th>
+			<th> Appointment Status </th>
+		</tr>
+	</thead>
+	{% for things in all_data_appointments %}
+	<tr>
+		<th>{{ things.patient_id }}</th>
+		<th>{{ things.appointment_type }}</th>
+		<th>{{ things.schedule_id.date }}</th>
+		<th>{{ things.schedule_id.time }}</th>
+		<th>{{ things.service_id }}</th>
+		<th>Php {{ things.service_id.service_fee }}</th>
+		<th>{{ things.schedule_id.doctor_lastname }}</th>
+		<th>{{ things.complain }}</th>
+		<th>{{ things.appointment_status }}</th>
+	</tr>
+	{% endfor %}
+	
+	</table>
+	{% else %}
+		<h1> No appontments were cancelled</h1>
+	{% endif %}
+	</form>
+	
+{% endblock %}
+
+<!-- 
+	{% if all_data_appointments %}
+	<table class ='table'>
+	<thead>
+		<tr>
+			<th> Patient Name </th>
+			<th> Appointment Type </th>
+			<th> Schedule </th>
+			<th> Service Chosen </th>
+			<th> Complain </th>
+			<th> Appointment Status </th>
+		</tr>
+	</thead>
+	{% for things in all_data_appointments %}
+	<tr>
+		<th>{{ things.patient_id }}</th>
+		<th>{{ things.appointment_type }}</th>
+		<th>{{ things.schedule_id }}</th>
+		<th>{{ things.service_id }}</th>
+		<th>{{ things.complain }}</th>
+		{% if things.appointment_status == True %}
+		<th> Ongoing </th>
+		{% elif things.appointment_status == False %}
+		<th> Finished </th>
+		{% endif %}
+	</tr>
+	{% endfor %}
+
+	</table>
+	{% else %}
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'add_appointments' %}"> No available data to show.... add instead?</a> </button>
+	{% endif %}
+
+
+-->

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="patient_add_form">
+	<h1 class="page_header">Patient {{ pname|title }}'s Bought Prescriptions</h1>
+	
+	<a href="{% url 'prescriptions_addorview' primary_key%}"><button class="back_button" type="submit">Back</button></a></p>
+</div>
+	{% if purchase_data %}
+	<form class ="search_form" method = POST action ="{% url 'view_bought_prescriptions_search' primary_key %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button>
+			<p><label>Barcode: </label><input type='search' placeholder="00000000" name = 'code' aria-label ='search'></p>	
+			<p><label>Medicine: </label><input type='search' placeholder="search medicine" name = 'name'aria-label ='search'></p>
+	  </div>
+	  </p>
+	</form>
+
+	<ul class="messages">
+	  {% for message in messages %} {% if message %}
+	  <script>
+	    alert("{{ message }}");
+	  </script>
+	  {% endif %} {% endfor %}
+	</ul>
+  	
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>	
+	<table class ="table_form">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'patient_id'%}">Patient Name </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'item_id'%}">Medicine Bought </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'item_id'%}">Barcode </th>	
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'quantity'%}">Quantity </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'units'%}">Units</th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'total_amount'%}">Total Amount</th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'payment_method'%}">Payment Method </th>
+			<th class="th_form"> <a style="color:#000000" href="{% url 'view_bought_prescriptions_filter' primary_key 'purchase_date'%}">Date Purchased </th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in purchase_data %}
+	<tr class="tr_form">
+		
+		<td class="td_form" data-label="Patient Name">{{ things.patient_id.fullname|title }}</td>
+		<td class="td_form" data-label="Medicine Bought">{{ things.item_id.itemname|title }}</td>
+		<td class="td_form" data-label="Barcode">{{ things.item_id.barcode }}</td>
+		<td class="td_form" data-label="Quantity">{{ things.quantity }}</td>
+		<td class="td_form" data-label="Units">{{ things.units|title }}</td>
+		<td class="td_form" data-label="Total Amount">Php. {{ things.total_amount }}</td>
+		<td class="td_form" data-label="Payment Method">{{ things.payment_method|title }}</td>
+		<td class="td_form" data-label="Date Purchased">{{ things.purchase_date }}</td>
+
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% else %} <!-- IF WALA PAY NAPALIT ANG PATIENT NA PRESCRIPTION -->
+
+<p class = 'messages'><i>Patient did not buy any prescriptions yet</i></p>
+{% endif %}
+
+
+
+
+
+{% endblock %}

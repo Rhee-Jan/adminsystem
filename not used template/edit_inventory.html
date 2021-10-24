@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> EDIT INVENTORY </h1>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<p>
+		<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'view_inventory' %}"> Back </a></button>
+	</p>
+	</form>
+	{% if all_data_inventory %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Item Name </th>
+			<th class="th_form"> Category </th>
+			<th class="th_form"> Location </th>
+			<th class="th_form"> Item Fee if Bought/Used </th>
+			<th class="th_form"> Quantity Available</th>
+			<th class="th_form"> Units </th>
+			<th class="th_form"> Expiry Date </th>
+			<th class="th_form"> Expiry Status </th>
+			<th class="th_form">  </th>
+		</tr>
+	</thead>
+	<tr class="tr_form">
+		{% for things in all_data_inventory %}
+		<td class="td_form">{{ things.itemname }}</th>
+		<td class="td_form">{{ things.itemcategory }}</th>
+		<td class="td_form">{{ things.location }}</th>
+		<td class="td_form">Php. {{ things.item_fee }}</th>
+		<td class="td_form">{{ things.quantity }}</th>
+		<td class="td_form">{{ things.units }}</th>
+		{% if things.expiry_date == None %}
+		<td class="td_form"> Item does not expire</th>
+		<td class="td_form"> Item does not expire</th>
+		{% elif things.expiry_date != None %}
+		<td class="td_form">{{ things.expiry_date }}</th>
+		<td class="td_form">{{ things.expiry_status }}</th>	
+		{% endif %}
+		<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'inventory' %}" > Edit </a></th>
+	</tr>
+	{% endfor %}
+	</table>
+	{% endif %}
+	</form>
+	
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content %}
+<div class="patient_add_form">
+  <p>
+    <a href="{% url 'expense_options' %}"
+      ><button class="back_button" type="submit">Back</button></a
+    >
+  </p>
+  <table class="table2_form">
+    <tr>
+      <th>
+        <a href="{% url 'add_bills' %}"
+          ><button class="normal_button" type="submit">
+            Add Bills Expense
+          </button></a
+        >
+      </th>
+      <th>
+        <a href="{% url 'view_bills' %}"
+          ><button class="normal_button" type="submit">
+            View all Bills Expense
+          </button></a
+        >
+      </th>
+    </tr>
+  </table>
+</div>
+{% endblock %}

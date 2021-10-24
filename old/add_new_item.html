@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'stock_in_options' %}">Back</a></button></p>
+ADD NEW ITEM
+	<h1> Add New Item </h1>
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+
+			<p><label> Item Id: </label><input class="form-control mr-sm-2" type="search" value = '{{ some_id }}' aria-label="Search" name="item_id" readonly> *</p>
+
+			<p><label> Item Name: </label><input class="form-control mr-sm-2"  value = "{{ itemname }}" aria-label="Search" name = 'item_name' readonly></p>
+			
+			<p><label> Quantity: </label><input class="form-control mr-sm-2" type="number"  value = "{{ quantity }}" aria-label="Search" name="quantity_added" readonly> *</p>
+
+			<p><label> Units: </label><input class="form-control mr-sm-2" type="search" value = "{{ units }}" aria-label="Search" name="units" readonly> *</p>
+
+			
+			<p><label>Total Payment: Php.</label><input class="form-control mr-sm-2" type="number" aria-label="Search" name="total_payment">  *</p>
+
+			<p><label> Purchase Date: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="purchase_date"> *</p>
+
+			<p><label> Manufacturer: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Pharmacy" aria-label="Search" name="manufacturer"> *</p>
+			
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+				
+			</form>
+
+{% endblock %}

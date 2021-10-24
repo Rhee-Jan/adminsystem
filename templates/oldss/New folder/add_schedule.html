@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> ADD NEW SCHEDULE </h1>
+	<p class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'view_schedule' %}"> Back</a> </button></p>	
+	
+	
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	 {% endfor %}
+	</ul>
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions"> All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+			<p><label> Date: *</label><input class="form-control mr-sm-2" type="date" placeholder="Input what tpye of service" aria-label="Search" name="date"></p>
+			<p><label> Time: *</label><input class="form-control mr-sm-2" type="time" placeholder="Input service fee" aria-label="Search" name="time"></p>
+			<p><label> Doctor_Lastname: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Dela Cruz" aria-label="Search" name="doctor_lastname"></p>
+
+			<button class="save_button" type="submit">Save</button>
+				
+			</form>
+
+
+
+{% endblock %}

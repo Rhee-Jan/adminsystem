@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> Stock In Info </h1>
+<p class="patient_add_form">
+	<a style="color: #ffffff" href="{% url 'expense_options' %}"><button class="back_button" type="submit">Back</button></a></p>
+
+	<form class="search_form"method = POST action ="{% url 'view_stockin_expense_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><label>Month & Year (Purchase date): </label><input type='month' name = 'date' aria-label ='search'>
+		<p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+		<p><label>Item Name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con"></div>
+	  <div class="search_con">
+	  	<p><button type='submit'>Search</button></p>
+	  </div>
+	</form>
+
+	<p class="search_form search_con"><a href="{% url 'view_stockin_expense' %}"><button type='submit'>Reset Filter and Searched Query</button></a></p>
+	{% if stockin_data %}
+	<div class="some_space"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'item_name' %}">Item name</a></th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'item_id' %}">Barcode</a></th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'quantity_added' %}">Quantity</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'units' %}">Units</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'total_payment' %}">Total Payment</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'purchase_date' %}">Purchase Date</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_stockin_expense_filter' stockin_data 'manufacturer' %}">Manufacturer</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in stockin_data %}
+		<tr class="tr_form">
+			
+			<td class="td_form" data-label="Item name">{{ things.item_name }}</td>
+			<td class="td_form" data-label="Barcode">{{ things.item_id.barcode }}</td>
+			<td class="td_form" data-label="Quantity">{{ things.quantity_added }}</td>
+			<td class="td_form" data-label="Units">{{ things.units }}</td>
+			<td class="td_form" data-label="Total Payment">Php. {{ things.total_payment }}</td>
+			<td class="td_form" data-label="Purchase Date">{{ things.purchase_date }}</td>
+			<td class="td_form" data-label="Manufacturer">{{ things.manufacturer }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	{% else %}
+	<center class ='messages'>No stock in data available</center>
+	{% endif %}
+
+{% endblock %}

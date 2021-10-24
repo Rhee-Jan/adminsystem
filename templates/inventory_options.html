@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Inventory Page</h1>
+<div class="page_center">
+  <!--<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Back to home </a></button>-->
+
+  <a href="{% url 'view_inventory' %}"
+    ><button class="page_button" type="submit">
+      View All Items in Inventory
+    </button></a
+  >
+  <a href="{% url 'stock_in_options' %}"
+    ><button class="page_button" type="submit">Stock In</button></a
+  >
+  <a href="{% url 'stock_out_option' %}"
+    ><button class="page_button" type="submit">Stock Out</button></a
+  >
+</div>
+{% endblock %}
+
+<!-- 
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> View </a></button>
+
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'edit_inventory' %}"> Edit Item in Inventory </a></button>
+-->

@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<br></br><br></br>
+<p>
+	<form>
+	<center>
+	<input type='month' name=date>
+		
+	<button><a href="{% url 'changecalendar' 'January' '2021'%}"></a>Go</button>
+	</input>
+</form>	
+</p>
+{% load static %}
+	  {{ date_str }} | {{ mon }} | {{ year }} | {{ day }} | {{ cal }} | {{ str_cal|safe }}</center>
+<!--
+<table class='table_form'>
+	<tr class ='tr_form'>
+		<th>SUNDAY</th>
+		<th>MONDAY</th>
+		<th>TUESDAY</th>
+		<th>WEDNESDAY</th>
+		<th>THURSDAY</th>
+		<th>FRIDAY</th>
+		<th>SATURDAY</th>
+	</tr>
+
+	<tr class ='tr_form'>
+		
+		
+	</tr>
+
+</table>
+-->
+
+
+
+<br></br><br></br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <p>
+  	<button class="back_button" type="submit">
+    <a href="{% url 'appointments_addorview' %}">
+   	Back</button>
+    </a
+    >
+  </p>
+
+  <table class="table2_form">
+    <tr>
+      <th>
+        <button class="normal_button" type="submit">
+        	<a href="{% url 'view_appointments_cancelled' %}">
+          
+            View Cancelled Appointments
+          </button></a
+        >
+        <!--a then button-->
+      </th>
+      <th>
+        <button class="normal_button" type="submit">
+          <a href="{% url 'view_finished_appointments' %}">
+            View Finished Appointments to proceed with payment</a
+          ></button
+        ><!--button then a-->
+      </th>
+    </tr>
+  </table>
+
+
+  {% if all_data_appointments %}
+  <p>
+    <button class="back_button" type="submit">
+      <a href="{% url 'edit_appointments' %}"> Edit </a>
+    </button>
+  </p>
+  <h1>List of all ongoing appointments</h1>
+  <!-- Ongoing appointments -->
+  <p class="second_messages">LIST OF ALL ONGOING APPOINTMENTS</p>
+  <p class="patient_add_instructions">
+    if empty meaning no ongoing appointments all finished OR CANCELLED
+  </p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Patient Name</th>
+        <th class="th_form">Appointment Type</th>
+        <th class="th_form">Schedule Date</th>
+        <th class="th_form">Schedule Time</th>
+        <th class="th_form">Service Chosen</th>
+        <th class="th_form">Service Price</th>
+        <th class="th_form">Assigned Doctor</th>
+        <th class="th_form">Complain</th>
+        <th class="th_form">Appointment Status</th>
+      </tr>
+    </thead>
+    {% for things in all_data_appointments %}
+    <tr>
+      <td class="td_form">{{ things.patient_id }}</td>
+      <td class="td_form">{{ things.appointment_type }}</td>
+      <td class="td_form">{{ things.schedule_id.date }}</td>
+      <td class="td_form">{{ things.schedule_id.time }}</td>
+      <td class="td_form">{{ things.service_id }}</td>
+      <td class="td_form">Php {{ things.service_id.service_fee }}</td>
+      <td class="td_form">{{ things.schedule_id.doctor_lastname }}</td>
+      <td class="td_form">{{ things.complain }}</td>
+      <td class="td_form">{{ things.appointment_status }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <!-- PAG WALAY APPOINTMENTS -->
+  <h1 class="warning_messages">
+    THERE IS NO APPOINTMENTS. GO TO ADD APPOINTMENT TAB TO ADD APPOINTMENTS
+  </h1>
+  {% endif %}
+</form>
+
+{% endblock %}
+

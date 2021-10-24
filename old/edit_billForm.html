@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_bills' %}">Back</a></button></p>
+	<h1> EDITING BILLS EXPENSE</h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+			<p><label> Bill Type: </label><input class="form-control mr-sm-2" type="search" value="{{ bills_data.bill_type }}" aria-label="Search" name="bill_type"></p>
+
+			<label >Billing Month: </label>
+			<select name="bill_month">
+			  <option value="{{ bills_data.bill_month }}" selected>{{ bills_data.bill_month }}</option>
+			  <option value="January">January</option>
+			  <option value="Febuary">Febuary</option>
+			  <option value="March">March</option>
+			  <option value="April">April</option>
+			  <option value="May">May</option>
+			  <option value="June">June</option>
+			  <option value="July">July</option>
+			  <option value="August">August</option>
+			  <option value="September">September</option>
+			  <option value="October">October</option>
+			  <option value="November">November</option>
+			  <option value="December">December</option>
+			</select>
+
+			<p><label> Billing Year: </label><input class="form-control mr-sm-2" type="search" value="{{ bills_data.bill_year }}" aria-label="Search" name="bill_year"></p>
+
+			<p><label> Total Amount: Php.</label><input class="form-control mr-sm-2" type="search" aria-label="Search" value="{{ bills_data.total_amount }}"name="total_amount"></p>
+
+			<p><label> Paid By: </label><input class="form-control mr-sm-2" type="search" value="{{ bills_data.paid_by }}" aria-label="Search" name="paid_by"></p>
+
+			<p><label> Date Paid: </label><input class="form-control mr-sm-2" type="date" value="{{ bills_data.date_paid | date:'Y-m-d' }}" aria-label="Search" name="date_paid"></p>
+			
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+				
+			</form>
+
+	
+{% endblock %}

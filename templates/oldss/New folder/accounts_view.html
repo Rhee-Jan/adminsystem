@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class='page_header'>VIEW ACCOUNTS HERE</h1>
+	<div class="patient_add_form">
+		<button class="back_button" type="submit"><a href="{% url 'emp_view' %}"> Back</a> </button>
+		<button class="normal_button" type="submit"><a href="{% url 'accounts_make' %}"> Make another account </a></button>
+
+	</p>
+	</div>
+
+
+
+	<ul class ="messages_sucess">
+   	 {% for message in messages %}
+     	 <p><i{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }}</i> </p>
+    	  {% endfor %}
+  	</ul>
+
+	{% if acc_data %}
+	<form class="search_form" method = POST action ="{% url 'accounts_view_search' %}">
+	  {% csrf_token %}
+		<p><button type='submit'>Search</button></p>
+		<p><label>Name:</label><input type='search' placeholder="search name" name = 'name'aria-label ='search'></p>
+	</form>
+	<br></br>
+
+
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<th class="th_form">Username </th>
+			<!-- <th class="th_form">Password </th> -->
+			<th class="th_form">Last Log in </th>
+			<th class="th_form">Action </th>
+			
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">
+		{% for things in acc_data %}
+		{% if things.username == 'admin' %}
+		<td class="td_form">{{ things.first_name }}</th>
+		<td class="td_form">{{ things.username }}</th>
+		<!-- <td class="td_form">p4$$word</th> -->
+		<td class="td_form">{{ things.last_login }}</th>
+		<td class="td_form"><button class="normal_button">Change Password</button> </th>	
+		{% else %}
+		<td class="td_form">{{ things.first_name }}</th>
+		<td class="td_form">{{ things.username }}</th>
+		<!--<td class="td_form">emp_p4$$word</th> -->
+		<td class="td_form">{{ things.last_login }}</th>
+			<td class="td_form">
+				<a style="color: #000000" href="{% url 'delete_account' things.id %}" ><button class="edit_button">Delete account</button> </a>
+				<button class="normal_button">Change Password</button>
+				
+
+			</td>
+		{% endif %}
+
+	</tr>
+	{% endfor %}
+	</table>
+
+
+	{% else %}
+	<center><p class='messages'>No accounts data available</p></center>
+	{% endif %}
+	
+{% endblock %}
+
+

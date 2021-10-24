@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		
+	<!--<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'home' %}"> Back </a></button> -->
+	<button class="back_button" type="submit"> <a href="{% url 'add_appointments' %}"> Add Appointments </a></button>
+	<button class="back_button" type="submit"> <a href="{% url 'view_appointments'%}"> View Appointments</a></button>
+	<!--
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_appointments_cancelled' %}"> View Cancelled Appointments</a></button>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'view_finished_appointments' %}"> View Finished Appointments to proceed with payment</a></button>
+	-->
+	<!--
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'add_services' %}"> Add New Services </a></button>-->
+	<button class="back_button" type="submit"> <a href="{% url 'view_services' %}">View all Services</a></button>
+
+	<!--
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"> <a href="{% url 'add_schedule' %}"> Add New Available Schedule </a> </button>
+-->
+	<button class="back_button" type="submit"> <a href="{% url 'view_schedule' %}">View all Available Schedule</a></button>
+
+
+
+	<!-- <a href="{% url 'prof_view' %}"> View/Edit/Delete Profile</a> -->
+	</p>
+	</form>
+	
+	
+{% endblock %}
+

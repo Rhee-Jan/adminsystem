@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> Bills Info </h1>
+<p class="patient_add_form"><button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'view_bills' %}">Back</a></button></p>
+
+	{% if bills_data %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Bill Type</th>
+			<th class="th_form">Bill Month</th>
+			<th class="th_form">Bill Year</th>
+			<th class="th_form">Total Amount</th>
+			<th class="th_form">Paid By</th>
+			<th class="th_form">Date Paid</th>
+			<th class="th_form">  </th>
+		</tr>
+	</thead>
+		<tr class="tr_form">
+			{% for things in bills_data %}
+			<td class="td_form">{{ things.bill_type }}</td>
+			<td class="td_form">{{ things.bill_month }}</td>
+			<td class="td_form">{{ things.bill_year }}</td>
+			<td class="td_form">{{ things.total_amount }}</td>
+			<td class="td_form">{{ things.paid_by }}</td>
+			<td class="td_form">{{ things.date_paid }}</td>
+			<td class="td_form"><a style="color: #000000" href="{% url 'edit_billForm' things.id %}">Edit</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+	<h1> No bills details </h1>
+	{% endif %}
+	
+{% endblock %}

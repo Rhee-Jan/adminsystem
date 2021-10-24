@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	
+	<h1 class="page_header">Editing Additional Info of Patient {{ all_data_pat_info.profile_id }} </h1>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<div class="patient_add_instructions">
+			<p>(If you dont want to edit anything just click 'Edit Save')</p>
+		<p>Do not leave fields with '*' blank</p>
+		</div>
+	<p><label class="label_label">PROFILE INFO</label></p>
+	<p><label>Full Name:</label> <input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" ></p>
+	<p> <label>Profile Type:</label> <input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly></p>
+	<p> <label>Phone Number: (+63 format only)</label><input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" > </p>
+	<p> <label>Address: </label><input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" ></p>
+
+
+	<p> <label>Birthday: </label><input class="form-control mr-sm-2" type="date" name="bday" value="{{ all_data_prof.bday | date:'Y-m-d'}}" ></p>
+	
+
+	{% if all_data_prof.gender == "Male" %}
+	<p> <label>Gender: </label><label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option value="Male" selected>Male</option>
+	<option value="Female">Female</option>
+	</select></p>
+	{% endif %}
+
+
+	{% if all_data_prof.gender == "Female" %}
+	<p> Gender: <label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option placeholder = "Choose gender" selected> </option>
+	<option value="Male">Male</option>
+	<option value="Female" selected>Female</option>
+	</select></p>
+	{% endif %}
+
+	<p> <label class="label_label">Emergency Contact Person Info</label> </p>
+	<p> <label>Emergency Contact Person Name: </label><input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" ></p>
+	<p> <label>Emergency Contact Person Phone Number:  (+63 format only)</label><input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" > </p>
+	<p> <label>Emergency Contact Person Relationship: </label><input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" ></p>
+	<p> <label>Emergency Contact Person Address: </label><input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" ></p>
+
+
+
+
+	<p><label> Patient Name: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.profile_id.id }}"aria-label="Search" readonly> </p>
+
+
+	<p><label> Occupation: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_pat_info.pat_occupation }}"aria-label="Search" name="pat_occupation" ></p>
+
+
+	<p><label> Allergies: </label><input class="form-control mr-sm-2" type="text" value = "{{ all_data_pat_info.pat_allergies }}"aria-label="Search" name="pat_allergies" > </p>
+	</select></p>
+	
+	<p><button class="save_button" type="save"> Edit Save</button></p>
+	</form>
+	
+{% endblock %}

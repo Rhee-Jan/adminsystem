@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+		
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+	<h1> Emergency Contact Person </h1>
+				<ul>
+					<input class="form-control mr-sm-2" type="search" placeholder="Emergency Contact Name" aria-label="Search" name="ecp_fullname">
+					<input class="form-control mr-sm-2" type="search" placeholder="Emergency Contact Number" aria-label="Search" name="ecp_contactnum">
+					<input class="form-control mr-sm-2" type="search" placeholder="Relationship" aria-label="Search" name="ecp_relationship">
+					<input class="form-control mr-sm-2" type="search" placeholder="Adress" aria-label="Search" name="ecp_fulladress">
+				</ul>
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+	</form>
+	
+{%endblock%}
+	

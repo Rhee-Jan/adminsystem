@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">EMPLOYEE INFO</h1>
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'emp_view' %}"> Back </a></button>
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'edit_emp_info' all_data_emp_info.id %}"> Edit </a></button>
+	</form>
+	{% if all_data_emp_info %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Full name</th>
+			<th class="th_form">Position</th>
+			<th class="th_form">Employee Status</th>
+			<th class="th_form">Contact Number</th>
+			<th class="th_form">Adress</th>
+			<th class="th_form">Birthday</th>
+			<th class="th_form">Gender</th>
+			<th class="th_form">Date added</th>
+			<th class="th_form">Last updated</th>
+		</tr>
+	</thead>
+	<tr class="tr_form">
+		<td class="td_form">{{ all_data_emp_info.profile_id.fullname }}</td>
+		<td class="td_form">{{ all_data_emp_info.emp_position }}</td>
+		<td class="td_form">{{ all_data_emp_info.emp_status }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.contact_number }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.profile_fulladress }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.bday }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.gender }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.added }}</td>
+		<td class="td_form">{{ all_data_emp_info.profile_id.update }}</td>
+	</tr>
+	</table>
+
+
+	<h1 class="page_header">PATIENT EMERGENCY CONTACT DETAILS</h1>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Employee name</th>
+			<th class="th_form">Ecp Fullname</th>
+			<th class="th_form">Ecp Contact Number</th>
+			<th class="th_form">Ecp Relationship</th>
+			<th class="th_form">Ecp Adress</th>
+		</tr>
+	</thead>
+	<tr class="tr_form">
+		<td class="td_form">{{ all_data_emp_info.profile_id.fullname }}</th>
+		<td class="td_form">{{ all_data_emp_info.profile_id.ecp_fullname }}</th>
+		<td class="td_form">{{ all_data_emp_info.profile_id.ecp_contactnum }}</th>
+		<td class="td_form">{{ all_data_emp_info.profile_id.ecp_relationship }}</th>
+		<td class="td_form">{{ all_data_emp_info.profile_id.ecp_fulladress }}</th>
+
+	</tr>
+	</table>
+
+
+	{% endif %}
+	
+	
+	
+{% endblock %}
+
+	

@@ -1,0 +1,90 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> Editing Additional Info of Employee {{ all_data_emp_info.profile_id }}</h1>
+
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	<p class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'view_emp_info' key %}"> Back</a> </button></p>	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<p class="patient_add_instructions"> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+	<p class="appointment_messages"> Profile Info</p>
+	<p><label>Full Name:</label><input class="form-control mr-sm-2" type="text" name="fullname" value="{{ all_data_prof.fullname }}" ></p>
+	<p><label>Profile Type:</label><input class="form-control mr-sm-2" type="text" name="profile_type" value="{{ all_data_prof.profile_type }}" readonly></p>
+	<p><label>Phone Number: (+63 format only)</label><input class="form-control mr-sm-2" type="text" name="contact_number" value="{{ all_data_prof.contact_number }}" ></p>
+	<p><label>Address:</label><input class="form-control mr-sm-2" type="text" name="profile_fulladress" value="{{ all_data_prof.profile_fulladress }}" ></p>
+
+
+	<p><label>Birthday:</label><input class="form-control mr-sm-2" type="date" name="bday" value="{{ all_data_prof.bday | date:'Y-m-d'}}" ></p>
+	
+
+	{% if all_data_prof.gender == "Male" %}
+	<p><label>Gender:</label><label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option value="Male" selected>Male</option>
+	<option value="Female">Female</option>
+	</select></p>
+	{% endif %}
+
+
+	{% if all_data_prof.gender == "Female" %}
+	<p><label>Gender:</label><label for="id_gender"></label> <select name="gender" required id="id_gender">
+	<option placeholder = "Choose gender" selected> </option>
+	<option value="Male">Male</option>
+	<option value="Female" selected>Female</option>
+	</select></p>
+	{% endif %}
+
+	<p class="appointment_messages"> Emergency Contact Person Info </p>
+	<p><label>Emergency Contact Person Name:</label><input class="form-control mr-sm-2" type="text" name="ecp_fullname" value="{{ all_data_prof.ecp_fullname }}" ></p>
+	<p><label>Emergency Contact Person Phone Number:</label><input class="form-control mr-sm-2" type="text" name="ecp_contactnum" value="{{ all_data_prof.ecp_contactnum }}" > (+63 format only) </p>
+	<p><label>Emergency Contact Person Relationship:</label><input class="form-control mr-sm-2" type="text" name="ecp_relationship" value="{{ all_data_prof.ecp_relationship }}" ></p>
+	<p><label>Emergency Contact Person Address:</label><input class="form-control mr-sm-2" type="text" name="ecp_fulladress" value="{{ all_data_prof.ecp_fulladress }}" ></p>
+
+
+
+	<p><label> Employee Name: </label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.profile_id }}"aria-label="Search" readonly> </p>
+
+
+	<p><label> Position: *</label><input class="form-control mr-sm-2" type="search" value = "{{ all_data_emp_info.emp_position }}"aria-label="Search" name="emp_position" ></p>
+
+
+	<p><label> Employee Status: </label></p>
+	{% if all_data_emp_info.emp_status == 'Employed' %}
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Employed' id="Employed" checked="checked"><label for="Employed" class="radio_buttons">Employed</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Retired' id="Retired"><label for="Retired" class="radio_buttons">Retired</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Intern' id="Intern"><label for="Intern" class="radio_buttons">Intern</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Part-time' id="Part-time"><label for="Part-time" class="radio_buttons">Part-time</label>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Retired' %}
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Employed' id="Employed" checked="checked"><label for="Employed" class="radio_buttons">Employed</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Retired' id="Retired" checked="checked"><label for="Retired" class="radio_buttons">Retired</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Intern' id="Intern"><label for="Intern" class="radio_buttons">Intern</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Part-time' id="Part-time"><label for="Part-time" class="radio_buttons">Part-time</label>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Intern' %}
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Employed' id="Employed" checked="checked"><label for="Employed" class="radio_buttons">Employed</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Retired' id="Retired"><label for="Retired" class="radio_buttons">Retired</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Intern' id="Intern" checked="checked"><label for="Intern" class="radio_buttons">Intern</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Part-time' id="Part-time"><label for="Part-time" class="radio_buttons">Part-time</label>
+	{% endif %}
+
+	{% if all_data_emp_info.emp_status == 'Part-time' %}
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Employed' id="Employed" checked="checked"><label for="Employed" class="radio_buttons">Employed</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Retired' id="Retired"><label for="Retired" class="radio_buttons">Retired</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Intern' id="Intern"><label for="Intern" class="radio_buttons">Intern</label>
+	<input class="form-control mr-sm-2" type="radio" name="emp_status" value = 'Part-time' id="Part-time" checked="checked"><label for="Part-time" class="radio_buttons">Part-time</label>
+	{% endif %}
+
+
+	
+	<p><button class="save_button" type="save"> Edit Save</button></p>
+	</form>
+	
+	
+{% endblock %}

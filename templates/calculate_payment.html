@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">
+  Buying prescription for {{ all_data_prof.fullname }}
+</h1>
+<h1 class="second_messages">Patient ID: {{ primary_key }}</h1>
+
+<ul class="messages">
+  {% for message in messages %} {% if message %}
+  <script>
+    alert("{{ message }}");
+  </script>
+  {% endif %} {% endfor %}
+</ul>
+<div class="patient_add_form">
+  <a href="{% url 'prescriptions_addorview' primary_key %}">
+    <button class="back_button" type="submit">Back</button></a
+  >
+</div>
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+
+  <p class="patient_add_instructions">
+    All Fields with "*" is required DO NOT LEAVE IT BLANK
+  </p>
+  <p>
+    <label> Patient Name: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ all_data_prof.fullname }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+  <p>
+    <label> Patient ID: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ primary_key }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <p>
+    <label> Medicine : </label
+    ><input
+      class="form-control mr-sm-2"
+      value="{{ purchase_data.item_id.itemname }}"
+      type="search"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <p>
+    <label> Quantity: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="number"
+      value="{{ purchase_data.quantity }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <p>
+    <label> Units: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      value="{{ purchase_data.units }}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <p>
+    <label> Total Payment: Php. </label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      aria-label="Search"
+      value="{{ total_amount }}"
+      name="total_amount"
+    />
+  </p>
+
+  <p>
+    <label> Payment Method: *</label
+    ><input
+      class="form-control mr-sm-2"
+      type="search"
+      aria-label="Search"
+      placeholder="Ex: Cash"
+      name="payment_method"
+    />
+  </p>
+
+  <p>
+    <label> Purchase Date: </label
+    ><input
+      class="form-control mr-sm-2"
+      type="text"
+      value="{{ purchase_data.purchase_date| date:'Y-m-d'}}"
+      aria-label="Search"
+      readonly
+    />
+  </p>
+
+  <button class="save_button" type="submit">Save</button>
+</form>
+
+{% endblock %}

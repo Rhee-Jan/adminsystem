@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<p><button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'expense_options' %}">Back</a></button></p>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'add_bills' %}">Add Bills Expense</a></button>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'view_bills' %}">View all Bills Expense</a></button>
+	
+{% endblock %}

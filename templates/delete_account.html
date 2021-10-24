@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	
+	<div class="patient_add_form">
+	<center>
+	<p>
+	<!-- <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Back to Home </a></button> -->
+	<p class="second_messages"> <b>You sure you want to delete this account?</a>
+	<p class="second_messages"> Action cannot be undone </p></b>
+	<a href="{% url 'delete_account_confirm' primary_key %}"><button class="back_button" type="submit">Yes</button></a>
+	<a href="{% url 'accounts_view'  %}"><button class="back_button" type="submit">No</button></a>
+	</p>
+	</center>
+	</div>
+	
+	
+{% endblock %}

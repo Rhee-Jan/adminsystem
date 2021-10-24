@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<p>
+	<!--<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Back to home </a></button>-->
+	<button class="back_button" type="submit"><a href="{% url 'addprof' %}"> Add Profile</a></button>
+	<button class="back_button" type="submit"><a href="{% url 'prof_view' %}"> Patient Profiles </a>
+
+	</button>
+	
+	</p>
+	</form>
+	
+	
+{% endblock %}

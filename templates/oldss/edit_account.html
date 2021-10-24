@@ -1,0 +1,26 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+	
+	<h1 class='page_header'> Edit account </h1>
+	
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+	</ul>
+
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<button class="back_button" type="submit"><a href="{% url 'accounts_addorview' %}"> Back</a> </button></p>
+	
+	{{ form.as_p }}
+	
+	<button class='edit_button' type='submit'>Create</button>
+	</form>
+	
+	
+{% endblock %}

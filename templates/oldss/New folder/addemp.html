@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> ADD NEW EMPLOYEE PROFILE </h1>
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+  	</ul>
+
+	<p class="patient_add_form" ><a href="{% url 'emp_view' %}"><button class="back_button" type="submit">Back</button></a></p>
+	<form class="patient_add_form" method="POST">
+				{% csrf_token %}
+				
+
+				<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+				<p><label> Full name: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Juan Dela Cruz" aria-label="Search" name="fullname"></p>
+
+				<p><label> Profile Type: </label><input class="form-control mr-sm-2" type="search" value = "Employee" aria-label="Search" name="profile_type" readonly></p>
+
+				
+				<p><label> Phone Number: (+63 format only)</label><input class="form-control mr-sm-2" value = "+63" type="search" aria-label="Search" name="contact_number"></p> 
+
+
+				<p><label> Adress: </label><input class="form-control mr-sm-2" type="search" placeholder="Input Full address" aria-label="Search" name="profile_fulladress"></p>
+
+				<p><label> Birthday: </label><input class="form-control mr-sm-2" type="date" placeholder="Birth Day" aria-label="Search" name="bday"></p>
+
+
+				<p><label> Gender: </label><label for="id_gender"></label> <select name="gender" required id="id_gender">
+			  	<option placeholder = "Choose gender" selected> </option>
+			 	<option value="Male">Male</option>
+			 	<option value="Female">Female</option>
+				</select></p>
+
+				<p><label> Emergency Contact Person Name: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Juan Dela Cruz" aria-label="Search" name="ecp_fullname"></p>
+
+				<p><label> Emergency Contact Person Phone Number: (+63 format only)</label><input class="form-control mr-sm-2" value = "+63" type="search" aria-label="Search" name="ecp_contactnum"></p>
+
+				<p><label> Emergency Contact Person Relationship: </label><input class="form-control mr-sm-2" type="search" placeholder="Relationship" aria-label="Search" name="ecp_relationship"></p>
+
+				<p><label> Emergency Contact Person Address: </label><input class="form-control mr-sm-2" type="search" placeholder="Input Full Address" aria-label="Search" name="ecp_fulladress"></p>
+
+				<button class="next_button	" type="submit">Next</button>
+			</form>
+{% endblock %}

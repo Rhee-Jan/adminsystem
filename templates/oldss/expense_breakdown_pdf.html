@@ -1,0 +1,129 @@
+
+
+
+{% block content %}
+<header>
+	<style>
+	  table {
+		border: 1px solid black;
+	  }
+	  th,
+	  td {
+		/*width: 120px;*/
+		white-space: nowrap;
+		padding: 10px;
+		text-align: center;
+	  }
+	  th {
+		/*font-size: 18px;*/
+		background-color: #a39e9e;
+	  }
+	  /*td {
+		font-size: 15px;
+	  } */
+	  h2 {
+		font-size: 22px;
+	  }
+	</style>
+  </header>
+<center><h1 class="page_header"> EXPENSES OF {{ d }}</h1></center>
+
+
+<!------------------------- SALARY EXPENSE ------------------------->
+{% if salary_details %}
+	<center><h2 class="page_header"> SALARY EXPENSE </h2></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<th class="th_form">Salary</th>
+			<th class="th_form">Total Deductions</th>
+			<th class="th_form">Total Salary</th>
+			<th class="th_form">Date Given</th>
+		</tr>
+	</thead>
+		<tr class="tr_form">
+			{% for things in salary_details %}
+			<td class="td_form">{{ things.profile_id.fullname }}</td>
+			<td class="td_form">Php. {{ things.total_salary }}</td>
+			<td class="td_form">Php. {{ things.total_deduction }}</td>
+			<td class="td_form">Php. {{ things.total_amount }}</td>
+			<td class="td_form">{{ things.date_given }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+		<center class ='messages'>No Salary Expense Data for this month</center>
+	{% endif %}
+
+
+
+	<!------------------------- STOCK IN EXPENSE ------------------------->
+	{% if stockin_data %}
+	<center><h2 class="page_header"> STOCK IN EXPENSE </h2></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Item name</th>
+			<th class="th_form">Barcode</th>
+			<th class="th_form">Quantity</th>
+			<th class="th_form">Units</th>
+			<th class="th_form">Total Payment</th>
+			<th class="th_form">Purchase Date</th>
+			<th class="th_form">Manufacturer</th>
+		</tr>
+	</thead>
+	
+		<tr class="tr_form">
+			{% for things in stockin_data %}
+			<td class="td_form">{{ things.item_name }}</td>
+			<td class="td_form">{{ things.item_id.barcode }}</td>
+			<td class="td_form">{{ things.quantity_added }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">Php. {{ things.total_payment }}</td>
+			<td class="td_form">{{ things.purchase_date }}</td>
+			<td class="td_form">{{ things.manufacturer }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+	<center class ='messages'>No stock in data for this month</center>
+	{% endif %}
+
+
+
+
+	<!------------------------- BILL EXPENSE ------------------------->
+	{% if bills_data %}
+	<br></br>
+	<center> <h2>BILLS EXPENSE </h2></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form">Bill Type</th>
+			<th class="th_form">Bill Month</th>
+			<th class="th_form">Bill Year</th>
+			<th class="th_form">Total Amount</th>
+			<th class="th_form">Paid By</th>
+			<th class="th_form">Date Paid</th>
+		</tr>
+	</thead>
+		
+		<tr class="tr_form">
+			{% for things in bills_data %}
+			<td class="td_form">{{ things.bill_type }}</td>
+			<td class="td_form">{{ things.bill_month }}</td>
+			<td class="td_form">{{ things.bill_year }}</td>
+			<td class="td_form">Php. {{ things.total_amount }}</td>
+			<td class="td_form">{{ things.paid_by }}</td>
+			<td class="td_form">{{ things.date_paid }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+	<p class="messages"> No Bill Expense Data for this month </p>
+    <br></br>
+	{% endif %}
+
+	
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="patient_add_form">
+	<h1 class="page_header">Prescriptions of {{ all_data_prof.fullname }}</h1>
+	<h1 class="second_messages">Patient ID: {{ primary_key }}</h1>
+	<a href="{% url 'prescriptions_addorview' primary_key %}"><button class="back_button" type="submit">Back</button></a>
+	<a href="{% url 'buy_prescriptions' primary_key %}"><button class="normal_button" type="submit">Buy Prescriptions</button></a>
+</div>	
+
+	<form class ="search_form" method = POST action ="{% url 'view_prescriptions_search' primary_key %}">
+	  {% csrf_token %}
+	  <button type='submit'>Search</button><input type='search' placeholder="search medicine" name = 'name' aria-label ='search'><br></br>
+	</form>
+
+
+		<table class="table_form">
+		<thead>
+			<tr class="tr_form">
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'patient_id'%}"> Patient Name </th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'meds_prescription'%}"> Meds Prescribed </th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'quantity'%}"> Quantity</th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'units'%}"> Units</th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'intake_instructions'%}"> Intake Instructions </th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'date_given'%}"> Date Given </th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'presc_status'%}"> Prescription Status</th>
+				<th class="th_form"><a style="color:#000000" href="{% url 'view_prescriptions_filter' primary_key 'given_by'%}"> Given by </th>
+				<th class="th_form">  </th>
+	
+			</tr>
+		</thead>
+		{% if all_data_prescriptions %} <!-- check if naay prescriptions si patient -->
+		{% for things in all_data_prescriptions %}
+				<tr class="tr_form">
+				<td class="td_form">{{ things.patient_id.fullname }}</td>	
+				<td class="td_form">{{ things.meds_prescription }}</td>	
+				<td class="td_form">{{ things.quantity }}</td>
+				<td class="td_form">{{ things.units }}</td>
+				<td class="td_form">{{ things.intake_instructions }}</td>
+				<td class="td_form">{{ things.date_given }}</td>
+				<td class="td_form">{{ things.presc_status }}</td>
+				<td class="td_form">{{ things.given_by }}</td>
+				<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'prescriptions' %}"> Edit</a></td>
+	
+			</tr>
+		{% endfor %}
+		{% else %} <!-- if walay prescriptions si patient -->
+		<h1 class="messages"> Search Not Found </h1>
+	    <br></br>
+	    <tr class="tr_form">
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	    </tr>
+		{% endif %}
+		</table>
+
+
+
+
+{% endblock %}

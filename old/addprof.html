@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> ADD NEW PATIENT PROFILE </h1>
+	<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+	<a class="patient_add_form" href="{% url 'prof_addorview' %}"><button class="back_button">Back</button></a>
+	<form class="patient_add_form" method="POST">
+				{% csrf_token %}
+				
+
+				<div class="patient_add_instructions">
+					<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+					<p> For the phone number kindly follow the +63 format (ex: +639123456789)</p>
+				</div>
+				<p><label> Full name: * </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Juan Dela Cruz" aria-label="Search" name="fullname"></p>
+
+				<p><label> Profile Type: *</label><input class="form-control mr-sm-2" type="search" value = "Patient" aria-label="Search" name="profile_type" readonly></p>
+
+				<p><label> Phone Number: (+63 format only) *</label><input class="form-control mr-sm-2" value = "+63" type="search" aria-label="Search" name="contact_number"></p> 
+
+
+				<p><label> Adress: *</label><input class="form-control mr-sm-2" type="search" placeholder="Input full address" aria-label="Search" name="profile_fulladress"></p>
+
+				<p><label> Birthday: *</label><input class="form-control mr-sm-2" type="date" placeholder="Birth Day" aria-label="Search" name="bday"></p>
+
+
+				<p><label> Gender: *</label><label for="id_gender"></label> <select name="gender" required id="id_gender">
+			  	<option placeholder = "Choose gender" selected></option>
+			 	<option value="Male">Male</option>
+			 	<option value="Female">Female</option>
+				</select></p>
+
+				<p><label> Emergency Contact Person Name: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Juan Dela Cruz" aria-label="Search" name="ecp_fullname"></p>
+
+				<p><label> Emergency Contact Person Phone Number: (+63 format only) *</label><input class="form-control mr-sm-2" value = "+63" type="search" aria-label="Search" name="ecp_contactnum"></p>
+
+				<p><label> Emergency Contact Person Relationship: *</label><input class="form-control mr-sm-2" type="search" placeholder="Relationship" aria-label="Search" name="ecp_relationship"></p>
+
+				<p><label> Emergency Contact Person Address: *</label><input class="form-control mr-sm-2" type="search" placeholder="Input Full Address" aria-label="Search" name="ecp_fulladress"></p>
+
+				<button class="next_button" type="submit">Next</button>
+
+			</form>
+
+
+
+{% endblock %}
+
+<!--
+	{{ form.as_p }}
+	
+				<label for="p_number">+63</label>
+				<input class="form-control mr-sm-2" id= 'p_number' type="search" placeholder="Ex: 9963525317" aria-label="Search" name="contact_number"> -->
+
+								<!--<h1> Emergency Contact Person </h1>
+				<ul>
+					<input class="form-control mr-sm-2" type="search" placeholder="Emergency Contact Name" aria-label="Search" name="ecp_fullname">
+					<input class="form-control mr-sm-2" type="search" placeholder="Emergency Contact Number" aria-label="Search" name="ecp_contactnum">
+					<input class="form-control mr-sm-2" type="search" placeholder="Relationship" aria-label="Search" name="ecp_relationship">
+					<input class="form-control mr-sm-2" type="search" placeholder="Adress" aria-label="Search" name="ecp_fulladress">
+				</ul> -->

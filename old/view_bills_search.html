@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> Bills Info </h1>
+<p class="patient_add_form"><button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'bills_options' %}">Back</a></button>
+
+
+
+	<form class = "search_form" method = POST action ="{% url 'view_bills_search' %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button> Bill Type: <input type='search' placeholder="search bill type" name = 'name'aria-label ='search'></p>
+	  <p>Month & Year Filter: <input type='month' name = 'date' aria-label ='search'>
+	  </p>
+	</form>
+
+	
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_type'%}">Bill Type</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_month'%}">Bill Month</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'bill_year'%}">Bill Year</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'total_amount'%}">Total Amount</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'paid_by'%}">Paid By</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_bills_filter' 'date_paid'%}">Date Paid</th>
+			<th class="th_form"> </th>
+		</tr>
+	</thead>
+		{% if bills_data %}
+		<tr class="tr_form">
+			{% for things in bills_data %}
+			<td class="td_form">{{ things.bill_type }}</td>
+			<td class="td_form">{{ things.bill_month }}</td>
+			<td class="td_form">{{ things.bill_year }}</td>
+			<td class="td_form">{{ things.total_amount }}</td>
+			<td class="td_form">{{ things.paid_by }}</td>
+			<td class="td_form">{{ things.date_paid }}</td>
+			<td class="td_form"><a style="color: #000000" href="{% url 'edit_billForm' things.id %}">Edit</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+	<h1 class="messages"> Search not found </h1>
+    <br></br>
+    <tr class="tr_form">
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+      <td class="td_form"> - </td>
+    </tr>
+	{% endif %}
+	
+{% endblock %}

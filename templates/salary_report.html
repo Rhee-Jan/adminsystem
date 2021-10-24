@@ -1,0 +1,130 @@
+
+{% block content %}
+<header>
+	<style>
+	  table {
+		border: 1px solid black;
+	  }
+	  th,
+	  td {
+		/*width: 120px;*/
+		white-space: nowrap;
+		padding: 10px;
+		text-align: center;
+	  }
+	  th {
+		/*font-size: 18px;*/
+		background-color: #a39e9e;
+	  }
+	  /*td {
+		font-size: 15px;
+	  } */
+	  h2 {
+		font-size: 22px;
+	  }
+	</style>
+  </header>
+  <center class="page_header">
+	<h2><b>Alvarado-Quinto Dental Clinic</b></h2>
+	<h3><i>Door 2, Elimar Building, San Isidro, NHA, Buhangin, Davao City</i></h3>
+	<h3><i>For Inquiry kindly contact - +639177161211</i></h3>
+	<br></br>
+	
+	<br></br>
+	<h1 class="page_header"> SALARY REPORT </h1>
+	<p> Employee name: {{ emp_name|title }} </p>
+	<p> Salary for: {{ date }} </p>
+	</center>
+	
+	
+	
+	{% if all_data_emp_salary %}
+	<br></br>
+	<center><h1 class="page_header">Salary</h1>	</center>
+	
+		<table align="center">
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<th class="th_form">Regular</th>
+			<th class="th_form">Overtime</th>
+			<th class="th_form">Bonus</th>
+			<th class="th_form">Tips</th>
+			<th class="th_form">Severance</th>
+		</tr>
+		</thead>
+		
+			<tr class="tr_form">
+				<td class="td_form">{{ all_data_emp_salary.profile_id|title }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.regular }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.overtime }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.bonus }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tips }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.severance }}</th>
+			</tr>
+
+		</table>
+
+	<center><h1 class="page_header">Deductions</h1>	</center>	
+		<table align="center">
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form">Philhealth</th>
+				<th class="th_form">SSS</th>
+				<th class="th_form">Pagibig</th>
+				<th class="th_form">Insurance</th>
+				<th class="th_form">Tax</th>
+				<th class="th_form">Others</th>
+			</tr>
+		</thead>
+		
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.philhealth }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.sss }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.pagibig }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.insurance }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.tax }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.others }}</th>
+			</tr>
+	
+		</table>
+
+		<center><h1 class="page_header">Payroll</h1></center>		
+		<table align="center">
+		<thead>	
+			<tr class="tr_form">
+				<th class="th_form">Total Salary</th>
+				<th class="th_form">Total Deduction</th>
+				<th class="th_form">Total Amount</th>
+				<th class="th_form">Date Given</th>
+
+			</tr>
+		</thead>
+		
+			<tr class="tr_form">
+				<td class="td_form">Php. {{ all_data_emp_salary.total_salary }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_deduction }}</th>
+				<td class="td_form">Php. {{ all_data_emp_salary.total_amount }}</th>
+				<td class="td_form">{{ all_data_emp_salary.date_given }}</th>
+			</tr>
+		
+		</table>
+	
+	{% else %} 
+		<center class ='messages'>An error occured try again later</center>
+	    
+	{% endif %}
+	<br></br>
+	<div class="pdf_div">
+		<div class="sign_div">
+			<br></br>
+			<h4 style="text-align: left;">________________________________</h4>
+			<h4 style="text-align: left;">Doctor signature over printed name</h4>
+		</div>
+		<div  class="sign_div2">
+			<br></br>
+			<h4 style="text-align: left;">________________________________</h4>
+			<h4 style="text-align: left;">Date issued</h4>
+		</div>
+	</div>
+{% endblock %}

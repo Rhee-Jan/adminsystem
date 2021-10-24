@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% if all_data_prof %}
+	<table class='table'>
+	<form class="form-inline my-2 my-lg-0" method="POST" >{% csrf_token %}
+	<button class="btn btn-outline-success my-0 my-sm-2" type="submit"><a href="{% url 'prof_view' %}"> Back </a></button>
+	</form>
+	<h1>Patient</h1>
+	<thead>
+		<tr>
+			<th>Profile ID</th>
+			<th>Full name</th>
+			<th>Profile Type</th>
+			<th>Contact Number</th>
+			<th>Adress</th>
+			<th>Birthday</th>
+			<th>Gender</th>
+			<th>Ecp Fullname</th>
+			<th>Ecp Contact Number</th>
+			<th>Ecp Relationship</th>
+			<th>Ecp Adress</th>
+			<th>Date added</th>
+			<th>Last updated</th>
+		</tr>
+	</thead>
+	{% for things in all_data_prof %}	
+		{% if things.profile_type == 'Patient' %}
+			<tr>	
+			<th>{{ things.id }}</th>
+			<th>{{ things.fullname }}</th>
+			<th>{{ things.profile_type }}</th>
+			<th>{{ things.contact_number }}</th>
+			<th>{{ things.profile_fulladress }}</th>
+			<th>{{ things.bday }}</th>
+			<th>{{ things.gender }}</th>
+			<th>{{ things.ecp_fullname }}</th>
+			<th>{{ things.ecp_contactnum }}</th>
+			<th>{{ things.ecp_relationship }}</th>
+			<th>{{ things.ecp_fulladress }}</th>
+			<th>{{ things.added }}</th>
+			<th>{{ things.update }}</th>
+				<th><a href="{% url 'editform' things.id 'patient' %}" > Edit </a></th>
+				<!-- <th><a href="{% url 'deleteprof' things.id 'patient'%}"> Delete </a></th> -->
+		</tr>
+		{% endif %}
+	{% endfor %}
+	{% else %}
+		<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'addprof' %}"> No available data to show.... add instead?</a> </button>
+	{% endif %}
+	</table>
+
+
+	
+{% endblock %}
+
+

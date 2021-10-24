@@ -1,0 +1,1363 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+a,
+a:visited {
+  /* a links */
+  text-decoration: none;
+}
+
+/* start of login screen */
+.company {
+  margin-top: 20px;
+  text-align: center;
+  color: #843c0c;
+}
+.datsys {
+  margin-top: 20px;
+  text-align: center;
+  color: #843c0c;
+}
+.login_body {
+  background-color: #f4c2c2;
+}
+.login_box {
+  width: 400px;
+  padding: 40px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: #ede1ed;
+  border-radius: 25px;
+  border: 2px solid grey;
+}
+.login_box h1 {
+  color: black;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.login_box input[type="text"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #f4c2c2;
+  padding: 14px 10px;
+  width: 250px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+  font-size: 16px;
+}
+.login_box input[type="password"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto 50px auto;
+  text-align: center;
+  border: 2px solid #f4c2c2;
+  padding: 14px 10px;
+  width: 250px;
+  outline: none;
+  color: black;
+  border-radius: 24px;
+  transition: 0.25s;
+  font-size: 16px;
+}
+.login_box input[type="text"]:focus,
+.login_box input[type="password"]:focus {
+  width: 320px;
+  border-color: #ed0e7e;
+}
+.login_box input[type="submit"] {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #ed0e7e;
+  padding: 14px 40px;
+  outline: none;
+  color: black;
+  border-radius: 10px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.login_box input[type="submit"]:hover {
+  background: #ed0e7e;
+}
+.login_box input[type="submit"]:visited {
+  text-decoration: none;
+}
+.login_box input[type="submit"]:active {
+  background: #d46a84;
+  transition: 0.25s;
+}
+/* end of login screen */
+
+/* start of navbar */
+.nav_header {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  background: #f4c2c2;
+  position: relative;
+}
+.nav_header {
+  border: 2px solid grey;
+}
+.nav_nav,
+.logout_button,
+.nav_links {
+  display: flex;
+}
+.nav_title {
+  flex: 1;
+}
+.nav_nav {
+  flex: 1;
+}
+.nav_links {
+  justify-content: space-between;
+  list-style: none;
+  padding-bottom: 5px;
+  flex-direction: row;
+}
+.nav_links a {
+  color: #4f5250;
+  font-size: 28px;
+  display: inline-block;
+  margin: 25px 25px 0px 25px;
+}
+/*
+.nav_links a:first-child {
+  margin-left: 60px;
+}
+.nav_links a:last-child {
+  margin-right: 40px;
+}*/
+.nav_links a:hover {
+  color: #db6e82;
+}
+.nav_links a:active {
+  color: white;
+  transition: 0.25s;
+}
+.logout_button {
+  position: absolute;
+  padding: 5px;
+  top: 10px;
+  right: 10px;
+  flex: 1;
+  font-size: 12px;
+  justify-content: flex-end;
+  color: #db6e82;
+  background-color: #edc2dc;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+.logout_button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: #b04d89;
+}
+.logout_button:active {
+  color: red;
+  background-color: white;
+}
+/*.toothnav {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: none;
+}/*
+/* end of navbar */
+/* for resizing */
+@media screen and (max-width: 1024px) {
+  .nav_links {
+    flex-direction: column;
+  }
+  .nav_links a {
+    font-size: 15px;
+    margin-top: 5px;
+  }
+  .search_form input {
+    width: 200px;
+  }
+  .search_form label {
+    width: 12px;
+  }
+  .home_form {
+    flex-direction: column;
+  }
+  .table_form {
+    width: 50%;
+  }
+  .search_con input {
+    margin-bottom: 5px;
+  }
+  .teeth_notes {
+    display: none;
+  }
+  .legend_adult {
+    display: none;
+  }
+  /*.th_form {
+    display: none;
+  }
+  .table_form,
+  .table_form tbody,
+  .tr_form,
+  .td_form {
+    display: block;
+    width: 100%;
+  }
+  .tr_form {
+    margin-bottom: 15px;
+  }
+  .td_form {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+  .td_form::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+  } */
+  /*.toothnav {
+    display: block;
+  }*/
+}
+/* end of for resizing */
+/* patient add form */
+.home_head {
+  color: red;
+}
+.page_header {
+  color: #64686e;
+  text-align: center;
+  margin: 5px auto 10px auto;
+  padding-top: 25px;
+}
+.messages {
+  color: red;
+  text-align: center;
+}
+.messages_sucess {
+  color: green;
+  text-align: center;
+}
+.second_messages {
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.third_messages {
+  color: black;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+.appointment_messages {
+  color: grey;
+  font-weight: bold;
+}
+.warning_messages {
+  color: red;
+  font-size: 30px;
+  text-align: center;
+}
+.patient_add_instructions {
+  color: black;
+  text-align: left;
+  font-style: italic;
+  padding: 10px 0px 20px 0px;
+}
+.datetime {
+  color: black;
+  text-align: left;
+  font-style: italic;
+  font-weight: bold;
+  padding: 10px 0px 20px 0px;
+}
+.finance_form {
+  text-align: center;
+  font-size: 22px;
+  padding: 20px;
+  line-height: 80px;
+}
+.finance_form label {
+  font-weight: bold;
+  color: #5e0505;
+}
+.search_con label {
+  font-size: 32px;
+  color: red;
+}
+.patient_add_form {
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  position: relative;
+}
+.patient_add_form input[type="radio"] {
+  display: none;
+}
+.radio_buttons {
+  position: relative;
+  color: grey;
+  font-size: 18px;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  padding: 10px 10px 20px 10px;
+  cursor: pointer;
+}
+.radio_buttons:before {
+  content: "";
+  height: 20px;
+  width: 20px;
+  border: 3px solid #c265a9;
+  border-radius: 50%;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+.patient_add_form input[type="radio"]:checked + .radio_buttons {
+  background: pink;
+  color: black;
+  border-color: #574c53;
+}
+.patient_add_form input[type="radio"]:checked + .radio_buttons:before {
+  height: 15px;
+  width: 15px;
+  border: 10px solid #c265a9;
+  background: white;
+}
+.patient_add_form label {
+  padding-top: 25px;
+  font-weight: bold;
+  margin-top: 25px;
+}
+.label_label {
+  font-size: 20px;
+}
+.patient_add_form label:first-child {
+  margin-top: 25px;
+}
+.patient_add_form input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 3px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+.patient_add_form p {
+  margin-bottom: 20px;
+}
+.some_space {
+  width: 100%;
+  height: 20px;
+}
+.search_con {
+  margin: 0px auto;
+  width: 98%;
+  justify-content: space-between;
+  height: 40px;
+  padding: 5px;
+}
+.search_form {
+  margin-right: 10px;
+  justify-content: space-around;
+}
+.search_form p {
+  float: right;
+}
+.search_form label {
+  color: #4b4f57;
+  margin-right: 3px;
+  margin-left: 5px;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 10px;
+}
+.search_form input[type="search"],
+input[type="month"] {
+  float: right;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid grey;
+  background: #f1f1f1;
+  height: 30px;
+  width: 150px;
+}
+.search_form button[type="submit"] {
+  font-size: 10px;
+  padding: 5px;
+  background: #c78fbf;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  float: right;
+  border-radius: 0;
+  height: 30px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+.search_form button:hover {
+  background-color: #bf56be;
+}
+.search_form button:active {
+  background-color: #e357ff;
+  color: #453e45;
+}
+.calendar_form {
+  height: 70px;
+  width: 98%;
+  margin: auto;
+}
+.calendar_button {
+  margin-right: 20px;
+  background-color: #3a4664;
+  color: white;
+  bottom: 10px;
+  right: 25px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.calendar_button:hover {
+  background-color: #041938;
+}
+.calendar_button:active {
+  background-color: #6494a0;
+}
+.calendar_left {
+  float: left;
+  margin-top: 20px;
+}
+.calendar_right {
+  float: right;
+  margin-top: 20px;
+}
+.calendar_addbutton {
+  float: left;
+  margin-right: 20px;
+  background-color: #a65d84;
+  color: white;
+  bottom: 10px;
+  right: 25px;
+  padding: 10px 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 1px solid black;
+  font-size: 12px;
+}
+.calendar_addbutton:hover {
+  padding: auto;
+  font-size: 15px;
+  width: 140px;
+  transition: 0.25s;
+  background: #eaa0a2;
+  color: #403038;
+}
+.calendar_addbutton:active {
+  padding: auto;
+  font-size: 15px;
+  width: 140px;
+  transition: 0.25s;
+  background: #ffc4c8;
+  color: black;
+}
+button {
+  padding: 10px 12px;
+  cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 15px;
+}
+button a {
+  color: white;
+}
+.back_button {
+  background-color: #eb2d66;
+  color: white;
+}
+.back_button:hover {
+  background-color: #ff0550;
+}
+.back_button:active {
+  background-color: red;
+}
+.next_button {
+  background-color: #f4c2c2;
+  color: #843c0c;
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
+}
+.next_button:hover {
+  background-color: #c96d93;
+  color: #e8becf;
+}
+.next_button:active {
+  background-color: #bf0f56;
+  color: white;
+}
+.save_button {
+  background-color: #75e07f;
+  color: #4f5250;
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
+}
+.save_button:hover {
+  background-color: #579c5d;
+  color: black;
+}
+.save_button:active {
+  background-color: #078c13;
+  color: white;
+}
+.edit_button {
+  background-color: #8881d6;
+  color: white;
+  margin-bottom: 10px;
+}
+.edit_button:hover {
+  background-color: #3225cc;
+  color: white;
+}
+.edit_button:active {
+  background-color: #130b75;
+  color: white;
+}
+.normal_button {
+  /*background-color: #f4c2c2;*/
+  background-color: #b570a4;
+  color: white;
+  bottom: 10px;
+  right: 25px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.normal_button:hover {
+  background-color: #b56060;
+  color: white;
+}
+.normal_button:active {
+  background-color: #e84f4f;
+}
+/* start of table elements */
+.table_form {
+  width: 98%;
+  margin: 10px auto 20px auto;
+  border-collapse: collapse;
+  border: 2px solid #3f4754;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+}
+.table2_form {
+  width: 98%;
+  margin: 20px auto 10px auto;
+  border-collapse: collapse;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+}
+.table3_form {
+  margin: 0 auto 20px auto;
+  border-collapse: collapse;
+  border: 2px solid #3f4754;
+  letter-spacing: 0.2px;
+  box-sizing: border-box;
+}
+.th_form {
+  background-color: #f5b0b0;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid black;
+}
+.th_form:hover {
+  background-color: #e97af5;
+}
+.th_form:active {
+  background-color: #956d99;
+}
+.td_form {
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  border: 1px solid grey;
+}
+.tr_form {
+  background-color: white;
+}
+
+.tr_form:nth-child(even) {
+  background-color: #a4a2a6;
+}
+/* end of table elements */
+.home_form {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  justify-content: space-between;
+  padding: auto;
+}
+.home_con {
+  text-align: center;
+  margin: auto 5px;
+}
+.home_con h1 {
+  font-size: 32px;
+  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 5px;
+}
+.home_row {
+  height: 400px;
+  overflow: auto;
+}
+.home_row thead th {
+  position: sticky;
+  top: 0;
+}
+.home_row,
+.home_row td {
+  box-shadow: inset 1px black;
+}
+.home_row th {
+  box-shadow: inset 1px 1px black, 1px 1px black;
+}
+/* ===================TEETH CHART DESGIN==================== */
+
+/* -------------BABY TEETH-------------- */
+.teeth_notes {
+  margin-left: 20px;
+  line-height: 20px;
+  border: 3px dotted grey;
+  border-radius: 10px;
+  width: 30%;
+  padding: 10px 10px 10px 10px;
+  font-size: 15px;
+  height: 200px;
+  text-align: center;
+}
+.teeth_notes_header {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+.teeth_notes_ital {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.teeth_fin {
+  overflow: auto;
+  height: 100px;
+  background-color: #f0c2e8;
+  text-align: left;
+}
+.teeth_con {
+  background: yellow;
+  height: 500px;
+  width: 500px;
+}
+
+.inv_tooth:hover {
+  background-color: pink;
+  text-align: center;
+  border: 0.5px solid grey;
+  border-radius: 50px;
+  padding-top: 5px;
+  font-weight: bold;
+  transition: 1s;
+}
+.inv_tooth:active {
+  background-color: #ed9fe2;
+  border: 1px solid #ff05da;
+  width: 70px;
+  transition: 0.5s;
+}
+.image1 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 495px;
+  top: 460px;
+  font-size: 22px;
+  color: #000000;
+}
+.image2 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 515px;
+  top: 380px;
+  font-size: 22px;
+  color: #000000;
+}
+.image3 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 555px;
+  top: 330px;
+  font-size: 22px;
+  color: #000000;
+}
+.image4 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 599px;
+  top: 278px;
+  font-size: 22px;
+  color: #000000;
+}
+.image5 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 680px;
+  top: 250px;
+  font-size: 22px;
+  color: #000000;
+}
+.image6 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 745px;
+  top: 250px;
+  font-size: 22px;
+  color: #000000;
+}
+.image7 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 805px;
+  top: 278px;
+  font-size: 22px;
+  color: #000000;
+}
+.image8 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 862px;
+  top: 330px;
+  font-size: 22px;
+  color: #000000;
+}
+.image9 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 895px;
+  top: 380px;
+  font-size: 22px;
+  color: #000000;
+}
+.image10 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 917px;
+  top: 460px;
+  font-size: 22px;
+  color: #000000;
+}
+.image11 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 485px;
+  top: 590px;
+  font-size: 22px;
+  color: #000000;
+}
+.image12 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 505px;
+  top: 682px;
+  font-size: 22px;
+  color: #000000;
+}
+.image13 {
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 562px;
+  top: 755px;
+  font-size: 22px;
+  color: #000000;
+}
+.image14 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 722px;
+  top: 812px;
+  font-size: 22px;
+  color: #000000;
+}
+.image15 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 617px;
+  top: 800px;
+  font-size: 22px;
+  color: #000000;
+}
+.image16 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 670px;
+  top: 809px;
+  font-size: 22px;
+  color: #000000;
+}
+.image17 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 780px;
+  top: 799px;
+  font-size: 22px;
+  color: #000000;
+}
+.image18 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 843px;
+  top: 755px;
+  font-size: 22px;
+  color: #000000;
+}
+.image19 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 889px;
+  top: 682px;
+  font-size: 22px;
+  color: #000000;
+}
+.image20 {
+  position: absolute;
+  position: absolute;
+  width: 61px;
+  height: 44px;
+  left: 913px;
+  top: 590px;
+  font-size: 22px;
+  color: #000000;
+}
+
+/* -------------ADULT TEETH-------------- */
+.a_image1 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 502px;
+  top: 532px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image2 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 512px;
+  top: 480px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image3 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 522px;
+  top: 430px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image4 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 545px;
+  top: 380px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image5 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 562px;
+  top: 350px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image6 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 593px;
+  top: 300px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image7 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 640px;
+  top: 275px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image8 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 700px; /*125*/
+  top: 260px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image9 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 755px;
+  top: 260px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image10 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 815px;
+  top: 270px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image11 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 865px;
+  top: 300px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image12 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 895px;
+  top: 340px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image13 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 915px;
+  top: 380px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image14 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 941px;
+  top: 420px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image15 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 950px;
+  top: 470px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image16 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 955px;
+  top: 530px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image17 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 502px;
+  top: 592px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image18 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 502px;
+  top: 642px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image19 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 512px;
+  top: 710px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image20 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 542px;
+  top: 760px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image21 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 577px;
+  top: 800px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image22 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 612px;
+  top: 835px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image23 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 647px;
+  top: 850px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image24 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 700px;
+  top: 860px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image25 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 750px;
+  top: 860px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image26 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 795px;
+  top: 855px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image27 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 835px;
+  top: 839px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image28 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 875px;
+  top: 805px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image29 {
+  position: absolute;
+  width: 52px;
+  height: 39px;
+  left: 912px;
+  top: 755px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image30 {
+  position: absolute;
+  width: 52px;
+  height: 39px;
+  left: 939px;
+  top: 716px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image31 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 948px;
+  top: 646px;
+  font-size: 22px;
+  color: #000000;
+}
+.a_image32 {
+  position: absolute;
+  width: 51px;
+  height: 39px;
+  left: 948px;
+  top: 600px;
+  font-size: 22px;
+  color: #000000;
+}
+.adult_teeth {
+  position: absolute;
+  width: 513px;
+  height: 649px;
+  left: 485px; /**/
+  top: 245px;
+}
+.adult_teeth__image {
+  width: 513px;
+  height: 649px;
+  left: 551px;
+  top: 232px;
+}
+
+.baby_teeth {
+  position: absolute;
+  width: 381px;
+  height: 521px;
+  left: 525px;
+  top: 282px;
+}
+.baby_teeth__image {
+  position: absolute;
+  width: 513px;
+  height: 649px;
+  left: 551px;
+  top: 252px;
+}
+
+.legend_baby {
+  position: absolute;
+  width: 260px;
+  height: 422px;
+  left: 1190px;
+  top: 273px;
+  border-width: 3px;
+  border-style: dashed;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.legend_adult {
+  position: absolute;
+  height: 500px;
+  left: 1020px;
+  top: 290px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 15px;
+  line-height: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 5px double grey;
+  border-radius: 25px;
+}
+.legend_base {
+  background-color: #f0c2e8;
+  border-radius: 25px;
+}
+.legend_base h4 {
+  text-align: center;
+  font-size: 20px;
+}
+.legend_list {
+  overflow: auto;
+  height: 445px;
+}
+
+/* -------------------------- CALENDAR CSS --------------------------*/
+.month {
+  cellspacing: 500px;
+  cellpadding: 500px;
+  height: 20px;
+  width: 200px;
+  border: 3px solid black;
+  background: #f4c2c2;
+}
+.mon {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.tue {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.wed {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.thu {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.fri {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.sat {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+.sun {
+  height: 20px;
+  width: 200px;
+  border: 1px solid black;
+  background: #edc2dc;
+}
+
+.title {
+  text-align: center;
+  margin: 10px;
+} /* no fx */
+
+.calendar {
+  width: 98%;
+  margin: auto;
+  font-size: 13px;
+  background: white;
+}
+
+.calendar tr,
+.calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+}
+.calendar td:hover {
+  background: #f2b3df;
+}
+.month {
+  font-size: 25px;
+  color: #4f5250;
+}
+
+.date {
+  font-size: 22px;
+  color: grey;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+  color: blue;
+}
+
+a {
+  color: #17a2b8;
+}
+
+/* -------------------------- CALENDAR CSS --------------------------*/

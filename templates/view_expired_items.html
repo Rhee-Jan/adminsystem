@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header">Expired Items</h1>
+	<div class="patient_add_form"><a href="{% url 'stock_out_option' %}"><button class="back_button" type="submit">Back</button></a></div>
+
+	{% if all_data_inventory %}
+	<form class="search_form" method = POST action ="{% url 'view_expired_items_search' %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+		<p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+		<p><label>Item name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con">
+		<p><label>Expiry Date: </label><input type='month' name = 'date' aria-label ='search'></p>
+		<p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+	  </div>
+	  <div class="search_con">
+		<p><button type='submit'>Search</button></p>
+	  </div>
+	</form>
+
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to sort )</p></center>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'itemname'%}"> Item Name </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'barcode'%}"> Barcode </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'itemcategory'%}"> Category </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'location'%}"> Location </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'item_fee'%}"> Item Fee if Bought/Used </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'quantity'%}"> Quantity Available</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'units'%}"> Units </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'expiry_date'%}"> Expiry Date </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_expired_items_filter' 'expiry_status'%}"> Expiry Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for things in all_data_inventory %}
+	<tr class="tr_form">
+		
+		<td class="td_form" data-label="Item Name">{{ things.itemname|title }}</td>
+		<td class="td_form" data-label="Barcode">{{ things.barcode }}</td>
+		<td class="td_form" data-label="Category">{{ things.itemcategory }}</td>
+		<td class="td_form" data-label="Location">{{ things.location|title }}</td>
+		<td class="td_form" data-label="Item Fee if Bought/Used">Php. {{ things.item_fee }}</td>
+		<td class="td_form" data-label="Quantity Available">{{ things.quantity }}</td>
+		<td class="td_form" data-label="Units">{{ things.units|title }}</td>
+		{% if things.expiry_date == None %}
+		<td class="td_form" data-label="Expiry Date">{{ things.expiry_date }}</td>
+		{% elif things.expiry_date != None %}
+		<td class="td_form" data-label="Expiry Date">{{ things.expiry_date }}</td>
+		{% endif %}
+		<td class="td_form" data-label="Expiry Status">{{ things.expiry_status|title }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	{% else %} <!-- IF WALA PAY NA EXPIRE NA ITEM -->
+		<p class="messages"><i>No items has expired yet</i></p>
+	{% endif %}	
+	
+	
+{% endblock %}

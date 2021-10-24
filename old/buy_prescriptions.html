@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	
+	<ul class ="messages"> <!-- ERROR MESSAGE -->
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+
+  	<h1 class="page_header">Buying prescription for {{ all_data_prof.fullname }}</h1>
+<h1 class="second_messages">Patient ID: {{ primary_key }}</h1>
+	
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<button class="back_button" type="submit"><a href="{% url 'prescriptions_addorview' primary_key%}"> Back</a> </button>
+		<p class="patient_add_instructions"> All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+			<p><label> Patient Name: *</label><input class="form-control mr-sm-2" type="search" value= '{{ all_data_prof.fullname }}' aria-label="Search" readonly></p>
+			<p><label> Patient ID: *</label><input class="form-control mr-sm-2" type="search" value= '{{ primary_key }}' aria-label="Search" name="patient_id"></p>
+
+			<label> Choose Medicine: </label>
+			<select name="item_id">
+			<option placeholder = " " selected></option>	
+			{% for things in all_data_inventory %}
+ 			<option value="{{ things.id }}">{{ things.itemname }} | Expiry Date: {{ things.expiry_date }}</option>
+ 			{% endfor %}
+			</select>
+
+
+			<p><label> Quantity: *</label><input class="form-control mr-sm-2" type="number" value = 1 placeholder="" aria-label="Search" name='quantity'></p>
+
+			<p><label> Units: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Tablets" aria-label="Search" name='units'></p>
+
+			<p><label> Purchase Date: *</label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="purchase_date"></p>
+
+
+			
+			<button class="next_button" type="submit"> Calculate total payment </button>
+				
+	</form>
+
+{% endblock %}

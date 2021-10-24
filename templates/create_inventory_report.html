@@ -1,0 +1,165 @@
+
+{% block content %}	
+<header>
+	<style>
+	  table {
+		border: 1px solid black;
+	  }
+	  th,
+	  td {
+		/*width: 120px;*/
+		white-space: nowrap;
+		padding: 10px;
+		text-align: center;
+	  }
+	  th {
+		/*font-size: 18px;*/
+		background-color: #a39e9e;
+	  }
+	  /*td {
+		font-size: 15px;
+	  } */
+	  h2 {
+		font-size: 22px;
+	  }
+	  /*.pdf_div{
+		display: flex;
+  margin: auto;
+  width: 100%;
+	  }*/
+	</style>
+  </header>
+<center class="page_header">
+<h2><b>Alvarado-Quinto Dental Clinic</b></h2>
+<h3><i>Door 2, Elimar Building, San Isidro, NHA, Buhangin, Davao City</i></h3>
+<h3><i>For Inquiry kindly contact - +639177161211</i></h3>
+<br></br>
+
+<br></br>
+<h1>INVENTORY REPORT</h1>
+</center>
+
+	{% if expired %}
+	<center><h1 class="page_header"> EXPIRED ITEMS </h1></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Item Name </th>
+			<th class="th_form"> Barcode </th>
+			<th class="th_form"> Category </th>
+			<th class="th_form"> Location </th>
+			<th class="th_form"> Item Fee if Bought/Used </th>
+			<th class="th_form"> Quantity Available</th>
+			<th class="th_form"> Units </th>
+			<th class="th_form"> Expiry Date </th>
+			<th class="th_form"> Expiry Status </th>
+		</tr>
+	</thead>
+	{% for things in expired %}
+		<tr class="tr_form">
+			<td class="td_form">{{ things.itemname }}</td>
+			<td class="td_form">{{ things.barcode }}</td>
+			<td class="td_form">{{ things.itemcategory }}</td>
+			<td class="td_form">{{ things.location }}</td>
+			<td class="td_form">Php. {{ things.item_fee }}</td>
+			<td class="td_form">{{ things.quantity }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">{{ things.expiry_date }}</td>
+			<td class="td_form">{{ things.expiry_status }}</td>
+			{% endfor %}
+		</tr>
+		
+	</table>
+	{% else %}
+		<center class ='messages'>No Item has expired</center>
+	{% endif %}
+
+{% if good %}
+	<br></br>
+	<center><h1 class="page_header"> GOOD TO USE ITEMS </h1></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Item Name </th>
+			<th class="th_form"> Barcode </th>
+			<th class="th_form"> Category </th>
+			<th class="th_form"> Location </th>
+			<th class="th_form"> Item Fee if Bought/Used </th>
+			<th class="th_form"> Quantity Available</th>
+			<th class="th_form"> Units </th>
+			<th class="th_form"> Expiry Date </th>
+			<th class="th_form"> Expiry Status </th>
+		</tr>
+	</thead>
+		{% for things in good %}
+		<tr class="tr_form">
+			<td class="td_form">{{ things.itemname }}</td>
+			<td class="td_form">{{ things.barcode }}</td>
+			<td class="td_form">{{ things.itemcategory }}</td>
+			<td class="td_form">{{ things.location }}</td>
+			<td class="td_form">Php. {{ things.item_fee }}</td>
+			<td class="td_form">{{ things.quantity }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">{{ things.expiry_date }}</td>
+			<td class="td_form">{{ things.expiry_status }}</td>
+			{% endfor %}
+		</tr>
+	</table>
+	{% else %}
+		<center class ='messages'>No items are Good to use</center>
+	{% endif %}
+
+
+{% if no_expiry %}
+	<br></br>
+	<center><h1 class="page_header"> NON-PERISHABLE ITEMS </h1></center>
+	<table align="center">
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Item Name </th>
+			<th class="th_form"> Barcode </th>
+			<th class="th_form"> Category </th>
+			<th class="th_form"> Location </th>
+			<th class="th_form"> Item Fee if Bought/Used </th>
+			<th class="th_form"> Quantity Available</th>
+			<th class="th_form"> Units </th>
+			<th class="th_form"> Expiry Date </th>
+			<th class="th_form"> Expiry Status </th>
+		</tr>
+	</thead>
+	{% for things in no_expiry %}
+		<tr class="tr_form">
+			<td class="td_form">{{ things.itemname }}</td>
+			<td class="td_form">{{ things.barcode }}</td>
+			<td class="td_form">{{ things.itemcategory }}</td>
+			<td class="td_form">{{ things.location }}</td>
+			<td class="td_form">Php. {{ things.item_fee }}</td>
+			<td class="td_form">{{ things.quantity }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">{{ things.expiry_date }}</td>
+			<td class="td_form">{{ things.expiry_status }}</td>
+			{% endfor %}
+		</tr>
+	</table>
+	{% else %}
+		<center class ='messages'>Items that doesn't expired dont exists</center>
+	{% endif %}
+
+
+
+
+<div class="pdf_div">
+	<div class="sign_div">
+		<br></br>
+		<br></br>
+		<h4 style="text-align: left;">________________________________</h4>
+		<h4 style="text-align: left;">Doctor signature over printed name</h4>
+	</div>
+	<div  class="sign_div2">
+		<br></br>
+		<h4 style="text-align: left;">________________________________</h4>
+		<h4 style="text-align: left;">Date issued</h4>
+	</div>
+</div>
+
+{% endblock %}

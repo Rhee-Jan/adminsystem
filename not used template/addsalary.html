@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	
+	
+	{% if all_data_prof %}
+		<table class='table'>
+		<thead>Profile name</thead>	
+		{% for things in all_data_prof %}
+			{% if things.profile_type == 'Employee' %}
+				<tr>
+					<td> 
+						<p>Employee name: {{ things.fullname }}
+						<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'addsalaryinfo' things.id %}"> Choose This Employee </button></p>
+					</td>
+				</tr>
+			
+			
+			{% endif %}
+
+		{% endfor %}
+		</table>
+	{% endif %}
+
+
+
+
+{%endblock%}

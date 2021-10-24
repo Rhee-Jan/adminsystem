@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> INVENTORY </h1>
+	<div class="patient_add_form">
+	<p>
+		<button class="back_button" type="submit"><a  href="{% url 'inventory_options' %}"> Back </a></button>
+		<table class="table2_form">
+			<tr>
+				<th>
+					<a  href="{% url 'inventory_options' %}"> <button class="normal_button" type="submit">View Expired only</button> </a>
+					
+				</th>
+				<th>
+					<a  href="{% url 'inventory_options' %}"><button class="normal_button" type="submit">View Not Expired only</button> </a>
+				</th>
+			</tr>
+		</table>
+	</p>
+	</div>
+
+	<form class="search_form" method = POST action ="{% url 'view_inventory_search' %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button></p>
+	  <p><label>Expiry Date: </label><input type='month' name = 'date' aria-label ='search'></p>
+	  <p><label>Expiry Status: </label><input type='search' placeholder="expiry status" name = 'exp' aria-label ='search'></p>
+	  <p><label>Location: </label><input type='search' placeholder="Location" name = 'loc'aria-label ='search'></p>
+	  <p><label>Category: </label><input type='search' placeholder="Category" name = 'cat'aria-label ='search'></p>
+	  <p><label>Item name: </label><input type='search' placeholder="search Item name" name = 'name'aria-label ='search'></p>
+	</form>
+	
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'itemname'%}"> Item Name </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'itemcategory'%}"> Category </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'location'%}"> Location </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'item_fee'%}"> Item Fee if Bought/Used </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'quantity'%}"> Quantity Available</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'units'%}"> Units </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'expiry_date'%}"> Expiry Date </th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'view_inventory_filter' 'expiry_status'%}"> Expiry Status </th>
+			<th class="th_form">   </th>
+		</tr>
+	</thead>
+	{% if all_data_inventory %}
+	<tr class="tr_form">
+		{% for things in all_data_inventory %}
+		<td class="td_form">{{ things.itemname }}</td>
+		<td class="td_form">{{ things.itemcategory }}</td>
+		<td class="td_form">{{ things.location }}</td>
+		<td class="td_form">Php. {{ things.item_fee }}</td>
+		<td class="td_form">{{ things.quantity }}</td>
+		<td class="td_form">{{ things.units }}</td>
+		{% if things.expiry_date == None %}
+		<td class="td_form">{{ things.expiry_date }}</td>
+		<td class="td_form">{{ things.expiry_status }}</td>
+		{% elif things.expiry_date != None %}
+		<td class="td_form">{{ things.expiry_date }}</td>
+		<td class="td_form">{{ things.expiry_status }}</td>
+		{% endif %}
+		<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'inventory' %}" ><button class="edit_button">Edit</button> </a></td>
+		
+	</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+		<center class ='messages'>No Inventory Data kindly go to "Add Inventory Item" to add ^^</center>
+	    <br></br>
+	    <tr class="tr_form">
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	      <td class="td_form"> - </td>
+	    </tr>
+	{% endif %}	
+	
+	
+{% endblock %}

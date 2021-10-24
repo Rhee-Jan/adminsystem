@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+
+<h1 class='page_header' >Available Schedules for {{ dateN }} </h1>
+<p class = 'patient_add_form'><a href="{% url 'add_appointmentinfo' profile_id date%}"><button class="back_button" type="submit">Back</button></a></p>
+{% if available_sched %}
+<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form2">Schedule ID </th>
+			<th class="th_form2">Date </th>
+			<th class="th_form2">Time </th>
+			<th class="th_form2">Doctor Assigned </th>
+			<th class="th_form2">Status </th>
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">
+		{% for things in available_sched %}
+		<td class="td_form">{{ things.id }}</td>
+		<td class="td_form">{{ things.date }}</td>
+		<td class="td_form">{{ things.time }}</td>
+		<td class="td_form">{{ things.doctor_lastname|title }}</td>
+		{% if things.availability %}
+			<td class="td_form">Available</td>
+			{% else %}
+			<td class="td_form">Reserved</td>
+		{% endif %}
+		
+	</tr>
+	{% endfor %}
+
+	</table>
+	{% else %}
+		<center class ='messages'>No available schedule kindly go to 'Add New Available Schedule' to add</center>
+		<br></br>
+	{% endif %}
+	
+
+	
+{% endblock %}
+
+
+
+

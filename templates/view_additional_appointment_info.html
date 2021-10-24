@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="patient_add_form">
+	<a href="{% url 'editform' primary_key 'appointments' %}"><button class="back_button" type="submit">Back</button></a> 
+
+<ul class ="messages_sucess">
+     {% for message in messages %}
+	 {% if message %}
+	 <script>alert("{{ message }}");</script>
+	  {% endif %}
+        {% endfor %}
+    </ul>
+
+<h1 class="page_header">FINISHED APPOINTMENTS MORE DETAILS</h1><br></br>
+<table class ='table_form'>
+
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Patient Name </th>
+			<th class="th_form"> Schedule Date</th>
+			<th class="th_form"> Schedule Time</th>
+			<th class="th_form"> Assigned Doctor</th>
+			<th class="th_form"> Service Chosen </th>
+			<th class="th_form"> Service Fee </th>
+			<th class="th_form"> Complain </th>
+			<th class="th_form"> Appointment Status </th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr class="tr_form">
+			<td class="td_form" data-label="Patient Name">{{ all_data_appointments.patient_id|title }}</td>
+			<td class="td_form" data-label="Schedule Date">{{ all_data_appointments.schedule_id.date }}</td>
+			<td class="td_form" data-label="Schedule Time">{{ all_data_appointments.schedule_id.time }}</td>
+			<td class="td_form" data-label="Assigned Doctor">{{ all_data_appointments.schedule_id.doctor_lastname|title }}</td>
+			<td class="td_form" data-label="Service Chosen">{{ all_data_appointments.service_id|title }}</td>
+			<td class="td_form" data-label="Service Fee">Php. {{ all_data_appointments.service_id.service_fee }}</td>
+			<td class="td_form" data-label="Complain">{{ all_data_appointments.complain|title }}</td>
+			<td class="td_form" data-label="Appointment Status">{{ all_data_appointments.appointment_status }}</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+
+<div class="patient_add_form">
+<h1 class="page_header">PROCEDURE DETAILS</h1>
+
+<p class="patient_add_instructions">Instructions: Add the procedures of the services done to this appointment and the corresponding Fee for that service for computation</p>
+<p class="patient_add_instructions">Ex: Procedures Done : Extraction | Teeth Position : Left Insicor | Fee: Php. 199 </p>
+
+{% if all_data_procedures %}
+<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			
+			<th class="th_form"> Procedures Done</th>
+			<th class="th_form"> Teeth Position</th>
+			<th class="th_form">Procedure Fee </th>
+			<th class="th_form">   </th>
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">	
+		{% for things in all_data_procedures %}
+		<td class="td_form">{{ things.procedures_done|title }}</td>
+		<td class="td_form">{{ things.teeth_position }}</td>
+		<td class="td_form">Php. {{ things.procedures_fee }}</td>
+		<td class="td_form"><a href="{% url 'editform' things.id 'procedure' %}"><button class="normal_button" type="submit">Edit Details</button></a></td>
+		
+		</tr>
+		{% endfor %}
+	</table>
+	<h4 class="page_header" >Total procedures fee: Php. {{ tot_procedures }}</h4> 
+{% endif %}
+<center><a href="{% url 'add_procedures' primary_key %}"><button class="normal_button" type="submit">Add procedures</button></a></center>
+</div>
+
+	
+
+
+
+<div class="patient_add_form">
+<h1 class="page_header"> ITEMS/TOOLS USED DETAILS </h1>
+<p class="patient_add_instructions">Instructions: Add the Tools/Items used during this appointment that needs to be paid by the patient</p>
+<p class="patient_add_instructions">Ex: Item Name: Cotton | Quantity Used: 1 | Units: Packs | Fee: Php. 25 </p>
+{% if all_data_tools_items_used %}
+	<table class ='table_form'>
+		<thead>
+			<tr class="tr_form">	
+				
+				<th class="th_form"> Item ID</th>
+				<th class="th_form"> Item Name</th>
+				<th class="th_form"> Barcode</th>
+				<th class="th_form"> Quantity used </th>
+				<th class="th_form"> Units </th>
+				<th class="th_form"> Fee </th>
+				<th class="th_form"> Date used </th>
+				<th class="th_form">   </th>
+			</tr>
+		</thead>
+
+		<tr class="tr_form">	
+			{% for things in all_data_tools_items_used %}
+			
+			<td class="td_form">{{ things.item_id.id }}</td>
+			<td class="td_form">{{ things.item_id.itemname|title }}</td>
+			<td class="td_form">{{ things.item_id.barcode }}</td>
+			<td class="td_form">{{ things.quantity_used }}</td>
+			<td class="td_form">{{ things.units|title }}</td>
+			{% if things.item_tools_fee <= 0%}
+			<td class="td_form">Item is free</td>
+			{% else %}
+			<td class="td_form">Php. {{ things.item_tools_fee }}</td>
+			{% endif %}
+			<td class="td_form">{{ things.date_used }}</td>
+			<td class="td_form"><button class="normal_button" type="submit"><a href="{% url 'editform' things.id 'tools_items_used' %}">Edit Details</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<h4 class="page_header">Total Tools/Items used Fee: Php. {{ tot_fee }}</h4>
+{% endif %}
+
+<center><button class="normal_button" type="submit"><a href="{% url 'add_tools_items_used' primary_key %}"> Add Tools/Items used </button></center>
+
+
+
+{% if all_data_tools_items_used and all_data_procedures %}
+<br></br><center><button class="normal_button" type="submit"><a href="{% url 'make_payment' all_data_appointments.id all_data_appointments.service_id.service_fee tot_procedures tot_fee %}">Proceed To Payment </a> </button><center>
+{% elif all_data_procedures %}
+<br></br><center><button class="normal_button" type="submit"><a href="{% url 'make_payment' all_data_appointments.id all_data_appointments.service_id.service_fee tot_procedures tot_fee %}">Proceed To Payment </a> </button><center>
+{% endif %}
+</div>
+{% endblock %}
+

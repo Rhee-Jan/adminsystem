@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header"> ADD NEW ITEM IN THE INVENTORY(PERISHABLE) </h1>
+	<div class="patient_add_form">
+		<button class="back_button" type="submit"><a href="{% url 'stock_in_options' %}"> Back</a> </button></p>	
+	
+	<p> All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+	<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	</div>
+	
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+
+			<p><label> Item name: *</label><input class="form-control mr-sm-2" type="search" value = '{{ itemname }}' aria-label="Search" name="itemname"></p>
+			<p><label> Item Category: *</label><input class="form-control mr-sm-2" type="search" placeholder=" Dental tool" aria-label="Search" name="itemcategory"></p>
+			<p><label> Location: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Main drawer" aria-label="Search" name="location"></p>
+			<p><label> Item fee if bought or used: Php. * <i>(Put 0 if item does not have a fee)</label><input class="form-control mr-sm-2" type="number" placeholder="" aria-label="Search" name="item_fee"></p>
+			<p><label> Quantity Available: *</label><input class="form-control mr-sm-2" type="number" value = "{{ quantity }}" aria-label="Search" name="quantity" ></p>
+			<p><label> Unit: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: pieces" aria-label="Search" name="units"></p>
+			<p><label> Expiry Date: *</label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="expiry_date"></p>
+			
+
+			<button class="save_button" type="submit">Save</button>
+				
+			</form>
+
+
+
+{% endblock %}
+<!-- <p><label> Expiry Date: </label><input class="form-control mr-sm-2" type="date" aria-label="Search" name="expiry_date"> *</p> -->

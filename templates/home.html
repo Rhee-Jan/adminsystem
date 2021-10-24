@@ -1,0 +1,154 @@
+{% extends 'base.html' %} {% block content %}
+
+<br></br>
+<div class ="messages_sucess">
+         {% for message in messages %}
+         {% if message %}
+         <script>alert("{{ message }}");</script>
+          {% endif %}
+            {% endfor %}
+</div>
+
+<form method="POST">
+  {% csrf_token %}
+  <!--
+  <h1>THIS IS HOME {{ item_pk }} | {{ expired_items }}</h1>
+  <h1>{{ low_quantity }}</h1>
+  <h1>{{ date_condition }}</h1>
+  <h1>{{ near_expiry }}</h1>
+  -->
+
+  <div class="home_form">
+    <div class="home_con">
+      <h1>Appointments</h1>
+      <p>(Today's Appointments)</p>
+      <div class="home_row">
+        <table class="table3_form">
+          <thead>
+            <tr class="tr_form2">
+              <th class="th_form2">Patient Name</th>
+              <th class="th_form2">Time</th>
+              <th class="th_form2">Doctor Assigned</th>  
+            </tr>
+          </thead>
+          {% if appointment_now %}
+          {% for things in appointment_now %}
+          <tr class="tr_form2">
+            <td class="td_form2">{{ things.patient_id.fullname|title }}</td>
+            <td class="td_form2">{{ things.schedule_id.time }}</td>
+            <td class="td_form2">{{ things.schedule_id.doctor_lastname|title }}</td>
+          </tr>
+          {% endfor %}
+          {% else %}
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+    <div class="home_con">
+      <h1>Low Quantity</h1>
+      <p>(Below 25 quantities)</p>
+      <div class="home_row">
+        <table class="table3_form">
+          <thead>
+            <tr class="tr_form2">
+              <th class="th_form2">Item</th>
+              <th class="th_form2">Barcode</th>
+              <th class="th_form2">Location</th>
+              <th class="th_form2">Quantity</th>
+              <th class="th_form2">Units</th>
+            </tr>
+          </thead>
+          {% if low_quantity %}
+            {% for things in low_quantity %}
+          <tr class="tr_form2">
+            
+            <td class="td_form2">{{ things.itemname|title }}</td>
+            <td class="td_form2">{{ things.barcode }}</td>
+            <td class="td_form2">{{ things.location|title }}</td>
+            <td class="td_form2">{{ things.quantity }}</td>
+            <td class="td_form2">{{ things.units|title }}</td>
+          </tr>
+          {% endfor %}
+            {% else %}
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            {% endif %}
+        </table>
+      </div>
+    </div>
+    
+    <div class="home_con">
+      <h1>Near Expiry </h1>
+      <p>(15 days from expiry date)</p>
+      <div class="home_row">
+        <table class="table3_form">
+          <thead>
+            <tr class="tr_form2">
+              <th class="th_form2">Item</th>
+              <th class="th_form2">Barcode</th>
+              <th class="th_form2">Location</th>
+              <th class="th_form2">Expiry Date</th>
+            </tr>
+          </thead>
+          {% if near_expiry %}
+            {% for things in near_expiry %}
+          <tr class="tr_form2">
+            
+            <td class="td_form2">{{ things.itemname|title }}</td>
+            <td class="td_form2">{{ things.barcode }}</td>
+            <td class="td_form2">{{ things.location|title }}</td>
+            <td class="td_form2">{{ things.expiry_date }}</td>   
+          </tr>
+          {% endfor %}
+            {% else %}
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            <td class="td_form2"> - </td>
+            {% endif %}
+        </table>
+      </div>
+    </div>
+    
+  </div>
+</form>
+
+{% endblock %}
+
+<!-- 
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'login_page' %}"> Logout </a></button>
+
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'prof_addorview' %}"> Patient Profiles </a></button>
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'inventory_options' %}"> Inventory </a></button>
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'appointments_addorview' %}"> Appointments </a></button>
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'income_expense_options' %}"> Income and Expense </a></button>
+
+  <button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'emp_addorview' %}"> Employee Profiles </a></button>
+
+
+-->
+<!--
+  <table class = 'table_form'>
+  <h1>Near Expiry</h1>
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Item</th>
+      <th class="th_form">Location</th>
+      <th class="th_form">Expiry Date</th>
+    </tr>
+  </thead>
+    <tr class="tr_form">
+      {% for things in near_expiry %}
+      <td class="td_form">{{ things.itemname }}</td>
+      <td class="td_form">{{ things.location }}</td>
+      <td class="td_form">{{ things.expiry_date }}</td>
+      {% endfor %}
+    </tr>
+  </table>
+-->

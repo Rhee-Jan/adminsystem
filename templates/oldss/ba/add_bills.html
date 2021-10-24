@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="page_header"> ADDING BILLS EXPENSE</h1>
+<ul class ="messages">
+   	 {% for message in messages %}
+     	 <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+    	  {% endfor %}
+  	</ul>
+<div class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'view_bills' %}">Back</a></button></div>
+	
+	
+
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+		<p class="patient_add_instructions"> All Fields with "*" is required. DO NOT LEAVE IT BLANK</p>
+		<p class="patient_add_instructions"> INPUT at 2 decimal places</p>
+			<p><label> Bill Type: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Water Bill" aria-label="Search" name="bill_type"></p>
+
+			<label >Billing Month: *</label>
+			<select name="bill_month">
+			  <option value="January">January</option>
+			  <option value="Febuary">Febuary</option>
+			  <option value="March">March</option>
+			  <option value="April">April</option>
+			  <option value="May">May</option>
+			  <option value="June">June</option>
+			  <option value="July">July</option>
+			  <option value="August">August</option>
+			  <option value="September">September</option>
+			  <option value="October">October</option>
+			  <option value="November">November</option>
+			  <option value="December">December</option>
+			</select>
+
+			<p><label> Billing Year: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: 2020" aria-label="Search" name="bill_year"></p>
+
+			<p><label> Total Amount: Php.  *</label><input class="form-control mr-sm-2" type="search" aria-label="Search" name="total_amount"></p>
+
+			<p><label> Paid By: *</label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Secretary" aria-label="Search" name="paid_by"></p>
+
+			<p><label> Date Paid: *</label><input class="form-control mr-sm-2" type="date" placeholder="" aria-label="Search" name="date_paid"></p>
+			
+			<button class="save_button" type="submit">Save</button>
+				
+			</form>
+	
+{% endblock %}

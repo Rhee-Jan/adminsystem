@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1 class="page_header">Prescription Income</h1>
+	<p class="patient_add_form">
+	<button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'income_options' %}">Back</a></button>
+	</p>
+
+	{% if presc_details %}
+	<form class = "search_form" method = POST action ="{% url 'view_presc_income_search' %}">
+	  {% csrf_token %}
+	  <p><button type='submit'>Search</button>
+	  <label>Month & Year (Date Paid):</label><input type='month' name = 'date' aria-label ='search'></p>
+	  <p><label>Medicine Bought:</label><input type='search' placeholder='medicine bought search 'name = 'med' aria-label ='search'></p>
+	  
+	  <p><label>Barcode:</label><input type='search' placeholder='barcode search 'name = 'code' aria-label ='search'></p>
+	  <p><label>Patient Name:</label><input type='search' placeholder='patient name search 'name = 'name' aria-label ='search'></p>
+	</form>
+	
+
+	<p><center class="second_messages">( Click table headers to use filters )</center></p>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'patient_id'%}">Patient Name</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'item_id'%}">Medicine Bought</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'item_id'%}">Barcode</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'quantity'%}">Quantity</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'units'%}">Units</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'total_amount'%}">Total Payment</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'payment_method'%}">Payment Method</th>
+			<th class="th_form"><a style="color:#000000" href="{% url 'view_presc_income_filter' 'purchase_date'%}">Purchase Date</th>
+		</tr>
+	</thead>
+	
+		<tr class="tr_form">
+			{% for things in presc_details %}
+			<td class="td_form">{{ things.patient_id.fullname }}</td>
+			<td class="td_form">{{ things.item_id.itemname }}</td>
+			<td class="td_form">{{ things.item_id.barcode }}</td>
+			<td class="td_form">{{ things.quantity }}</td>
+			<td class="td_form">{{ things.units }}</td>
+			<td class="td_form">{{ things.total_amount }}</td>
+			<td class="td_form">{{ things.payment_method }}</td>
+			<td class="td_form">{{ things.purchase_date }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %} <!-- if no data available -->
+	<center class ='messages'> No Prescription Income data available :"(</center>
+	{% endif %}
+	
+{% endblock %}
+
+

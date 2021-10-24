@@ -1,0 +1,144 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">VIEW FINISHED APPOINTMENTS</h1>
+<p class="patient_add_form">
+  <a href="{% url 'view_patient_appointment_history' new_primary_key %}"
+    ><button class="back_button" type="submit">Back</button></a
+  >
+</p>
+<div class="patient_add_form">
+  <p class="second_messages">APPOINTMENT DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form2">Patient Name</th>
+        <th class="th_form2">Schedule Date</th>
+        <th class="th_form2">Schedule Time</th>
+        <th class="th_form2">Assigned Doctor</th>
+        <th class="th_form2">Service Chosen</th>
+        <th class="th_form2">Service Fee</th>
+        <th class="th_form2">Complain</th>
+        <th class="th_form2">Appointment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tr_form">
+        <td class="td_form" data-label="Patient Name">
+          {{ all_data_appointments.patient_id.fullname|title }}
+        </td>
+        <td class="td_form" data-label="Schedule Date">
+          {{ all_data_appointments.schedule_id.date }}
+        </td>
+        <td class="td_form" data-label="Schedule Tim">
+          {{ all_data_appointments.schedule_id.time }}
+        </td>
+        <td class="td_form" data-label="Assigned Doctor">
+          {{ all_data_appointments.schedule_id.doctor_lastname|title }}
+        </td>
+        <td class="td_form" data-label="Service Chosen">
+          {{ all_data_appointments.service_id.service_type|title }}
+        </td>
+        <td class="td_form" data-label="Service Fee">
+          {{ all_data_appointments.service_id.service_fee }}
+        </td>
+        <td class="td_form" data-label="Complain">
+          {{ all_data_appointments.complain|title }}
+        </td>
+        <td class="td_form" data-label="Appointment Status">
+          {{ all_data_appointments.appointment_status }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  {% if all_data_procedures %}
+  <p class="second_messages">PROCEDURE DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form2">Appointment Date</th>
+        <th class="th_form2">Appointment Time</th>
+        <th class="th_form2">Procedures Done</th>
+        <th class="th_form2">Teeth Position</th>
+        <th class="th_form2">Procedure Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in all_data_procedures %}
+      <tr class="tr_form">
+        <td class="td_form" data-label="Appointment Date">
+          {{ all_data_appointments.schedule_id.date }}
+        </td>
+        <td class="td_form" data-label="Appointment Time">
+          {{ all_data_appointments.schedule_id.time }}
+        </td>
+        <td class="td_form" data-label="Procedures Done">
+          {{ things.procedures_done|title }}
+        </td>
+        <td class="td_form" data-label="Teeth Position">
+          {{ things.teeth_position|title }}
+        </td>
+        <td class="td_form" data-label="Procedure Fee">
+          Php. {{ things.procedures_fee|title }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="messages">NO AVAILABLE PROCEDURES DATA IN THIS APPOINTMENT</p>
+  {% endif %} {% if all_data_tools_items_used %}
+  <p class="second_messages">ITEMS/TOOLS USED DETAILS</p>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form2">Appointment Date</th>
+        <th class="th_form2">Appointment Time</th>
+        <th class="th_form2">Item Name</th>
+        <th class="th_form2">Quantity used</th>
+        <th class="th_form2">Units</th>
+        <th class="th_form2">Fee</th>
+        <th class="th_form2">Date used</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for things in all_data_tools_items_used %}
+      <tr class="tr_form">
+        <td class="td_form" data-label="Appointment Date">
+          {{ all_data_appointments.schedule_id.date }}
+        </td>
+        <td class="td_form" data-label="Appointment Time">
+          {{ all_data_appointments.schedule_id.time }}
+        </td>
+        <td class="td_form" data-label="Item Name">
+          {{ things.item_id.itemname|title }}
+        </td>
+        <td class="td_form" data-label="Quantity used">
+          {{ things.quantity_used }}
+        </td>
+        <td class="td_form" data-label="Units">{{ things.units|title }}</td>
+        <td class="td_form" data-label="Fee">
+          Php. {{ things.item_tools_fee }}
+        </td>
+        <td class="td_form" data-label="Date used">{{ things.date_used }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="messages">NO AVAILABLE TOOLS/ITEMS USED DATA IN THIS APPOINTMENT</p>
+  {% endif %} {% if all_data_appointments.payment_status == 'Paid' %}
+  <center>
+    <a href="{% url 'view_only_payment_history' all_data_appointments.id %}"
+      ><button class="normal_button" type="submit">
+        View Payment Informations
+      </button></a
+    >
+  </center>
+  {% else %}
+  <p class="messages">
+    This patient did not pay for this appointment yet please process this in THE
+    VIEW FINISHED APPOINTMENTS TAB UNDER APPOINTMENTS AND put necessary data
+    there
+  </p>
+</div>
+{% endif %} {% endblock %}

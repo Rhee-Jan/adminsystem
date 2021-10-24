@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+
+<form class="patient_add_form" method="POST">
+  {% csrf_token %}
+  <button class="back_button" type="submit">
+    <a href="{% url 'prof_view' %}"> Back </a>
+  </button>
+  <button class="edit_button" type="submit">
+    <a href="{% url 'edit_pat_info' all_data_pat_info.id %}"> Edit </a>
+  </button>
+
+  {% if all_data_pat_info %}
+  <h1 class="page_header">Patient Info</h1>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Full Name</th>
+        <th class="th_form">Contact Number</th>
+        <th class="th_form">Adress</th>
+        <th class="th_form">Birthday</th>
+        <th class="th_form">Gender</th>
+        <th class="th_form">Occupation</th>
+        <th class="th_form">Allergies</th>
+        <th class="th_form">Date added</th>
+        <th class="th_form">Last updated</th>
+      </tr>
+    </thead>
+    <tr>
+      <td class="td_form">{{ all_data_pat_info.profile_id.fullname }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.contact_number }}</td>
+      <td class="td_form">
+        {{ all_data_pat_info.profile_id.profile_fulladress }}
+      </td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.bday }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.gender }}</td>
+      <td class="td_form">{{ all_data_pat_info.pat_occupation }}</td>
+      <td class="td_form">{{ all_data_pat_info.pat_allergies }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.added }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.update }}</td>
+    </tr>
+  </table>
+
+  <h1 class="page_header">Patient Emergency Contact Person</h1>
+  <table class="table_form">
+    <thead>
+      <tr class="tr_form">
+        <th class="th_form">Patient Full Name</th>
+        <th class="th_form">Ecp Fullname</th>
+        <th class="th_form">Ecp Contact Number</th>
+        <th class="th_form">Ecp Relationship</th>
+        <th class="th_form">Ecp Adress</th>
+      </tr>
+    </thead>
+    <tr class="tr_form">
+      <td class="td_form">{{ all_data_pat_info.profile_id.fullname }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.ecp_fullname }}</td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.ecp_contactnum }}</td>
+      <td class="td_form">
+        {{ all_data_pat_info.profile_id.ecp_relationship }}
+      </td>
+      <td class="td_form">{{ all_data_pat_info.profile_id.ecp_fulladress }}</td>
+    </tr>
+  </table>
+
+  {% endif %}
+</form>
+
+{% endblock %}

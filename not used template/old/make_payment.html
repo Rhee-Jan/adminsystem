@@ -1,0 +1,53 @@
+
+
+{% block content %}
+
+
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+
+		<p><label> Patient Name:: </label><input class="form-control mr-sm-2" type="search" value="{{ all_data_appointments.patient_id.fullname }}" aria-label="Search" readonly></p>
+		<p><label> Appointment ID: </label><input class="form-control mr-sm-2" type="search" value ="{{ all_data_appointments.id }}" aria-label="Search" name="appointment_id"> *</p>
+
+		<p><label> Appointment Date: </label><input class="form-control mr-sm-2" type="search" value="{{ all_data_appointments.schedule_id.date }}" aria-label="Search" readonly></p>
+
+		<p><label> Appointment Time: </label><input class="form-control mr-sm-2" type="search" value="{{ all_data_appointments.schedule_id.time }}" aria-label="Search" readonly></p>
+
+		<p><label> Service Done: </label><input class="form-control mr-sm-2" type="search" value="{{ all_data_appointments.service_id.service_type }}" aria-label="Search" readonly></p>
+
+		<!--<p><label> Total service fee: Php. </label><input class="form-control mr-sm-2" type="search" value="{{ service_fee }}" aria-label="Search" readonly></p>-->
+
+		<p><label> Total Service and Additional Procedures fee: Php. </label><input class="form-control mr-sm-2" type="search" value="{{ procedures_fee }}" aria-label="Search" readonly></p>
+
+		<p><label> Total Items/Tools used fee: Php. </label><input class="form-control mr-sm-2" type="search" value="{{ tools_fee }}" aria-label="Search" readonly></p>
+
+		<p><label> Total Payment: Php. </label><input class="form-control mr-sm-2" type="search"  value="{{ total_payment }}" aria-label="Search" name="total_payment"> *</p>
+
+		<p><label> Payment method: </label><input class="form-control mr-sm-2" type="search" placeholder= "Ex: Cash"aria-label="Search" name="payment_method"> *</p>
+		<p><label> date_paid: </label><input class="form-control mr-sm-2" type="date" placeholder="Ex: pieces" aria-label="Search" name="date_paid"> *</p>
+
+
+			
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+			
+	</form>
+
+	
+	
+	
+{% endblock %}
+
+
+<!-- 
+	<p>Patient Name: {{ all_data_appointments.patient_id.fullname }} readonly</p> 
+	<p>Appointment ID: {{ all_data_appointments.id }}</p> 
+	<p>Appointment Date: {{ all_data_appointments.schedule_id.date }} readonly</p>
+	<p>Appointment Time: {{ all_data_appointments.schedule_id.time }} readonly</p>
+	<p>Service Done: {{ all_data_appointments.service_id.service_type }} readonly</p>
+	<p>Total service fee: Php. {{ service_fee }} readonly</p>
+	<p>Total Procedures fee: Php. {{ procedures_fee }} readonly</p>
+	<p>Total Items/Tools used fee: Php. {{ tools_fee }} readonly</p> 
+
+	<p>Total Payment: Php. {{ total_payment }}</p>
+	<p>Payment method: </p>
+	<p>Date Paid: </p>
+-->

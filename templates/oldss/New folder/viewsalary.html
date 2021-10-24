@@ -1,0 +1,58 @@
+	{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">EMPLOYEE SALARY</h1>
+	
+	
+
+	<a class="patient_add_form" href="{% url 'emp_view' %}"><button class="back_button" type="submit"> Back </button></a><br></br>
+
+	<ul class ="messages_sucess">
+       {% for message in messages %}
+       <p{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </p>
+       {% endfor %}
+    </ul>
+    
+	{% if all_data_emp_salary %}
+	<form class ="search_form" method = POST action ="{% url 'viewsalary_search' primary_key %}">
+	  {% csrf_token %}
+	  <div class="search_con">
+		<p><button type='submit'>Search</button>
+			<label>Month & Year:</label><input type='month' name = 'date' aria-label ='search'></p>
+	  </div>
+	</form>
+	<div class="search_con"></div>
+	<center><p class="third_messages">( Click table headers to use filters )</p></center>
+	
+		<table class='table_form'>
+		<thead>
+			<tr class="tr_form">
+			<th class="th_form">Employee Name</th>
+			<th class="th_form">Total Salary</th>
+			<th class="th_form">Total Deduction</th>
+			<th class="th_form">Total Amount</th>
+			<th class="th_form"><a style="color: #000000" href="{% url 'viewsalary_filter' primary_key 'date_given'%}">Date Given</th>
+			<th class="th_form">Edit</th>
+		</tr>
+		</thead>
+		
+			<tr class="tr_form">
+				{% for things in all_data_emp_salary %}
+				<td class="td_form">{{ things.profile_id }}</th>
+				<td class="td_form">Php. {{ things.total_salary }}</th>
+				<td class="td_form">Php. {{ things.total_deduction }}</th>
+				<td class="td_form">Php. {{ things.total_amount }}</th>
+				<td class="td_form">{{ things.date_given }}</th>
+				<td class="td_form">
+					<a style="color: #000000" href="{% url 'more_salary_info' things.id %}"><button class="edit_button" >More details</button></a>
+				</td>
+			</tr>
+				{% endfor %}
+	{% else %} <!-- IF WALA PAY SALARY ANG ISA KA EMPLOYEE -->
+		<center class ='messages'>Employee has no Salary informations yet... go to "Add Salary" to add ^^</center>
+	    
+	{% endif %}
+
+	
+	
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="page_header"> TOTAL MONTHLY INCOME</h1>
+<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+<div class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'income_options' %}">Back</a></button></div>
+	
+
+	
+		<form class="search_form" method="POST">{% csrf_token %}
+			<div class="search_con">
+				<button class="normal_button" type="submit">Go</button>
+				<p>
+				<label class="finance_label">Choose Month and Year: *</label>
+				<input type="month" placeholder="" aria-label="Search" name="date"></input>
+				</p>
+				
+			</div>
+			<br></br>
+			</form>
+			<div class="finance_form">	
+			<p><label>Chosen Month & Year:</label> <i>{{ d }}</i></p>
+			<!--
+			{% if payment_details %}
+			{% for i in payment_details %}
+			{{ i.date_paid }}
+			{% endfor %}
+			{% else %}
+			No data
+			{% endif %}
+		
+			{% if presc_details %}
+			{% for i in presc_details %}
+			{{ i.purchase_date }}
+			{% endfor %}
+			{% else %}
+			No data
+			{% endif %}
+			-->
+		
+		
+			<p><label>Total Income for Appointments: Php. </label><i>{{ tot_pay }}</i></p>
+			<p><label>Total Income for Prescription Sales: Php. </label><i>{{ tot_presc }}</i></p>
+			<p><label>Total Income for {{ d }} : Php. </label><i>{{ total_inc }}</i></p>
+	</div>
+	
+{% endblock %}

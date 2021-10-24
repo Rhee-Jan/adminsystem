@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="page_header"> TOTAL MONTHLY PROFIT</h1>
+<ul class ="messages">
+   	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	  {% endfor %}
+  	</ul>
+<div class="patient_add_form"><button class="back_button" type="submit"><a href="{% url 'income_expense_options' %}">Back</a></button></div>
+	
+
+	<form  class="search_form" method="POST">{% csrf_token %}
+	<div class="search_con">
+		<button class="normal_button" type="submit">Go</button>
+		<p>
+			<label> Choose Month and Year: *</label>
+		<input  type="month" placeholder="" aria-label="Search" name="date"></input>
+		</p>
+		
+	</div>
+	</form>
+
+	<div class="finance_form">
+		<p><label>Chosen Month & Year:</label> <i>{{ d }}</i></p>
+	
+
+
+	<p><label>Total Expense for this month: Php.</label> <i>{{ total_exp }}</i>
+	{% if date %}	
+		<a href="{% url 'expense_breakdown' date %}"> <button class="normal_button">View Breakdown</button> </a>
+		<a href="{% url 'generate_pdf_expense' date %}"> <button class="normal_button">Generate PDF</button> </a>
+
+	{% endif %}</p>
+	{% if date %}
+	<p><label>Total Income for this month: Php.</label> <i>{{ total_inc }}</i>
+		<a  href="{% url 'income_breakdown' date %}"><button class="normal_button">View Breakdown</button></a>
+		<a href="{% url 'generate_pdf_income' date %}"> <button class="normal_button">Generate PDF</button> </a>
+	{% endif %}</p>
+	<p><label>Total Profit for this month: Php.</label> <i>{{ total_p }}</i></p>
+	</div>
+	
+{% endblock %}

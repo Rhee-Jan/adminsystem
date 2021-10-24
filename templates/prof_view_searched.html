@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="page_header">PATIENT LIST</h1>
+<p class="patient_add_form" ><a href="{% url 'addprof' %}"><button class="normal_button" type="submit">Add Profile</button></a></p>
+
+<form class="search_form" method = POST action ="{% url 'prof_view_searched' %}">
+	{% csrf_token %}
+	<div class="search_con">
+		<button type='submit'>Search</button>
+	<p><label>Name</label><input type='search' placeholder="search name" name = 'search'aria-label ='search'></p>
+	</div>
+	</form>
+<div class="some_space"></div>
+	<p class = "search_form search_con"><a href="{% url 'prof_view' %}"><button type='submit'>Reset Filter and Searched Query</button></a></p>
+
+	{% if all_data_prof %}
+	<table class='table_form'>
+	<thead>
+		<tr class="tr_form">
+		<th class="th_form">Profile ID</th>
+		<th class="th_form">Full name</th>
+		<th class="th_form2">Profile Type</th>
+		<th class="th_form2">Additional Info</th>
+		<th class="th_form2">Appointment History</th>
+		<th class="th_form2">Prescriptions</th>
+		<th class="th_form2">Teeth Charts</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		{% for things in all_data_prof %}
+	<tr class="tr_form">
+		<td class="td_form" data-label="Profile ID">{{ things.id }}</td>
+		<td class="td_form" data-label="Full Name">{{ things.fullname| title }}</td>
+		<td class="td_form" data-label="Profile Type">{{ things.profile_type }}</td>
+		<td class="td_form" data-label="Additional Info">
+			<a href="{% url 'view_pat_info' things.id %}">
+				<button class="normal_button" type="submit">
+			Additional Informations
+			</button>
+			</a>
+		</button>
+		</th>
+		<td class="td_form" data-label="Appointment History">
+			<a href="{% url 'view_patient_appointment_history' things.id %}">
+				<button class="normal_button" type="submit">
+					Appointment History
+				</button>
+			</a>
+		</td>
+		<td class="td_form" data-label="Prescriptions">
+			<a href="{% url 'prescriptions_addorview' things.id %}">
+				<button class="normal_button" type="submit">
+					Prescriptions
+				</button>
+			</a>
+		</button>
+		</td>
+		<td class="td_form" data-label="Teeth Chart">
+			<a href="{% url 'teeth_chart' things.id %}"> 
+				<button class="normal_button" type="submit">Teeth Chart
+				</button>
+			</a>
+		</button>
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody> 
+	{% else %}
+	<br></br>
+	<center class ='messages'>Search not found</center>
+    <br></br>
+	{% endif %}
+	</table>
+
+	
+{% endblock %}

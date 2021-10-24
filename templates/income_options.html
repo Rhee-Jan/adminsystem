@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="page_header">Income Options Page</h1>
+<p class="page_center">
+  <a href="{% url 'income_expense_options' %}"
+    ><button class="page_button" type="submit">Back</button></a
+  >
+  <a href="{% url 'view_appointment_income' %}"
+    ><button class="page_button" type="submit">Appointment Income</button></a
+  >
+  <a href="{% url 'view_presc_income' %}"
+    ><button class="page_button" type="submit">Prescription Purchase</button></a
+  >
+  <a href="{% url 'total_monthly_income' %}"
+    ><button class="page_button" type="submit">
+      Calculate Total Monthly Gross Income
+    </button></a
+  >
+</p>
+
+{% endblock %}

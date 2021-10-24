@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header">EMPLOYEE INFO</h1>
+
+	<div class="patient_add_form" >
+		<a style="color: #ffffff" href="{% url 'emp_view' %}"><button class="back_button" type="submit">Back</button></a>
+		<a style="color: #ffffff" href="{% url 'edit_emp_info' all_data_emp_info.id %}"><button class="edit_button" type="submit">Edit</button></a>
+	</div>
+	
+	<ul class ="messages_sucess">
+       {% for message in messages %}
+       {% if message %}
+	 <script>alert("{{ message }}");</script>
+	  {% endif %}
+       {% endfor %}
+    </ul>
+    
+
+	{% if all_data_emp_info %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form2">Full name</th>
+			<th class="th_form2">Position</th>
+			<th class="th_form2">Employee Status</th>
+			<th class="th_form2">Contact Number</th>
+			<th class="th_form2">Address</th>
+			<th class="th_form2">Birthday</th>
+			<th class="th_form2">Gender</th>
+			<th class="th_form2">Date added</th>
+			<th class="th_form2">Last updated</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="tr_form">
+			<td class="td_form" data-label="Full name">{{ all_data_emp_info.profile_id.fullname|title }}</td>
+			<td class="td_form" data-label="Position">{{ all_data_emp_info.emp_position|title }}</td>
+			<td class="td_form" data-label="Employee Status">{{ all_data_emp_info.emp_status }}</td>
+			<td class="td_form" data-label="Contact Number">{{ all_data_emp_info.profile_id.contact_number }}</td>
+			<td class="td_form" data-label="Address">{{ all_data_emp_info.profile_id.profile_fulladress|title }}</td>
+			<td class="td_form" data-label="Birthday">{{ all_data_emp_info.profile_id.bday }}</td>
+			<td class="td_form" data-label="Gender">{{ all_data_emp_info.profile_id.gender }}</td>
+			<td class="td_form" data-label="Date added">{{ all_data_emp_info.profile_id.added }}</td>
+			<td class="td_form" data-label="Last updated">{{ all_data_emp_info.profile_id.update }}</td>
+		</tr>
+	</tbody>
+	</table>
+
+
+	<h1 class="page_header">PATIENT EMERGENCY CONTACT DETAILS</h1>
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form2">Employee name</th>
+			<th class="th_form2">Ecp Fullname</th>
+			<th class="th_form2">Ecp Contact Number</th>
+			<th class="th_form2">Ecp Relationship</th>
+			<th class="th_form2">Ecp Address</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="tr_form">
+			<td class="td_form" data-label="Employee name">{{ all_data_emp_info.profile_id.fullname|title }}</th>
+			<td class="td_form" data-label="Ecp Fullname">{{ all_data_emp_info.profile_id.ecp_fullname|title }}</th>
+			<td class="td_form" data-label="cp Contact Number">{{ all_data_emp_info.profile_id.ecp_contactnum }}</th>
+			<td class="td_form" data-label="Ecp Relationship">{{ all_data_emp_info.profile_id.ecp_relationship|title }}</th>
+			<td class="td_form" data-label="Ecp Address">{{ all_data_emp_info.profile_id.ecp_fulladress|title }}</th>
+	
+		</tr>
+	</tbody>
+	</table>
+
+
+	{% endif %}
+	
+	
+	
+{% endblock %}
+
+	

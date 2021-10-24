@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+<div class="patient_add_form">
+  <a href="{% url 'teeth_chart' primary_key %}"
+    >B<button class="back_button" type="submit">ack</button></a
+  >
+</div>
+<p>TEETH CHART OF PATIENT {{all_data_prof.fullname }} ID: {{ primary_key }}</p>
+<p>POSITION: {{ teeth_pos }}</p>
+
+{% if procedure_data %}
+<p>CHECK HISTORY</p>
+{% else %}
+<p>Status : Healthy</p>
+{% endif %} {% if procedure_data %}
+<button class="btn btn-outline-success my-2 my-sm-2" type="submit">
+  <a href="{% url 'teeth_history' primary_key teeth_pos %}"
+    >View Tooth History</a
+  >
+</button>
+{% endif %} {% endblock %}
+
+<!-- 	<h1>Admin login</h1>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'home' %}"> Log In </a></button> -->

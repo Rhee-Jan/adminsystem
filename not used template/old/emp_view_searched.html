@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="page_header">EMPLOYEE LIST</h1>
+
+<a class="patient_add_form" href="{% url 'emp_addorview' %}"> <button class="back_button" type="submit">Back </button></a></button>
+
+
+
+<form class = "search_form" method = POST action ="{% url 'emp_view_searched' %}">
+  {% csrf_token %}
+  <div class="search_con">
+    <button type='submit'>Search</button>
+  <p><label>Name</label><input type='search' placeholder="search name" name = 'search'aria-label ='search'></p>
+  </div>
+</form>
+
+<p class="search_form"><a href="{% url 'emp_view' %}"><button type='submit'>Reset Filter and Searched Query</button></a></p>
+{% if all_data_prof %}
+<table class="table_form">
+  <thead>
+    <tr class="tr_form">
+      <th class="th_form">Full name</th>
+      <th class="th_form">Profile Type</th>
+    <th class="th_form">Additional Info</th>
+    <th class="th_form">Add Salary</th>
+    <th class="th_form">View Salary</th>
+    </tr>
+  </thead>
+  
+  {% for things in all_data_prof %}
+  <tr class="tr_form">
+    <td class="td_form">{{ things.fullname }}</th>
+    <td class="td_form">{{ things.profile_type }}</th>
+    <td class="td_form">
+        <a href="{% url 'view_emp_info' things.id %}">
+      <button class="normal_button" type="submit">
+          View Additional Informations</button>
+        </a>
+    </th>
+    <td class="td_form">
+        <a href="{% url 'addsalaryinfo' things.id %}"><button class="normal_button" type="submit">Add Salary</button></a>
+    </th>
+    <td class="td_form">
+        <a href="{% url 'viewsalary' things.id %}"> 
+      <button class="normal_button" type="submit">View Salary</button></a>
+    </th>
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% else %}
+    <center class ='messages'>Search Not Found</center>
+    <br></br>
+
+
+
+{% endif %} 
+{% endblock %}

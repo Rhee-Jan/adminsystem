@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1 class="page_header">Appointments</h1>
+<p class="patient_add_form"><a style="color: #ffffff" href="{% url 'appointments_addorview' %}"><button class="back_button" type="submit">Back</button></a></p>
+<div class="calendar_form">
+    <a class="calendar_button calendar_left" href="{% url 'view_appointments' %}?{{ prev_month }}">Previous Month</a>
+    <a class="calendar_button calendar_right" href="{% url 'view_appointments' %}?{{ next_month }}">Next Month  </a>
+    
+</div>
+
+<div class="calendar_form">
+
+    <a class="calendar_addbutton" href="{% url 'add_appointments' %}">Add appointment </a>
+    
+</div>
+  
+
+<ul class ="messages_sucess">
+     {% for message in messages %}
+     {% if message %}
+	 <script>alert("{{ message }}");</script>
+	  {% endif %}
+        {% endfor %}
+    </ul><br></br>
+
+{{ calendar }}
+
+{% endblock %}
+

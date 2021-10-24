@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1 class="page_header"> Editing Available Schedules </h1>
+	<form class="patient_add_form" method="POST">{% csrf_token %}
+	<p><button class="back_button" type="submit"><a style="color: #ffffff" href="{% url 'view_schedule' %}"> Back </a></button></p>
+	</form>
+	{% if all_data_schedule %}
+	<table class ='table_form'>
+	<thead>
+		<tr class="tr_form">
+			<th class="th_form"> Schedule ID </th>
+			<th class="th_form"> Date </th>
+			<th class="th_form"> Time </th>
+			<th class="th_form"> Doctor Assigned </th>
+			<th class="th_form"> Status </th>
+			<th class="th_form">  </th>
+		</tr>
+	</thead>
+	
+	<tr class="tr_form">
+		{% for things in all_data_schedule %}
+		<td class="td_form">{{ things.id }}</td>
+		<td class="td_form">{{ things.date }}</td>
+		<td class="td_form">{{ things.time }}</td>
+		<td class="td_form">{{ things.doctor_lastname }}</td>
+		{% if things.availability %}
+			<td class="td_form">Available</td>
+			{% else %}
+			<td class="td_form">Reserved</td>
+		{% endif %}
+			<td class="td_form"><a style="color: #000000" href="{% url 'editform' things.id 'schedule' %}" > Edit </a></td>
+	</tr>
+	{% endfor %}
+
+	</table>
+	{% endif %}
+	
+	
+	
+{% endblock %}
+

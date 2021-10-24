@@ -1,0 +1,25 @@
+
+
+{% block content %}
+<ul class ="messages">
+   	 	 {% for message in messages %}
+     	 <li{% if message.tags %} class = "{{ message.tags }}" {% endif %}> {{ message }} </li>
+    	 {% endfor %}
+	</ul>
+	
+	<h1> ADD NEW SERVICES </h1>
+	<button class="btn btn-outline-success my-2 my-sm-2" type="submit"><a href="{% url 'appointments_addorview' %}"> Back</a> </button></p>	
+	<p> All Fields with "*" is required DO NOT LEAVE IT BLANK</p>
+	
+	
+	<form class="form-inline my-2 my-lg-0" method="POST">{% csrf_token %}
+			<p><label> Service Type: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: Extraction" aria-label="Search" name="service_type"> *</p>
+			<p><label> Service Fee: </label><input class="form-control mr-sm-2" type="search" placeholder="Ex: 199.99" aria-label="Search" name="service_fee"> *</p>
+
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+				
+			</form>
+
+
+
+{% endblock %}
